@@ -36,5 +36,5 @@ Revature Housing Management System will help to maximize occupancy for Revature 
   * SonarQube
 * Continuous Deployment with a production server on Amazon EC2 with Tomcat
 * Resources stored on Amazon S3 Bucket
-
+   
 
