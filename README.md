@@ -9,6 +9,7 @@ Revature Housing Management System will help to maximize occupancy for Revature 
 * CSS3
 * Bootstrap
 * AngularJS
+* [Front-end Developer Guide](https://docs.google.com/document/d/1cIqQmig4GcmZnhhGtCogrK6nxgE3BojQP_0fxk7gtSQ/edit?usp=sharing)
 
 ## Business logic
 * Java
