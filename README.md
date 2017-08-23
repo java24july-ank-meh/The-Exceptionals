@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/java24july-ank-meh/The-Exceptionals.png?label=ready&title=Ready)](https://waffle.io/java24july-ank-meh/The-Exceptionals?utm_source=badge)
 ﻿# Revature Housing Mangement System
  ### The-Exceptionals
   
