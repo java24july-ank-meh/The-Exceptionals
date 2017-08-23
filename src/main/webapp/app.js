@@ -20,7 +20,8 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
         })
         .state('home.createComplex',{
             url:'/complexes/create',
-            templateUrl: 'Complexes/Create/create.html'
+            templateUrl: 'Complexes/Create/create.html',
+            controller: 'createComplexController'
 
     });
 
