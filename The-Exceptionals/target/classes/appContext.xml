@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+<!-- BasicDataSource Bean definition -->
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@hms.cuwvdmddkxll.us-east-1.rds.amazonaws.com:1521:ORCL" />
+		<property name="username" value="hms_admin" />
+		<property name="password" value="adminpassword" />
+</bean>
+
+<!-- LocalSessionFactory Bean definition -->
+<bean id="sf" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+<property name="packagesToScan" value="com.Exceptional.DAO" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.Oracle10gDialect
+				</prop>
+				<prop key="current_session_context_class">thread</prop >
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+			</props>
+		</property>
+		<property name="dataSource" ref="dataSource"></property>
+</bean>
+
+<!-- HibernateTransactionManager Bean definition -->
+<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+	<property name="sessionFactory" ref="sf"/>
+</bean>
+
+<!-- DAOImpl Beans definition -->
+<bean id="service" class="com.Exceptional.DAO.AddressImpl" autowire="byName">
+</bean>
+<bean id="service2" class="com.Exceptional.DAO.ApartmentComplexImpl" autowire="byName">
+</bean>
+<bean id="service3" class="com.Exceptional.DAO.ApartmentImpl" autowire="byName">
+</bean>
+<bean id="service4" class="com.Exceptional.DAO.ManagerImpl" autowire="byName">
+</bean>
+<bean id="service5" class="com.Exceptional.DAO.ResidentImpl" autowire="byName">
+</bean>
+
+<tx:annotation-driven/>
+
+</beans>
