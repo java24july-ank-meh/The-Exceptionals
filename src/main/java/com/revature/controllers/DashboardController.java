@@ -8,15 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.revature.mockmodels.User;
+
 @Controller
 //@RequestMapping(value="/home")
-public class HomepageController {
-
-	@RequestMapping(value="/home", method=RequestMethod.GET)
+public class DashboardController {
+	
+	//the sidenavController calls this to retrieve the data it needs
+	@RequestMapping(value="/sidenav", method=RequestMethod.GET)
 	public ResponseEntity<Object> goHome() {
-		List<String> names = new ArrayList<>();
-		names.add("george");
-		names.add("Hamilton");
-		return ResponseEntity.ok(names);
+		User u = new User("George", "Hamilton", "gh@gmail.com");
+		return ResponseEntity.ok(u);
 	}
 }

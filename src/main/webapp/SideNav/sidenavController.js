@@ -32,7 +32,7 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
         }
     ];
     
-    $http.get("/HousingOnlineManagementSystem/api/home").then(function(response) {
-        $scope.names = response.data;
+    $http.get("/HousingOnlineManagementSystem/api/sidenav").then(function(response) {
+        $scope.userinfo = response.data;
     });
 }]);
