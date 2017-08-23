@@ -14,6 +14,6 @@
 	<!-- Map all requests to the DispatcherServlet for handling -->
 	<servlet-mapping>
 		<servlet-name>springDispatcherServlet</servlet-name>
-		<url-pattern>/api</url-pattern>
+		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
 </web-app>
