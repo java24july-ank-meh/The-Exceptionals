@@ -4,6 +4,11 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
     $urlRouterProvider.otherwise('/home/dashboard');
 
     $stateProvider
+		.state('login', {
+			url: '/login',
+			templateUrl: 'Login/login.html',
+			controller: 'loginController'
+		})
         .state('home', {
             url: '/home',
             templateUrl: 'SideNav/sidenav.html',
