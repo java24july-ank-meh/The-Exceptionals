@@ -1,4 +1,4 @@
-var app = angular.module('rhmsApp', ['ngMaterial', 'ngMdIcons', 'ui.router']);
+var app = angular.module('rhmsApp', ['ngMaterial', 'ngMdIcons', 'ui.router', 'ngTable']);
 
 app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
     $urlRouterProvider.otherwise('/home/dashboard');
@@ -21,6 +21,11 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
         .state('home.createComplex',{
             url:'/complexes/create',
             templateUrl: 'Complexes/Create/create.html'
+        })
+        .state('home.residents',{
+            url:'/residents',
+            templateUrl: 'Residents/residents.html',
+            controller: 'residentsController'
 
     });
 
