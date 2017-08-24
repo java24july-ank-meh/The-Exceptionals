@@ -23,12 +23,23 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
             templateUrl: 'Complexes/complexes.html',
             controller: 'complexesController'
         })
-        .state('home.createComplex',{
-            url:'/complexes/create',
+        .state('home.createComplex', {
+            url: '/complexes/create',
             templateUrl: 'Complexes/Create/create.html',
             controller: 'createComplexController'
+        })
+        .state('home.editComplex',{
+            url:'/complexes/edit/:complexId',
+            templateUrl: 'Complexes/Edit/edit.html',
+            controller: 'editComplexController',
+            params: {
+                complexId: {
+                    value: null
+                }
 
-    });
+            }
+
+        });
 
     var customBlueMap =$mdThemingProvider.extendPalette('deep-orange', {
         'contrastDefaultColor': 'light',

@@ -1,5 +1,5 @@
 <md-button class="md-fab md-fab-bottom-right" aria-label="FAB" ui-sref="home.createComplex" >
-    <ng-icon icon="add" class="md-icon"></ng-icon>
+    <ng-md-icon icon="add" class="md-icon"></ng-md-icon>
 </md-button>
 
 <md-toolbar ng-show="!showSearch">
@@ -45,8 +45,8 @@
             <md-card >
                 <img ng-src="http://somebodymarketing.com/wp-content/uploads/2013/05/Stock-Dock-House.jpg" class="md-card-image" alt="image caption" >
                 <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">{{complex.complexName}}</span>
+                    <md-card-title-text ui-sref="home.editComplex({complexId: complex.id})" >
+                        <span class="md-headline">{{complex.name}} {{complex.id}}</span>
                     </md-card-title-text>
                 </md-card-title>
 
