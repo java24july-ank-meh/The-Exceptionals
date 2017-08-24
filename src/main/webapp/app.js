@@ -4,6 +4,11 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
     $urlRouterProvider.otherwise('/home/dashboard');
 
     $stateProvider
+		.state('login', {
+			url: '/login',
+			templateUrl: 'Login/login.html',
+			controller: 'loginController'
+		})
         .state('home', {
             url: '/home',
             templateUrl: 'SideNav/sidenav.html',
@@ -18,16 +23,27 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
             templateUrl: 'Complexes/complexes.html',
             controller: 'complexesController'
         })
-        .state('home.createComplex',{
-            url:'/complexes/create',
-            templateUrl: 'Complexes/Create/create.html'
-        })
         .state('home.residents',{
             url:'/residents',
             templateUrl: 'Residents/residents.html',
             controller: 'residentsController'
+	})
+        .state('home.createComplex', {
+            url: '/complexes/create',
+            templateUrl: 'Complexes/Create/create.html',
+            controller: 'createComplexController'
+        })
+        .state('home.editComplex',{
+            url:'/complexes/edit/:complexId',
+            templateUrl: 'Complexes/Edit/edit.html',
+            controller: 'editComplexController',
+            params: {
+                complexId: {
+                    value: null
+                }
+            }
 
-    });
+        });
 
     var customBlueMap =$mdThemingProvider.extendPalette('deep-orange', {
         'contrastDefaultColor': 'light',
