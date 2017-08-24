@@ -1,6 +1,6 @@
-angular.module('rhmsApp').controller('complexesController', ['$scope', '$mdBottomSheet','$http','$mdSidenav', '$mdDialog', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http) {
+angular.module('rhmsApp').controller('complexesController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog', '$http', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http) {
 
-    /*$scope.complexes = [
+    $scope.complexes = [
         {
             id: 1,
             name : "Apartment Complex Name",
@@ -49,10 +49,11 @@ angular.module('rhmsApp').controller('complexesController', ['$scope', '$mdBotto
             address: "474 Elden St, Herndon, VA 20170",
             website: "www.site.com"
         }
-    ];*/
+    ];
 
-     $http.get("/HousingOnlineManagementSystem/api/ApartmentComplexes/").then(function(response) {
+     $http.get("/HousingOnlineManagementSystem/api/ApartmentComplexes").then(function(response) {
          $scope.complexes = response.data;
+         console.log($scope.complexes);
      });
 
 }]);

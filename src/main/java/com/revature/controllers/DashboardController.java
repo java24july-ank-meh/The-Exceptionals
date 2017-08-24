@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -40,5 +41,12 @@ public class DashboardController {
 		ACs.add(new ApartmentComplex(1, "Sycamores", "2856395737", "sycamores@email.com", "1815 Sycomre dr something", "www.sycamores.com"));
 		ACs.add(new ApartmentComplex(2, "Wesley Worldgate", "2856395737", "worldgate@email.com", "worldgate dr something", "www.worldgate.com"));
 		return ResponseEntity.ok(ACs);
+	}
+	@RequestMapping(value="/ApartmentComplex/{id}", method=RequestMethod.GET)
+	public ResponseEntity<Object> displayApartmentComplex(@PathVariable("id") int id) {
+		List<ApartmentComplex> ACs = new ArrayList<>();
+		ACs.add(new ApartmentComplex(1, "Sycamores", "2856395737", "sycamores@email.com", "1815 Sycomre dr something", "www.sycamores.com"));
+		ACs.add(new ApartmentComplex(2, "Wesley Worldgate", "2856395737", "worldgate@email.com", "worldgate dr something", "www.worldgate.com"));
+		return ResponseEntity.ok(ACs.get(id-1));
 	}
 }
