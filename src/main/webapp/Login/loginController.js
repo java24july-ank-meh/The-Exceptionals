@@ -1,4 +1,4 @@
-angular.module('rhmsApp').controller('loginController', ['$scope', DEPENDENCIES, function($scope){ 
+angular.module('rhmsApp').controller('loginController', ['$scope',  function($scope){
 	
 	//CODE 
 	
