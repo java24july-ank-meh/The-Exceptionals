@@ -14,7 +14,7 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
             icon: 'business'
         },
         {
-            link : '',
+            link : '.residents',
             title: 'Residents',
             icon: 'group'
         }
