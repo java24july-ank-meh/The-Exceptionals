@@ -9,9 +9,13 @@ angular.module('rhmsApp').controller('editComplexController', ['$scope', '$http'
         website: "www.site.com"
     };
 
-    $http.get("/HousingOnlineManagementSystem/api/ApartmentComplexes/"+$stateParams.complexId).then(function(response) {
-        $scope.complex = response.data;
-    });
+    $http.get("/HousingOnlineManagementSystem/api/ApartmentComplexes/"+$stateParams.complexId)
+        .success(function(response) {
+            $scope.complex = response.data;
+        })
+        .error(function(){
+            alert("Error occured");
+        });
 
 
     $scope.newComplexFormSubmit = function () {
@@ -22,7 +26,7 @@ angular.module('rhmsApp').controller('editComplexController', ['$scope', '$http'
 
         var onError = function (data, status, headers, config) {
             alert('Error occured.');
-        }
+        };
 
         $http.post('/RevatureHousingManagementSystem/ApartmentComplexes/create', { complex:$scope.complex })
             .success(onSuccess)
