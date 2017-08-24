@@ -2,24 +2,18 @@
 <div>
 <table ng-table="usersTable" class="table" show-filter="true">
    <tr ng-repeat="user in $data">
-       <td data-title="'Id'" >
+       <!-- <td data-title="'Id'" >
            {{user.id}}
+       </td> -->
+       <td title="'First Name'" filter="{ fname: 'text'}" sortable="'fname'">
+           {{user.fname}}
        </td>
-       <td title="'First Name'" filter="{ first_name: 'text'}" sortable="'first_name'">
-           {{user.first_name}}
-       </td>
-       <td title="'Last Name'" filter="{ last_name: 'text'}" sortable="'last_name'">
-           {{user.last_name}}
+       <td title="'Last Name'" filter="{ lname: 'text'}" sortable="'lname'">
+           {{user.lname}}
        </td>    
        <td title="'Email'" filter="{ email: 'text'}" sortable="'email'">
            {{user.email}}
-       </td>    
-       <td title="'Country'" filter="{ country: 'text'}" sortable="'country'">
-           {{user.country}}
-       </td>    
-       <td title="'IP'" filter="{ ip_address: 'text'}" sortable="'ip_address'">
-           {{user.ip_address}}
-       </td>    
+       </td>
    </tr>
 </table>
 </div>
