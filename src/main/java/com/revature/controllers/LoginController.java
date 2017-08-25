@@ -59,4 +59,13 @@ public class LoginController {
 		return ResponseEntity.ok(user);
         
 	}
+	
+	/*@RequestMapping(value = "/invite", method = RequestMethod.POST)
+	public ResponseEntity<Object> login(HttpServletRequest req){
+		
+		HttpSession session = req.getSession();
+		session
+		return null;
+		
+	}*/
 }
