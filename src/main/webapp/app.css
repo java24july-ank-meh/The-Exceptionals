@@ -37,9 +37,6 @@ md-sidenav ng-md-icon {
     top: 5px;
 }
 
-.user-avatar {
-    border-radius: 99%;
-}
 
 .md-button.md-default-theme.md-fab, .md-button.md-fab{
     background-color: #FF5722;
@@ -54,3 +51,10 @@ md-sidenav ng-md-icon {
 {
     line-height: 68px !important;
 }
+
+.ng-icon-button{
+    line-height:10px !important;
+    min-width: 0px !important;
+
+}
+

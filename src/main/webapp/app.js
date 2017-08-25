@@ -47,7 +47,26 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
                     value: null
                 }
             }
-
+        })
+        .state('home.showComplex',{
+            url:'/complexes/:complexId',
+            templateUrl: 'Complexes/Show/show.html',
+            controller: 'showComplexController',
+            params: {
+                complexId: {
+                    value: null
+                }
+            }
+        })
+        .state('home.showApartment',{
+            url:'/apartments/:apartmentId',
+            templateUrl: 'Apartments/Show/show.html',
+            controller: 'showApartmentController',
+            params: {
+                complexId: {
+                    value: null
+                }
+            }
         });
 
     var customBlueMap =$mdThemingProvider.extendPalette('deep-orange', {

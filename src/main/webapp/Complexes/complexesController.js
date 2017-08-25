@@ -1,4 +1,4 @@
-angular.module('rhmsApp').controller('complexesController', ['$scope', '$mdBottomSheet','$http','$mdSidenav', '$mdDialog', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http) {
+angular.module('rhmsApp').controller('complexesController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog', '$http', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http) {
 
     $scope.complexes = [
         {
@@ -51,8 +51,9 @@ angular.module('rhmsApp').controller('complexesController', ['$scope', '$mdBotto
         }
     ];
 
-    // $http.get("/HousingOnlineManagementSystem/api/ApartmentComplexes/").then(function(response) {
-    //     $scope.complexes = response.data;
-    // });
+     $http.get("/HousingOnlineManagementSystem/api/ApartmentComplexes").then(function(response) {
+         $scope.complexes = response.data;
+         console.log($scope.complexes);
+     });
 
 }]);
