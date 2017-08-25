@@ -1,7 +1,24 @@
-target/m2e-wtp/web-resources/META-INF/maven/com.revature/HousingOnlineManagementSystem/pom.properties
-target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
-target/m2e-wtp/web-resources/META-INF/maven/com.revature/HousingOnlineManagementSystem/pom.properties
-target/m2e-wtp/web-resources/META-INF/maven/com.revature/HousingOnlineManagementSystem/pom.properties
-target/m2e-wtp/web-resources/META-INF/maven/com.revature/HousingOnlineManagementSystem/pom.properties
-target/m2e-wtp/web-resources/META-INF/maven/com.revature/HousingOnlineManagementSystem/pom.properties
-target/m2e-wtp/web-resources/META-INF/maven/com.revature/HousingOnlineManagementSystem/pom.properties
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
