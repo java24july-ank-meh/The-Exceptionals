@@ -1,5 +1,5 @@
 angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams) {
-		console.log($stateParams.complexId)
+
        /*$scope.complex =
         {
             id: 4,
@@ -13,10 +13,12 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
     //the jankiest of implementations. takes the apartment id from the url (avoids having to use sessions until we figure that out)
     //let complexid = window.location.hash.substring(17);
     
-     $http.get("/api/ApartmentComplexes/"+$stateParams.complexId).then(function(response) {
+
+     $http.get("/HousingOnlineManagementSystem/api/ApartmentComplexes/"+$stateParams.complexId).then(function(response) {
+
          $scope.complex = response.data;
          
-         /*$scope.complex.apartments = [
+         $scope.complex.apartments = [
              {
                  id: 1,
                  number : "408A",
@@ -48,11 +50,7 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
                  occupancy: 3,
              },
 
-         ];*/
-     }).then(function(response) {
-    	 $http.get("/api/ApartmentComplexes/"+$stateParams.complexId+"/Apartments").then(function(response) {
-    		 $scope.complex.apartments = response.data;
-    	 });
+         ];
      });
 
 }]);
