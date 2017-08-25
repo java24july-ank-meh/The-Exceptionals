@@ -9,6 +9,11 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
 			templateUrl: 'Login/login.html',
 			controller: 'loginController'
 		})
+		.state('oauth', {
+			url: '/login/oauth',
+			templateUrl: 'Login/oauth.html',
+			controller: 'oauthController'
+		})
         .state('home', {
             url: '/home',
             templateUrl: 'SideNav/sidenav.html',
