@@ -1,17 +1,10 @@
 angular.module('rhmsApp').controller('editComplexController', ['$scope', '$http', '$stateParams','$mdDialog', function($scope, $http, $stateParams, $mdDialog ) {
 
-   $scope.complex= {
-        id: $stateParams.complexId,
-        name : "Apartment Complex Name4",
-        phone: "9563133128",
-        email: "mail@mail.com",
-        address: "474 Elden St, Herndon, VA 20170",
-        website: "www.site.com"
-    };
 
     $http.get("/HousingOnlineManagementSystem/api/ApartmentComplexes/"+$stateParams.complexId)
-        .success(function(response) {
-            $scope.complex = response.data;
+        .success(function(data) {
+            $scope.complex = data;
+
         })
         .error(function(){
             alert("Error occured");
@@ -28,7 +21,8 @@ angular.module('rhmsApp').controller('editComplexController', ['$scope', '$http'
             alert('Error occured.');
         };
 
-        $http.post('/RevatureHousingManagementSystem/ApartmentComplexes/create', { complex:$scope.complex })
+
+        $http.post('/RevatureHousingManagementSystem/ApartmentComplexes/'+$scope.complex.id, { complex:$scope.complex })
             .success(onSuccess)
             .error(onError);
 
