@@ -6,17 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.revature.application.service.ApartmentService;
+import com.revature.application.service.ManagerService;
 
 @RestController
 @RequestMapping("api")
-public class ApartmentController {
+public class ManagerController {
 
 	@Autowired
-	ApartmentService service;
+	ManagerService service;
 	
-	@GetMapping("ApartmentComplexes/{id}/Apartments")
-	public ResponseEntity<Object> displayApartmentComplex(@PathVariable("id") int id) {
-		return ResponseEntity.ok(service.findByComplexId(id));
-	}
 }
