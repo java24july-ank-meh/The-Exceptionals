@@ -16,7 +16,7 @@ public class ApartmentController {
 	ApartmentService service;
 	
 	@GetMapping("ApartmentComplexes/{id}/Apartments")
-	public ResponseEntity<Object> displayApartmentComplex(@PathVariable("id") int id) {
+	public ResponseEntity<Object> displayApartment(@PathVariable("id") int id) {
 		return ResponseEntity.ok(service.findByComplexId(id));
 	}
 }

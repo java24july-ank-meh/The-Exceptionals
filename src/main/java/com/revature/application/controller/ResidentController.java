@@ -16,7 +16,7 @@ public class ResidentController {
 	ResidentService service;
 	
 	@GetMapping("Residents")
-	public ResponseEntity<Object> displayApartmentComplex(@PathVariable("id") int id) {
+	public ResponseEntity<Object> displayResidents() {
 		return ResponseEntity.ok(service.findAll());
 	}
 	
