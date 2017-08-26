@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 @Entity
 public class ApartmentComplex {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="complexId")
-	private Integer complexId;
+	private int complexId;
 	private String website;
 	private String email;
 	private String phone;
@@ -33,17 +36,17 @@ public class ApartmentComplex {
 		this.name = name;
 	}
 
-	public int getApts_id() {
-		return complexId;
+	public int getComplexId() {
+		return this.complexId;
 	}
 
-	public void setApts_id(int complexId) {
+	public void setComplexId(int complexId) {
 		this.complexId = complexId;
 		
 	}
 
 	public String getWebsite() {
-		return website;
+		return this.website;
 	}
 
 	public void setWebsite(String website) {
@@ -51,7 +54,7 @@ public class ApartmentComplex {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -59,18 +62,18 @@ public class ApartmentComplex {
 	}
 
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
 
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
-	public String getApt_name() {
-		return name;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setApt_name(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
