@@ -15,9 +15,9 @@ import com.revature.application.repository.ApartmentRepository;
 @Transactional
 public class ApartmentService {
 	@Autowired
-	ApartmentRepository ar;
+	ApartmentRepository repo;
 	
 	public List<Apartment> findByComplexId(Integer id) {
-		return ar.findByComplexId(id);
+		return repo.findByComplexId(id);
 	}
 }

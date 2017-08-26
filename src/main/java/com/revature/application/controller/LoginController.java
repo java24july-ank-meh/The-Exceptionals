@@ -37,7 +37,7 @@ public class LoginController {
 		String redirectUrl = "https://slack.com/api/oauth.access?client_id=" + clientId + "&client_secret="
 				+ clientSecret + "&code=" + code;
 
-		// https://slack.com/api/oauth.access*/
+		// https://slack.com/api/oauth.access
 		URL url = new URL(redirectUrl);
 		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 		httpCon.setDoOutput(true);

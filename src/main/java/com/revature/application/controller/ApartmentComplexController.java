@@ -20,6 +20,7 @@ import com.revature.application.service.ApartmentComplexService;
 @RequestMapping("api")
 public class ApartmentComplexController {
 	@Autowired
+
 	ApartmentComplexService apartmentComplexService;
 	
 	@GetMapping("ApartmentComplexes")
@@ -29,6 +30,7 @@ public class ApartmentComplexController {
 	
 	@GetMapping("ApartmentComplexes/{id}")
 	public ResponseEntity<Object> displayApartmentComplex(@PathVariable("id") int id) {
+
 		return ResponseEntity.ok(apartmentComplexService.findByComplexId(id));
 	}
 	
@@ -55,6 +57,7 @@ public class ApartmentComplexController {
 	@RequestMapping(value = "ApartmentComplexes/create", method = RequestMethod.POST)
 	public ResponseEntity<Object> createApartmentComplex(@RequestBody ApartmentComplex complex) {
 		
+
 		return ResponseEntity.ok(apartmentComplexService.save(complex));
 	}
 }

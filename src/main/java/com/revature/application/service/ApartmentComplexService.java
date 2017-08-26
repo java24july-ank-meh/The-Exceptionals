@@ -14,6 +14,7 @@ import com.revature.application.repository.ApartmentComplexRepository;
 public class ApartmentComplexService {
 	@Autowired
 	ApartmentComplexRepository apartmentComplexRepository;
+
 	
 	public List<ApartmentComplex> findAll() {
 		return apartmentComplexRepository.findAll();
