@@ -19,7 +19,16 @@ public class ApartmentComplexService {
 		return acr.findAll();
 	}
 	
-	public List<ApartmentComplex> findByComplexId(Integer id) {
+	public ApartmentComplex findByComplexId(int id) {
 		return acr.findByComplexId(id);
+		
 	}
+	
+	public int save(ApartmentComplex complex){
+			
+		return acr.saveAndFlush(complex).getComplexId();
+		
+	}
+	
+
 }
