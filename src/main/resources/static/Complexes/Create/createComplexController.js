@@ -4,7 +4,10 @@ angular.module('rhmsApp').controller('createComplexController', ['$scope', '$htt
     $scope.newComplexFormSubmit = function () {
 
         var onSuccess = function (data, status, headers, config) {
-            alert('Complex saved successfully.');
+            complex = data;
+            
+            console.log(data);
+            alert(data);
         };
 
         var onError = function (data, status, headers, config) {

@@ -14,7 +14,7 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
     //let complexid = window.location.hash.substring(17);
     
 
-     $http.get("/HousingOnlineManagementSystem/api/ApartmentComplexes/"+$stateParams.complexId).then(function(response) {
+     $http.get("/api/ApartmentComplexes/"+$stateParams.complexId).then(function(response) {
 
          $scope.complex = response.data;
          
