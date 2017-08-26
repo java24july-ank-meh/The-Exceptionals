@@ -1,17 +1,20 @@
-angular.module('rhmsApp').controller('createComplexController', ['$scope', '$http', '$mdDialog', function($scope, $http, $mdDialog) {
+angular.module('rhmsApp').controller('createComplexController', ['$scope', '$http', '$mdDialog','$state', function($scope, $http, $mdDialog, $state) {
 
 
     $scope.newComplexFormSubmit = function () {
 
         var onSuccess = function (data, status, headers, config) {
-            alert('Complex saved successfully.');
+            
+        	alert("Created Successfully" );
+            $state.go('home.showComplex', { complexId: data});
+            
         };
 
         var onError = function (data, status, headers, config) {
             alert('Error occured.');
         }
 
-        $http.post('/RevatureHousingManagementSystem/ApartmentComplexes/create', { complex:$scope.complex })
+        $http.post('/api/ApartmentComplexes/create', $scope.complex )
             .success(onSuccess)
             .error(onError);
 

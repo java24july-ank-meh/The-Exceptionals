@@ -42,7 +42,7 @@
 <md-content class="md-padding" >
     <div layout layout-wrap layout-sm="column" layout-xs="column" >
         <div flex="25" flex-sm="100" flex-xs="100" ng-repeat="complex in complexes" class="container">
-            <md-card ui-sref="home.showComplex({complexId: complex.id})" >
+            <md-card ui-sref="home.showComplex({complexId: complex.complexId})" >
                 <md-card-title>
                     <md-card-title-text  >
                         <span class="md-headline">{{complex.name}} {{complex.id}}</span>

@@ -51,7 +51,7 @@ angular.module('rhmsApp').controller('complexesController', ['$scope', '$mdBotto
         }
     ];
 
-     $http.get("/HousingOnlineManagementSystem/api/ApartmentComplexes").then(function(response) {
+     $http.get("/api/ApartmentComplexes").then(function(response) {
          $scope.complexes = response.data;
          console.log($scope.complexes);
      });

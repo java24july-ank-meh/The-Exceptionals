@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.revature.application.model.ApartmentComplex;
 
 public interface ApartmentComplexRepository extends JpaRepository<ApartmentComplex, Integer> {
-	List<ApartmentComplex> findByComplexId(Integer id);
+	public ApartmentComplex findByComplexId(int id);
+	
 }
