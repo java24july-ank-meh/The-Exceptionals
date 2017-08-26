@@ -13,20 +13,20 @@ import com.revature.application.repository.ApartmentComplexRepository;
 @Transactional
 public class ApartmentComplexService {
 	@Autowired
-	ApartmentComplexRepository acr;
+	ApartmentComplexRepository repo;
 	
 	public List<ApartmentComplex> findAll() {
-		return acr.findAll();
+		return repo.findAll();
 	}
 	
 	public ApartmentComplex findByComplexId(int id) {
-		return acr.findByComplexId(id);
+		return repo.findByComplexId(id);
 		
 	}
 	
 	public int save(ApartmentComplex complex){
 			
-		return acr.saveAndFlush(complex).getComplexId();
+		return repo.saveAndFlush(complex).getComplexId();
 		
 	}
 	
