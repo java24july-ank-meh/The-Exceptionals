@@ -1,7 +1,7 @@
 angular.module('rhmsApp').controller('editComplexController', ['$scope', '$http', '$stateParams','$mdDialog', function($scope, $http, $stateParams, $mdDialog ) {
 
 
-    $http.get("/HousingOnlineManagementSystem/api/ApartmentComplexes/"+$stateParams.complexId)
+    $http.get("/api/ApartmentComplexes/"+$stateParams.complexId)
         .success(function(data) {
             $scope.complex = data;
 
@@ -22,7 +22,7 @@ angular.module('rhmsApp').controller('editComplexController', ['$scope', '$http'
         };
 
 
-        $http.post('/RevatureHousingManagementSystem/ApartmentComplexes/'+$scope.complex.id, { complex:$scope.complex })
+        $http.post('/api/ApartmentComplexes/'+$scope.complex.id, $scope.complex )
             .success(onSuccess)
             .error(onError);
 

@@ -11,7 +11,7 @@ angular.module('rhmsApp').controller('createComplexController', ['$scope', '$htt
             alert('Error occured.');
         }
 
-        $http.post('/RevatureHousingManagementSystem/ApartmentComplexes/create', { complex:$scope.complex })
+        $http.post('/api/ApartmentComplexes/create', $scope.complex )
             .success(onSuccess)
             .error(onError);
 
