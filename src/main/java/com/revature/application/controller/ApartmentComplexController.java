@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +37,20 @@ public class ApartmentComplexController {
 	
 		return ResponseEntity.ok(apartmentComplexService.save(complex));
 	}
+	
+	
+	@RequestMapping(value = "ApartmentComplexes/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> deleteApartmentComplex(@PathVariable("id") int id ) {
+		
+		ApartmentComplex complex = apartmentComplexService.findByComplexId(id);
+		
+		if(complex != null)
+			apartmentComplexService.delete(complex);
+		
+			
+		return ResponseEntity.ok("file deleted");
+	}
+	
 	
 	@RequestMapping(value = "ApartmentComplexes/create", method = RequestMethod.POST)
 	public ResponseEntity<Object> createApartmentComplex(@RequestBody ApartmentComplex complex) {
