@@ -1,13 +1,13 @@
-angular.module('rhmsApp').controller('createComplexController', ['$scope', '$http', '$mdDialog', function($scope, $http, $mdDialog) {
+angular.module('rhmsApp').controller('createComplexController', ['$scope', '$http', '$mdDialog','$state', function($scope, $http, $mdDialog, $state) {
 
 
     $scope.newComplexFormSubmit = function () {
 
         var onSuccess = function (data, status, headers, config) {
-            complex = data;
             
-            console.log(data);
-            alert(data);
+        	alert("Created Successfully" );
+            $state.go('home.showComplex', { complexId: data});
+            
         };
 
         var onError = function (data, status, headers, config) {
