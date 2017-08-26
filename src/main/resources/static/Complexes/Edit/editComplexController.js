@@ -1,4 +1,4 @@
-angular.module('rhmsApp').controller('editComplexController', ['$scope', '$http', '$stateParams','$mdDialog', function($scope, $http, $stateParams, $mdDialog ) {
+angular.module('rhmsApp').controller('editComplexController', ['$scope', '$http', '$stateParams','$mdDialog','$state', function($scope, $http, $stateParams, $mdDialog, $state ) {
 
 
     $http.get("/api/ApartmentComplexes/"+$stateParams.complexId)
@@ -11,20 +11,21 @@ angular.module('rhmsApp').controller('editComplexController', ['$scope', '$http'
         });
 
 
-    $scope.newComplexFormSubmit = function () {
+    $scope.editComplexFormSubmit = function () {
 
         var onSuccess = function (data, status, headers, config) {
-            alert('Complex saved successfully.');
+            alert("Complex updated.");
+            $state.go('home.showComplex', { complexId: data });
         };
 
         var onError = function (data, status, headers, config) {
             alert('Error occured.');
         };
 
-
-        $http.post('/api/ApartmentComplexes/'+$scope.complex.id, $scope.complex )
-            .success(onSuccess)
-            .error(onError);
+        
+        $http.put('/api/ApartmentComplexes/'+$stateParams.complexId, $scope.complex )
+        	.success(onSuccess)
+        	.error(onError);
 
     };
 

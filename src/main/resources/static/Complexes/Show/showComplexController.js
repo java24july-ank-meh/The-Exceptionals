@@ -1,4 +1,4 @@
-angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams) {
+angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', '$state', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams, $state) {
 
        /*$scope.complex =
         {
@@ -12,6 +12,38 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
     
     //the jankiest of implementations. takes the apartment id from the url (avoids having to use sessions until we figure that out)
     //let complexid = window.location.hash.substring(17);
+	
+	
+	  $scope.showConfirm = function(deleteComplex) {
+
+		    var confirm = $mdDialog.confirm()
+		          .title('Do you really want to delete the Apartment Complex?')
+		          .targetEvent(event)
+		          .ok('Delete')
+		          .cancel('Cancel');
+
+		    $mdDialog.show(confirm).then(function() {
+		      $scope.deleteComplex();
+		    });
+		  };
+
+	
+    $scope.deleteComplex = function () {
+
+        var onSuccess = function (data, status, headers, config) {
+            alert("Complex deleted.");
+            $state.go('home.complexes');
+        };
+
+        var onError = function (data, status, headers, config) {
+            alert('Error occured.');
+        };
+
+        $http.delete('/api/ApartmentComplexes/'+$stateParams.complexId)
+        	.success(onSuccess)
+        	.error(onSuccess);
+
+    };
     
 
      $http.get("/api/ApartmentComplexes/"+$stateParams.complexId).then(function(response) {
