@@ -1,35 +1,51 @@
 package com.revature.application.model;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Apartment {
 	@Id
-	private Integer aptnumber;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="aptNumber")
+	private int aptNumber;
 	private int occupancy;
 	private int capacity;
 	private int complexId;
+	
+	
+//	@ManyToOne
+//	@JoinColumn(name="aptNumber")
+//	private ApartmentComplex complex;
+
 
 	public Apartment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Apartment(Integer aptnumber, int occupancy, int capacity, int complexId) {
+	public Apartment(int aptNumber, int occupancy, int capacity, int complexId) {
 		super();
-		this.aptnumber = aptnumber;
+		this.aptNumber = aptNumber;
 		this.occupancy = occupancy;
 		this.capacity = capacity;
 		this.complexId = complexId;
 	}
 
-	public Integer getAptnumber() {
-		return aptnumber;
+	public int getAptnumber() {
+		return this.aptNumber;
 	}
 
-	public void setAptnumber(Integer aptnumber) {
-		this.aptnumber = aptnumber;
+	public void setAptnumber(int aptNumber) {
+		this.aptNumber = aptNumber;
 	}
 
 	public int getOccupancy() {
@@ -58,7 +74,7 @@ public class Apartment {
 
 	@Override
 	public String toString() {
-		return "Apartment [aptnumber=" + aptnumber + ", occupancy=" + occupancy + ", capacity=" + capacity + ", complexId="
+		return "Apartment [aptnumber=" + aptNumber + ", occupancy=" + occupancy + ", capacity=" + capacity + ", complexId="
 				+ complexId + "]";
 	}
 
