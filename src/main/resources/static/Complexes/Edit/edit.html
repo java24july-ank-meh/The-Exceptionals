@@ -43,11 +43,11 @@
                 <md-card-content layout-padding>
                     <md-card-title>
                         <md-card-title-text>
-                            <h3 class="md-headline">Edit Apartment Complex {{complex.id}}</h3>
+                            <h3 class="md-headline">Edit Apartment Complex {{complex.complexId}}</h3>
                         </md-card-title-text>
                     </md-card-title>
 
-                    <form name="newComplexForm" ng-submit="newComplexFormSubmit()">
+                    <form name="editComplexForm" ng-submit="editComplexFormSubmit()">
                         <div layout-gt-sm="row">
                             <md-input-container class="md-block" flex-gt-sm>
                                 <label>Complex Name</label>
@@ -96,15 +96,7 @@
                                 </md-select>
                             </md-input-container>
 
-                            <md-input-container class="md-block" flex-gt-sm>
-                                <label>Postal Code</label>
-                                <input name="postalCode" ng-model="complex.postalCode" placeholder="12345"
-                                       required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
-
-                                <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
-                                    <div ng-message="required" >You must supply a postal code.</div>
-                                </div>
-                            </md-input-container>
+              
                         </div>
                         <br>
                         <md-card-actions layout="row" layout-align="end center">
