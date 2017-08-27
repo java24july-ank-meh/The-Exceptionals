@@ -8,7 +8,7 @@
                 <md-toolbar class="md-hue-1" >
                     <div class="md-toolbar-tools">
                         <md-card-title-text >
-                            <span class="md-headline">{{resident.first_name}} {{resident.last_name}}</span>
+                            <span class="md-headline">{{resident.firstName}} {{resident.lastName}}</span>
                         </md-card-title-text>
                         <md-input-container md-theme="input" flex>
                             <label>&nbsp;</label>
@@ -44,22 +44,23 @@
                         <md-list-item class="md-2-line" >
                             <md-icon> <ng-md-icon icon="place"></ng-md-icon></md-icon>
                             <div class="md-list-item-text" >
-                                <h3>{{resident.address}}</h3>
+                                <h3>{{resident.apartmentId}}</h3>
                                 <p> ADDRESS</p>
                             </div>
                         </md-list-item>
                         <md-list-item class="md-2-line" >
                             <md-icon> <ng-md-icon icon="web"></ng-md-icon></md-icon>
                             <div class="md-list-item-text" >
-                                <h3>{{resident.website}} </h3>
-                                <p> WEBSITE</p>
+                                <h3>{{resident.about}} </h3>
+                                <p> ABOUT</p>
                             </div>
                         </md-list-item>
                     </md-list>
                 </md-card-content>
             </md-card>
         </div>
-        <div flex flex-sm="100" flex-xs="100" class="container" >
+        {{resident}}
+        <!-- <div flex flex-sm="100" flex-xs="100" class="container" >
             <md-card layout="column">
                 <md-card-title>
                     <md-card-title-text >
@@ -77,7 +78,7 @@
                     </md-list-item>
                 </md-list>
             </md-card>
-        </div>
+        </div> -->
 
     </div>
 

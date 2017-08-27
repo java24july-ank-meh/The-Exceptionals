@@ -20,4 +20,10 @@ public class ResidentController {
 		return ResponseEntity.ok(service.findAll());
 	}
 	
+	@GetMapping("Residents/{id}")
+	public ResponseEntity<Object> displayResident(@PathVariable("id") int id) {
+		return ResponseEntity.ok(service.findByResidentId(id));
+	}
+	
+	
 }

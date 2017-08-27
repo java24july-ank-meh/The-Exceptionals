@@ -1,4 +1,4 @@
-angular.module('rhmsApp').controller('showResidencyController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', '$state', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams, $state) {
+angular.module('rhmsApp').controller('showResidentController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', '$state', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams, $state) {
 	
 	
 	  /*$scope.showConfirm = function(deleteComplex) {
@@ -33,10 +33,10 @@ angular.module('rhmsApp').controller('showResidencyController', ['$scope', '$mdB
     };
     
 
-     $http.get("/api/Residents/"+$stateParams.complexId).then(function(response) {
+     $http.get("/api/Residents/"+$stateParams.residentId).then(function(response) {
 
          $scope.resident = response.data;
-
+         console.log(response.data);
      });
 
 }]);
