@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 @Entity
 public class ApartmentComplex {
 	@Id
@@ -18,9 +20,9 @@ public class ApartmentComplex {
 	private String phone;
 	private String name;
 	
-	//@OneToMany
-	//@JoinColumn(name="aptsid")
-	//private List<Apartment> apartments;
+	@OneToMany
+	@JoinColumn(name="aptNumber")
+	private List<Apartment> apartments;
 
 	public ApartmentComplex() {
 		super();

@@ -10,6 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name="APARTMENT")
@@ -18,12 +23,19 @@ public class Apartment {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer apartmentId;
 	private int apartmentNumber;
+	@Column(name="aptNumber")
+	private int aptNumber;
 	private int occupancy;
 	private int capacity;
 	private int complexId;
 	
 	@OneToMany(mappedBy="apartment", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<Resident> residents;
+	
+//	@ManyToOne
+//	@JoinColumn(name="aptNumber")
+//	private ApartmentComplex complex;
+
 
 	public Apartment() {
 		super();
@@ -53,6 +65,12 @@ public class Apartment {
 
 	public void setApartmentNumber(int apartmentNumber) {
 		this.apartmentNumber = apartmentNumber;
+	public int getAptnumber() {
+		return this.aptNumber;
+	}
+
+	public void setAptnumber(int aptNumber) {
+		this.aptNumber = aptNumber;
 	}
 
 	public int getOccupancy() {
