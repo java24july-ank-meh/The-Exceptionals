@@ -21,8 +21,6 @@
                         </md-button>
                     </div>
                 </md-toolbar>
-
-                <img ng-src="http://somebodymarketing.com/wp-content/uploads/2013/05/Stock-Dock-House.jpg" class="md-card-image" alt="image caption" >
                 <md-card-content layout-gt-md="row" layout="column" >
                     <md-list class="md-dense" flex="50">
                         <md-list-item class="md-2-line" >
@@ -45,10 +43,19 @@
                             <md-icon> <ng-md-icon icon="place"></ng-md-icon></md-icon>
                             <div class="md-list-item-text" >
                                 <h3>{{resident.apartmentId}}</h3>
-                                <p> ADDRESS</p>
+                                <p> APARTMENT</p>
                             </div>
                         </md-list-item>
                         <md-list-item class="md-2-line" >
+                            <md-icon> <ng-md-icon icon="place"></ng-md-icon></md-icon>
+                            <div class="md-list-item-text" >
+                                <h3>{{resident.apartmentId}}</h3>
+                                <p> COMPLEX</p>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                    <md-list class="md-dense">
+                    	<md-list-item class="md-2-line" >
                             <md-icon> <ng-md-icon icon="web"></ng-md-icon></md-icon>
                             <div class="md-list-item-text" >
                                 <h3>{{resident.about}} </h3>

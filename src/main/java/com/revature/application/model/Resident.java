@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="RESIDENT")
@@ -29,7 +31,7 @@ public class Resident {
 	private int apartmentId;
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="APARTMENT_ID")
-	@JsonBackReference
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "apartmentId")
 	private Apartment apartment;
 
 	public Resident() {
