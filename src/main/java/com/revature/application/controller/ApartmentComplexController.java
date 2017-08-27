@@ -20,7 +20,6 @@ import com.revature.application.service.ApartmentComplexService;
 @RequestMapping("api")
 public class ApartmentComplexController {
 	@Autowired
-
 	ApartmentComplexService apartmentComplexService;
 	
 	@GetMapping("ApartmentComplexes")

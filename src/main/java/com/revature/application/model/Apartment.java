@@ -13,12 +13,16 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "APARTMENT")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "apartmentId")
 public class Apartment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +32,6 @@ public class Apartment {
 	private int capacity;
 
 	@OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
 	private Set<Resident> residents;
 
 	

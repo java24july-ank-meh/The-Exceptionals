@@ -13,14 +13,22 @@ import com.revature.application.repository.ResidentRepository;
 @Transactional
 public class ResidentService {
 	@Autowired
-	ResidentRepository repo;
+	ResidentRepository residentRepository;
 	
-	public List<Resident> findByResidentId(Integer id) {
-		return repo.findByResidentId(id);
+	public Resident findByResidentId(Integer id) {
+		return residentRepository.findByResidentId(id);
 	}
 	
 	public List<Resident> findAll() {
-		return repo.findAll();
+		return residentRepository.findAll();
+	}
+	
+	public Integer createResident(Resident resident) {
+		return residentRepository.saveAndFlush(resident).getResidentId();
+	}
+	
+	public Integer updateResident(Resident resident) {
+		return residentRepository.saveAndFlush(resident).getResidentId();
 	}
 }
 

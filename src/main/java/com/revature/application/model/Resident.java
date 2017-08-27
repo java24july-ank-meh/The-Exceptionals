@@ -11,9 +11,13 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="RESIDENT")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property = "residentId")
 public class Resident {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -29,7 +33,6 @@ public class Resident {
 	private int apartmentId;
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="APARTMENT_ID")
-	@JsonBackReference
 	private Apartment apartment;
 
 	public Resident() {
@@ -116,6 +119,10 @@ public class Resident {
 	public void setApartment(Apartment apartment) {
 		this.apartment = apartment;
 		this.apartmentId = apartment.getApartmentId();
+	}
+	
+	public void removeApartment() {
+		this.apartment = null;
 	}
 
 	@Override
