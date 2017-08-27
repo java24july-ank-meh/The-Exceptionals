@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -24,6 +25,8 @@ public class Resident {
 	private String email;
 	private String slackId;
 	
+	@Transient
+	private int apartmentId;
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="APARTMENT_ID")
 	@JsonBackReference
@@ -45,7 +48,7 @@ public class Resident {
 		this.slackId = slackId;
 		this.apartment = apartment;
 	}
-
+	
 	public Integer getResidentId() {
 		return residentId;
 	}
@@ -102,21 +105,27 @@ public class Resident {
 		this.slackId = slackId;
 	}
 
+	public int getApartmentId() {
+		return this.apartmentId;
+	}
+
 	public Apartment getApartment() {
 		return this.apartment;
 	}
 
 	public void setApartment(Apartment apartment) {
 		this.apartment = apartment;
+		this.apartmentId = apartment.getApartmentId();
 	}
 
 	@Override
 	public String toString() {
 		return "Resident [residentId=" + residentId + ", firstName=" + firstName + ", lastName=" + lastName + ", phone="
-				+ phone + ", about=" + about + ", email=" + email + ", slackId=" + slackId + ", apartment=" + apartment
-				+ "]";
+				+ phone + ", about=" + about + ", email=" + email + ", slackId=" + slackId + ", apartmentId="
+				+ apartmentId + "]";
 	}
 
+	
 	
 
 }

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -30,6 +31,8 @@ public class Apartment {
 	@JsonManagedReference
 	private Set<Resident> residents;
 
+	@Transient
+	private int complexId;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "COMPLEX_ID")
 	@JsonBackReference
@@ -83,12 +86,17 @@ public class Apartment {
 		this.capacity = capacity;
 	}
 
+	public int getComplexId() {
+		return complexId;
+	}
+
 	public ApartmentComplex getComplex() {
 		return this.complex;
 	}
 
 	public void setComplex(ApartmentComplex complex) {
 		this.complex = complex;
+		this.complexId = complex.getComplexId();
 	}
 
 	public Set<Resident> getResidents() {
@@ -102,9 +110,7 @@ public class Apartment {
 	@Override
 	public String toString() {
 		return "Apartment [apartmentId=" + apartmentId + ", apartmentNumber=" + apartmentNumber + ", occupancy="
-				+ occupancy + ", capacity=" + capacity + ", residents=" + residents + ", complex=" + complex + "]";
+				+ occupancy + ", capacity=" + capacity + ", residents=" + residents + ", complexId=" + complexId + "]";
 	}
-
-	
 
 }
