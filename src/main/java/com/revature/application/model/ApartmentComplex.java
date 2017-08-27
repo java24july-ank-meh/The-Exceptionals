@@ -87,7 +87,7 @@ public class ApartmentComplex {
 	}
 	
 	public List<Apartment> getApartments() {
-		return apartments;
+		return this.apartments;
 	}
 
 	public void setApartments(List<Apartment> apartments) {

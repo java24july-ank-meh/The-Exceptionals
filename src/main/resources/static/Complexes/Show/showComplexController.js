@@ -50,39 +50,7 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
 
          $scope.complex = response.data;
          
-         $scope.complex.apartments = [
-             {
-                 id: 1,
-                 number : "408A",
-                 capacity: 6,
-                 occupancy: 6,
-             },
-             {
-                 id: 2,
-                 number : "100",
-                 capacity: 6,
-                 occupancy: 3,
-             },
-             {
-                 id: 3,
-                 number : "200",
-                 capacity: 5,
-                 occupancy: 4,
-             },
-             {
-                 id: 4,
-                 number : "300A",
-                 capacity: 6,
-                 occupancy: 4,
-             },
-             {
-                 id: 5,
-                 number : "108",
-                 capacity: 4,
-                 occupancy: 3,
-             },
-
-         ];
+       
      });
 
 }]);
