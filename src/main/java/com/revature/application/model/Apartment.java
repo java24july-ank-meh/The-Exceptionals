@@ -65,6 +65,7 @@ public class Apartment {
 
 	public void setApartmentNumber(int apartmentNumber) {
 		this.apartmentNumber = apartmentNumber;
+	}
 	public int getAptnumber() {
 		return this.aptNumber;
 	}
@@ -107,9 +108,12 @@ public class Apartment {
 
 	@Override
 	public String toString() {
-		return "Apartment [apartmentId=" + apartmentId + ", apartmentNumber=" + apartmentNumber + ", occupancy="
-				+ occupancy + ", capacity=" + capacity + ", complexId=" + complexId + ", residents=" + residents + "]";
+		return "Apartment [apartmentId=" + apartmentId + ", apartmentNumber=" + apartmentNumber + ", aptNumber="
+				+ aptNumber + ", occupancy=" + occupancy + ", capacity=" + capacity + ", complexId=" + complexId
+				+ ", residents=" + residents + "]";
 	}
+
+	
 
 	
 
