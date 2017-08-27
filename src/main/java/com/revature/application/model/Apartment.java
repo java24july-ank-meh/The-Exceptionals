@@ -66,11 +66,11 @@ public class Apartment {
 	public void setApartmentNumber(int apartmentNumber) {
 		this.apartmentNumber = apartmentNumber;
 	}
-	public int getAptnumber() {
+	public int getAptNumber() {
 		return this.aptNumber;
 	}
 
-	public void setAptnumber(int aptNumber) {
+	public void setAptNumber(int aptNumber) {
 		this.aptNumber = aptNumber;
 	}
 
