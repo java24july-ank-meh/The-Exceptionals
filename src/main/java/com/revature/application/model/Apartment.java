@@ -10,45 +10,45 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
 
-import javax.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-@Table(name="APARTMENT")
+@Table(name = "APARTMENT")
 public class Apartment {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer apartmentId;
 	private int apartmentNumber;
-	@Column(name="aptNumber")
-	private int aptNumber;
 	private int occupancy;
 	private int capacity;
-	private int complexId;
-	
-	@OneToMany(mappedBy="apartment", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	private Set<Resident> residents;
-	
-//	@ManyToOne
-//	@JoinColumn(name="aptNumber")
-//	private ApartmentComplex complex;
 
+	@OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
+	private Set<Resident> residents;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "COMPLEX_ID")
+	@JsonBackReference
+	private ApartmentComplex complex;
 
 	public Apartment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Apartment(int apartmentNumber, int occupancy, int capacity, int complexId, Set<Resident> residents) {
+	public Apartment(Integer apartmentId, int apartmentNumber, int occupancy, int capacity, Set<Resident> residents,
+			ApartmentComplex complex) {
 		super();
+		this.apartmentId = apartmentId;
 		this.apartmentNumber = apartmentNumber;
 		this.occupancy = occupancy;
 		this.capacity = capacity;
-		this.complexId = complexId;
 		this.residents = residents;
+		this.complex = complex;
 	}
 
 	public Integer getApartmentId() {
@@ -65,13 +65,6 @@ public class Apartment {
 
 	public void setApartmentNumber(int apartmentNumber) {
 		this.apartmentNumber = apartmentNumber;
-	}
-	public int getAptNumber() {
-		return this.aptNumber;
-	}
-
-	public void setAptNumber(int aptNumber) {
-		this.aptNumber = aptNumber;
 	}
 
 	public int getOccupancy() {
@@ -90,12 +83,12 @@ public class Apartment {
 		this.capacity = capacity;
 	}
 
-	public int getComplexId() {
-		return this.complexId;
+	public ApartmentComplex getComplex() {
+		return this.complex;
 	}
 
-	public void setComplexId(int complexId) {
-		this.complexId = complexId;
+	public void setComplex(ApartmentComplex complex) {
+		this.complex = complex;
 	}
 
 	public Set<Resident> getResidents() {
@@ -108,12 +101,9 @@ public class Apartment {
 
 	@Override
 	public String toString() {
-		return "Apartment [apartmentId=" + apartmentId + ", apartmentNumber=" + apartmentNumber + ", aptNumber="
-				+ aptNumber + ", occupancy=" + occupancy + ", capacity=" + capacity + ", complexId=" + complexId
-				+ ", residents=" + residents + "]";
+		return "Apartment [apartmentId=" + apartmentId + ", apartmentNumber=" + apartmentNumber + ", occupancy="
+				+ occupancy + ", capacity=" + capacity + ", residents=" + residents + ", complex=" + complex + "]";
 	}
-
-	
 
 	
 

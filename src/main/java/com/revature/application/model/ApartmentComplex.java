@@ -1,27 +1,34 @@
 package com.revature.application.model;
 
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
+@Table(name="APARTMENT_COMPLEX")
 public class ApartmentComplex {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="complexId")
 	private int complexId;
 	private String website;
 	private String email;
 	private String phone;
 	private String name;
 	
-	@OneToMany
-	@JoinColumn(name="aptNumber")
+	
+	@OneToMany(mappedBy="complex", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@JsonManagedReference
 	private List<Apartment> apartments;
 
 	public ApartmentComplex() {
@@ -78,6 +85,15 @@ public class ApartmentComplex {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public List<Apartment> getApartments() {
+		return apartments;
+	}
+
+	public void setApartments(List<Apartment> apartments) {
+		this.apartments = apartments;
+	}
+
 
 	@Override
 	public String toString() {

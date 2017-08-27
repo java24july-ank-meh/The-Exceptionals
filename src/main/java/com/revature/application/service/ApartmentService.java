@@ -16,25 +16,28 @@ import com.revature.application.repository.ApartmentRepository;
 public class ApartmentService {
 	@Autowired
 	ApartmentRepository apartmentRepository;
+	@Autowired
+	ApartmentComplexRepository apartmentComplexRepository;
 	
 	public List<Apartment> findAll(){
 		return apartmentRepository.findAll();
 	};
 	
 	public List<Apartment> findByComplexId(int id) {
-		return apartmentRepository.findByComplexId(id);
+		ApartmentComplex apartmentComplex = apartmentComplexRepository.findByComplexId(id);
+		return apartmentComplex.getApartments();
 	}
 	
 	public Apartment findByAptNumber(int id) {
-		return apartmentRepository.findByAptNumber(id);
+		return apartmentRepository.findByApartmentNumber(id);
 	}
 	
 	public int save(Apartment apartment) {
-		return apartmentRepository.saveAndFlush(apartment).getAptNumber();
+		return apartmentRepository.saveAndFlush(apartment).getApartmentNumber();
 	}
 	
 	public int update(Apartment apartment) {
-		return apartmentRepository.saveAndFlush(apartment).getAptNumber();
+		return apartmentRepository.saveAndFlush(apartment).getApartmentNumber();
 	}
 	
 	public void delete(Apartment apartment) {
