@@ -123,6 +123,9 @@
                             <p> {{resident.phone}}</p>
                             <p> {{resident.email}}</p>
                         </div>
+                        <md-button class="md-secondary ng-icon-button" ng-click="showRemoveResidentConfirm(resident.residentId)" >
+            				<ng-md-icon icon="delete"></ng-md-icon>
+          				</md-button>
                     </md-list-item>
                 </md-list>
             </md-card>

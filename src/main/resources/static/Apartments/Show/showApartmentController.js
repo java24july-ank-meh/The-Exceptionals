@@ -61,8 +61,36 @@ angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdB
 	    });
   };
   
-  
+  $scope.showRemoveResidentConfirm = function(residentId, removeResident) {
 
+	    var confirm = $mdDialog.confirm()
+	          .title('Do you really want to remove the Resident?')
+	          .targetEvent(event)
+	          .ok('Remove')
+	          .cancel('Cancel');
+
+	    $mdDialog.show(confirm).then(function() {
+	      $scope.removeResident(residentId);
+	    });
+	  };
+  
+  
+	 $scope.removeResident = function (residentId) {
+
+	      var onSuccess = function (data, status, headers, config) {
+	    	  $mdToast.show($mdToast.simple().textContent("Resident Removed").position('top right'));
+	          $state.go('home.showComplex', { complexId: $scope.apartment.complexId});
+	      };
+
+	      var onError = function (data, status, headers, config) {
+	    	  $mdToast.show($mdToast.simple().textContent(data));
+	      };
+
+	      $http.delete('/api/Residents/'+residentId+'/Apartment')
+	      	.success(onSuccess)
+	      	.error(onSuccess);
+
+	  };
   
 
 }]);
