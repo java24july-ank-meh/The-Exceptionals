@@ -28,16 +28,16 @@ public class ApartmentService {
 		return apartmentComplex.getApartments();
 	}
 	
-	public Apartment findByAptNumber(int id) {
-		return apartmentRepository.findByApartmentNumber(id);
+	public Apartment findByApartmentId(Integer id) {
+		return apartmentRepository.findByApartmentId(id);
 	}
 	
 	public int save(Apartment apartment) {
-		return apartmentRepository.saveAndFlush(apartment).getApartmentNumber();
+		return apartmentRepository.saveAndFlush(apartment).getApartmentId();
 	}
 	
 	public int update(Apartment apartment) {
-		return apartmentRepository.saveAndFlush(apartment).getApartmentNumber();
+		return apartmentRepository.saveAndFlush(apartment).getApartmentId();
 	}
 	
 	public void delete(Apartment apartment) {

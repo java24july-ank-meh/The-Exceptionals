@@ -22,6 +22,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "APARTMENT")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "apartmentId")
 public class Apartment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +32,6 @@ public class Apartment {
 	private int capacity;
 
 	@OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonManagedReference
 	private Set<Resident> residents;
 
 	@Transient
@@ -54,7 +54,6 @@ public class Apartment {
 		this.occupancy = occupancy;
 		this.capacity = capacity;
 		this.residents = residents;
-		this.complex = complex;
 	}
 
 	public Integer getApartmentId() {
@@ -93,15 +92,16 @@ public class Apartment {
 		return complexId;
 	}
 
-	public ApartmentComplex getComplex() {
-		return this.complex;
-	}
 
 	public void setComplex(ApartmentComplex complex) {
-		this.complex = complex;
 		this.complexId = complex.getComplexId();
 	}
-
+	
+	public void setComplexId(int complexId)
+	{
+		this.complexId = complexId;
+	}
+	
 	public Set<Resident> getResidents() {
 		return this.residents;
 	}

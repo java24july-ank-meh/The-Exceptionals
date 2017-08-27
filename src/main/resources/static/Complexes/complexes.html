@@ -41,6 +41,13 @@
 
 <md-content class="md-padding" >
     <div layout layout-wrap layout-sm="column" layout-xs="column" >
+        <div layout="row" layout-sm="column" layout-align="space-around" ng-if="!complexes && !error">
+        	<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <div layout="row" layout-sm="column" layout-align="space-around" ng-if="error">
+             <h2>No Complexes Created Found</h2>
+        </div>
+            
         <div flex="25" flex-sm="100" flex-xs="100" ng-repeat="complex in complexes" class="container">
             <md-card ui-sref="home.showComplex({complexId: complex.complexId})" >
                 <md-card-title>

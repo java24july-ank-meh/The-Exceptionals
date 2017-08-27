@@ -4,8 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.revature.application.model.Apartment;
+import com.revature.application.model.Resident;
+import com.revature.application.service.ApartmentService;
 import com.revature.application.service.ResidentService;
 
 @RestController
@@ -13,11 +19,42 @@ import com.revature.application.service.ResidentService;
 public class ResidentController {
 
 	@Autowired
-	ResidentService service;
+	ResidentService residentService;
+	@Autowired
+	ApartmentService apartmentService;
 	
 	@GetMapping("Residents")
 	public ResponseEntity<Object> displayResidents() {
-		return ResponseEntity.ok(service.findAll());
+		return ResponseEntity.ok(residentService.findAll());
+	}
+	
+	@RequestMapping(value ="Residents/create", method=RequestMethod.POST)
+	public ResponseEntity<Object> createNewResident(@RequestBody Resident resident){
+
+		return ResponseEntity.ok(residentService.createResident(resident) );
+	}
+	
+	@RequestMapping(value ="Apartments/{apartmentId}/Resident/{residentId}", method=RequestMethod.POST)
+	public ResponseEntity<Object> removeResidentFromApartment(@PathVariable("apartmentId") int apartmentId, @PathVariable("residentId") int residentId){
+		
+		Apartment apartment = apartmentService.findByApartmentId(apartmentId);
+		
+		Resident resident = residentService.findByResidentId(residentId);
+		
+		resident.setApartment(apartment);
+		
+		return ResponseEntity.ok(residentService.updateResident(resident) );
+		
+	}
+	
+	
+	@RequestMapping(value ="Residents/{id}/Apartment", method=RequestMethod.DELETE)
+	public ResponseEntity<Object> removeResidentFromApartment(@PathVariable("id") int id){
+		Resident resident = residentService.findByResidentId(id);
+		resident.removeApartment();
+		
+		return ResponseEntity.ok(residentService.updateResident(resident) );
+		
 	}
 	
 	@GetMapping("Residents/{id}")

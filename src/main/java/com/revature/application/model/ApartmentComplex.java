@@ -27,8 +27,7 @@ public class ApartmentComplex {
 	private String name;
 	
 	
-	@OneToMany(mappedBy="complex", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonManagedReference
+	@OneToMany(mappedBy="complexId", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Apartment> apartments;
 
 	public ApartmentComplex() {
@@ -87,7 +86,7 @@ public class ApartmentComplex {
 	}
 	
 	public List<Apartment> getApartments() {
-		return apartments;
+		return this.apartments;
 	}
 
 	public void setApartments(List<Apartment> apartments) {

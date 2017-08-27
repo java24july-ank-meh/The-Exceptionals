@@ -1,4 +1,4 @@
-<md-button class="md-fab md-fab-bottom-right" aria-label="FAB" ui-sref="home.createComplex" >
+<md-button class="md-fab md-fab-bottom-right" aria-label="FAB" ng-click="showCreateApartmentForm()" >
     <ng-md-icon icon="add" class="md-icon"></ng-md-icon>
 </md-button>
 
@@ -42,8 +42,11 @@
 <md-content class="md-padding" >
     <div layout layout-wrap layout-gt-sm="row" layout="column" >
         <div flex="60" flex-sm="100" flex-xs="100" class="container">
-            <div layout="row" layout-sm="column" layout-align="space-around" ng-if="!complex">
+            <div layout="row" layout-sm="column" layout-align="space-around" ng-if="!complex && !error">
                 <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+             <div layout="row" layout-sm="column" layout-align="space-around" ng-if="error">
+                <h2>404 - Complex not found.</h2> 
             </div>
             <md-card ng-if="complex">
                 <md-toolbar class="md-hue-1" >
@@ -100,7 +103,7 @@
                 </md-card-content>
             </md-card>
         </div>
-        <div flex flex-sm="100" flex-xs="100" class="container" >
+        <div flex flex-sm="100" flex-xs="100" class="container" ng-if="!error">
             <md-card layout="column">
                 <md-card-title>
                     <md-card-title-text >
@@ -109,11 +112,11 @@
                 </md-card-title>
                 <md-divider></md-divider>
                 <md-list flex>
-                    <md-list-item class="md-2-line noright" ng-repeat="apartment in complex.apartments" ui-sref="home.showApartment({apartmentId: apartment.id})">
+                    <md-list-item class="md-2-line noright" ng-repeat="apartment in complex.apartments" ui-sref="home.showApartment({apartmentId: apartment.apartmentId})">
                         <md-icon class="md-avatar"> <ng-md-icon icon="home" ></ng-md-icon></md-icon>
                         <div class="md-list-item-text" >
-                            <h3> {{apartment.number}}</h3>
-                            <p> {{apartment.occupancy}} of {{apartment.capacity}} residents</p>
+                            <h3> {{apartment.apartmentNumber}}</h3>
+                            <p> {{apartment.residents.length}} of {{apartment.capacity}} residents</p>
                         </div>
                     </md-list-item>
                 </md-list>

@@ -1,18 +1,5 @@
-angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', '$state', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams, $state) {
-
-       /*$scope.complex =
-        {
-            id: 4,
-            name : "Apartment Complex Name",
-            phone: "9563133128",
-            email: "mail@mail.com",
-            address: "474 Elden St, Herndon, VA 20170",
-            website: "www.site.com"
-        };*/
-    
-    //the jankiest of implementations. takes the apartment id from the url (avoids having to use sessions until we figure that out)
-    //let complexid = window.location.hash.substring(17);
-	
+angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', '$state','$mdToast', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams, $state, $mdToast) {
+	$scope.error = false;
 	
 	  $scope.showConfirm = function(deleteComplex) {
 
@@ -27,16 +14,15 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
 		    });
 		  };
 
-	
     $scope.deleteComplex = function () {
 
         var onSuccess = function (data, status, headers, config) {
-            alert("Complex deleted.");
+        	 $mdToast.show($mdToast.simple().textContent("Complex Deleted").position('top right'));
             $state.go('home.complexes');
         };
 
         var onError = function (data, status, headers, config) {
-            alert('Error occured.');
+        	 $mdToast.show($mdToast.simple().textContent("An Error Occured").position('top right'));
         };
 
         $http.delete('/api/ApartmentComplexes/'+$stateParams.complexId)
@@ -45,44 +31,28 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
 
     };
     
-
      $http.get("/api/ApartmentComplexes/"+$stateParams.complexId).then(function(response) {
 
          $scope.complex = response.data;
          
-         $scope.complex.apartments = [
-             {
-                 id: 1,
-                 number : "408A",
-                 capacity: 6,
-                 occupancy: 6,
-             },
-             {
-                 id: 2,
-                 number : "100",
-                 capacity: 6,
-                 occupancy: 3,
-             },
-             {
-                 id: 3,
-                 number : "200",
-                 capacity: 5,
-                 occupancy: 4,
-             },
-             {
-                 id: 4,
-                 number : "300A",
-                 capacity: 6,
-                 occupancy: 4,
-             },
-             {
-                 id: 5,
-                 number : "108",
-                 capacity: 4,
-                 occupancy: 3,
-             },
-
-         ];
+         if($scope.complex === ''){
+        	 $mdToast.show($mdToast.simple().textContent("Complex Not Found").position('top right'));
+        	 $scope.error = true;
+         }
+         
      });
+     
+	  $scope.showCreateApartmentForm = function(ev) {
+		  
+		  $mdDialog.show({
+			  controller: 'createApartmentController',
+			  templateUrl: '/../../Apartments/Create/create.html',
+			  parent: angular.element(document.body),
+			  targetEvent: ev,
+			  clickOutsideToClose:true,
+			  fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+		  });
+			  
+	  };
 
 }]);
