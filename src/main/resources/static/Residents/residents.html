@@ -31,7 +31,7 @@
 <md-content class="md-padding">
 
 <table ng-table="residentsTable" class="table" show-filter="true">
-	<tr ng-repeat="resident in $data" ui-sref="home.showResident({residentId: resident.residentId})">
+	<tr ng-repeat="resident in $data"> <!-- ui-sref="home.showResident({residentId: resident.residentId})"> -->
 
 		<td title="'First Name'" filter="{ fname: 'text'}" sortable="'fname'">
 			{{resident.firstName}}</td>	
@@ -39,6 +39,10 @@
 			{{resident.lastName}}</td>
 		<td title="'Email'" filter="{ email: 'text'}" sortable="'email'">
 			{{resident.email}}</td>
+		<td title="'Room'" filter="{ room: 'text'}" sortable="'room'">
+			{{resident.apartment.apartmentNumber}}</td>
+		<td title="'Complex'" filter="{ complex: 'text'}" sortable="'complex'">
+			{{resident.apartment.complexId}}</td>
 		
 	</tr>
 
