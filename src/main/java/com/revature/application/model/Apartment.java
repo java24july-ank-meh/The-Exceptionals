@@ -34,11 +34,10 @@ public class Apartment {
 	@OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Resident> residents;
 
-	private int complexId;
-	//@ManyToOne(fetch = FetchType.EAGER)
-	//@JoinColumn(name = "COMPLEX_ID")
-	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "complexId")
-	//private ApartmentComplex complex;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "COMPLEX_ID")
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "complexId")
+	private ApartmentComplex complex;
 
 	public Apartment() {
 		super();
@@ -87,20 +86,14 @@ public class Apartment {
 		this.capacity = capacity;
 	}
 
-	public int getComplexId() {
-		return complexId;
-	}
-
-
 	public void setComplex(ApartmentComplex complex) {
-		this.complexId = complex.getComplexId();
+		this.complex = complex;
 	}
 	
-	public void setComplexId(int complexId)
-	{
-		this.complexId = complexId;
+	public ApartmentComplex getComplex() {
+		return complex;
 	}
-	
+
 	public Set<Resident> getResidents() {
 		return this.residents;
 	}
@@ -112,7 +105,9 @@ public class Apartment {
 	@Override
 	public String toString() {
 		return "Apartment [apartmentId=" + apartmentId + ", apartmentNumber=" + apartmentNumber + ", occupancy="
-				+ occupancy + ", capacity=" + capacity + ", residents=" + residents + ", complexId=" + complexId + "]";
+				+ occupancy + ", capacity=" + capacity + ", residents=" + residents + ", complex=" + complex + "]";
 	}
+
+	
 
 }
