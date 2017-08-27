@@ -1,11 +1,19 @@
 package com.revature.application.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="RESIDENT")
 public class Resident {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer residentId;
 	private String firstName;
 	private String lastName;
@@ -13,31 +21,33 @@ public class Resident {
 	private String about;
 	private String email;
 	private String slackId;
-	private int aptnumber;
-
-	public Resident(int residentId, String firstName, String lastName, String phone, String about, String email,
-			String slackId, int aptnumber) {
-		super();
-		this.residentId = residentId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phone = phone;
-		this.about = about;
-		this.email = email;
-		this.slackId = slackId;
-		this.aptnumber = aptnumber;
-	}
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="APARTMENT_ID")
+	private Apartment apartment;
 
 	public Resident() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getResidentId() {
+	public Resident(String firstName, String lastName, String phone, String about, String email, String slackId,
+			Apartment apartment) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phone = phone;
+		this.about = about;
+		this.email = email;
+		this.slackId = slackId;
+		this.apartment = apartment;
+	}
+
+	public Integer getResidentId() {
 		return residentId;
 	}
 
-	public void setResidentId(int residentId) {
+	public void setResidentId(Integer residentId) {
 		this.residentId = residentId;
 	}
 
@@ -89,19 +99,21 @@ public class Resident {
 		this.slackId = slackId;
 	}
 
-	public int getAptnumber() {
-		return aptnumber;
+	public Apartment getApartment() {
+		return apartment;
 	}
 
-	public void setAptnumber(int aptnumber) {
-		this.aptnumber = aptnumber;
+	public void setApartment(Apartment apartment) {
+		this.apartment = apartment;
 	}
 
 	@Override
 	public String toString() {
 		return "Resident [residentId=" + residentId + ", firstName=" + firstName + ", lastName=" + lastName + ", phone="
-				+ phone + ", about=" + about + ", email=" + email + ", slackId=" + slackId + ", aptnumber=" + aptnumber
+				+ phone + ", about=" + about + ", email=" + email + ", slackId=" + slackId + ", apartment=" + apartment
 				+ "]";
 	}
+
+	
 
 }
