@@ -1,19 +1,6 @@
 angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', '$state', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams, $state) {
 
-       /*$scope.complex =
-        {
-            id: 4,
-            name : "Apartment Complex Name",
-            phone: "9563133128",
-            email: "mail@mail.com",
-            address: "474 Elden St, Herndon, VA 20170",
-            website: "www.site.com"
-        };*/
-    
-    //the jankiest of implementations. takes the apartment id from the url (avoids having to use sessions until we figure that out)
-    //let complexid = window.location.hash.substring(17);
-	
-	
+
 	  $scope.showConfirm = function(deleteComplex) {
 
 		    var confirm = $mdDialog.confirm()
@@ -27,7 +14,6 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
 		    });
 		  };
 
-	
     $scope.deleteComplex = function () {
 
         var onSuccess = function (data, status, headers, config) {
@@ -50,7 +36,27 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
 
          $scope.complex = response.data;
          
-       
      });
+     
+     
+	  $scope.showCreateApartmentForm = function(ev) {
+		  
+			    $mdDialog.show({
+			      controller: 'createApartmentController',
+			      templateUrl: '/../../Apartments/Create/create.html',
+			      parent: angular.element(document.body),
+			      targetEvent: ev,
+			      clickOutsideToClose:true,
+			      fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+			    })
+			    .then(function(answer) {
+			      $scope.status = 'You said the information was "' + answer + '".';
+			    }, function() {
+			      $scope.status = 'You cancelled the dialog.';
+			    });
+			  
+	  };
+
+
 
 }]);
