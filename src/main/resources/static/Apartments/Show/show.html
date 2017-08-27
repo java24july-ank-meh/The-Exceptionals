@@ -42,6 +42,14 @@
 <md-content class="md-padding" >
     <div layout layout-wrap layout-gt-sm="row" layout="column" >
         <div flex="60" flex-sm="100" flex-xs="100" class="container">
+             <div layout="row" layout-sm="column" layout-align="space-around" ng-if="!apartment && !error">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+             <div layout="row" layout-sm="column" layout-align="space-around" ng-if="error">
+               <h2>404 - Apartment not found</h2>
+            </div>
+            
+            
             <md-card ng-if="complex">
                 <md-toolbar class="md-hue-1" >
                     <div class="md-toolbar-tools">
@@ -98,8 +106,8 @@
             </md-card>
         </div>
      
-        <div flex flex-sm="100" flex-xs="100" class="container" ng-cloak>
-            <md-card layout="column">
+        <div flex flex-sm="100" flex-xs="100" class="container" ng-cloak ng-if="!error">
+            <md-card layout="column" >
                 <md-card-title>
                     <md-card-title-text >
                         <span class="md-headline">Residents </span>

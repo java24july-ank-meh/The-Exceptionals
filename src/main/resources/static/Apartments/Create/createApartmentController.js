@@ -1,17 +1,17 @@
-angular.module('rhmsApp').controller('createApartmentController', ['$scope', '$http', '$mdDialog','$state', '$stateParams', function($scope, $http, $mdDialog, $state, $stateParams) {
+angular.module('rhmsApp').controller('createApartmentController', ['$scope', '$http', '$mdDialog','$state', '$stateParams', '$mdToast', function($scope, $http, $mdDialog, $state, $stateParams, $mdToast) {
 
 
     $scope.newApartmentFormSubmit = function () {
 
         var onSuccess = function (data, status, headers, config) {
-        	alert("Created Successfully" );
+        	$mdToast.show($mdToast.simple().textContent("Apartment Created").position('top right'));
             $state.go('home.showApartment', { apartmentId: data});
             $scope.hide();
             
         };
 
         var onError = function (data, status, headers, config) {
-            alert('Error occured.');
+        	$mdToast.show($mdToast.simple().textContent("An Error Occured").position('top right'));
         }
         
         $scope.apartment.complexId = $stateParams.complexId;

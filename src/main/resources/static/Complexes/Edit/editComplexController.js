@@ -1,4 +1,4 @@
-angular.module('rhmsApp').controller('editComplexController', ['$scope', '$http', '$stateParams','$mdDialog','$state', function($scope, $http, $stateParams, $mdDialog, $state ) {
+angular.module('rhmsApp').controller('editComplexController', ['$scope', '$http', '$stateParams','$mdDialog','$state','$mdToast', function($scope, $http, $stateParams, $mdDialog, $state, $mdToast ) {
 
 
     $http.get("/api/ApartmentComplexes/"+$stateParams.complexId)
@@ -7,19 +7,19 @@ angular.module('rhmsApp').controller('editComplexController', ['$scope', '$http'
 
         })
         .error(function(){
-            alert("Error occured");
+        	 $mdToast.show($mdToast.simple().textContent("Complex Not Found").position('top right'));
         });
 
 
     $scope.editComplexFormSubmit = function () {
 
         var onSuccess = function (data, status, headers, config) {
-            alert("Complex updated.");
+        	 $mdToast.show($mdToast.simple().textContent("Complex Updated").position('top right'));
             $state.go('home.showComplex', { complexId: data });
         };
 
         var onError = function (data, status, headers, config) {
-            alert('Error occured.');
+        	 $mdToast.show($mdToast.simple().textContent("An Error Occured").position('top right'));
         };
 
         

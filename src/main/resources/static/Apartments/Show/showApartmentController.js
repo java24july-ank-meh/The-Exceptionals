@@ -1,13 +1,22 @@
-angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdBottomSheet','$http', '$mdDialog','$stateParams','$state', function($scope, $mdBottomSheet,$http, $mdDialog, $stateParams, $state ) {
+angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdBottomSheet','$http', '$mdDialog','$stateParams','$state' ,'$mdToast', function($scope, $mdBottomSheet,$http, $mdDialog, $stateParams, $state, $mdToast ) {
 
-
+	$scope.error = false;
+	
      $http.get("/api/Apartments/"+$stateParams.apartmentId).then(function(response) {
          $scope.apartment = response.data;
          
+         if($scope.apartment === ''){
 
-         $http.get("/api/ApartmentComplexes/"+$scope.apartment.complexId).then(function(response) {
+        	 $mdToast.show($mdToast.simple().textContent("Apartment not found").position('top right'));
+        	 $scope.error = true;
+         }
+         else
+        	$http.get("/api/ApartmentComplexes/"+$scope.apartment.complexId).then(function(response) {
         	 $scope.complex = response.data;
          });
+         
+     },function (response){
+    	   $mdToast.show($mdToast.simple().textContent(response));
      });
      
 	  $scope.showConfirm = function(deleteApartment) {
@@ -26,12 +35,12 @@ angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdB
   $scope.deleteApartment = function () {
 
       var onSuccess = function (data, status, headers, config) {
-          alert("Apartment deleted.");
+    	  $mdToast.show($mdToast.simple().textContent("Apartment Deleted").position('top right'));
           $state.go('home.showComplex', { complexId: $scope.apartment.complexId});
       };
 
       var onError = function (data, status, headers, config) {
-          alert('Error occured.');
+    	  $mdToast.show($mdToast.simple().textContent(data));
       };
 
       $http.delete('/api/Apartments/'+$stateParams.apartmentId)
@@ -50,7 +59,9 @@ angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdB
 	      clickOutsideToClose:true,
 	      fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
 	    });
-};
+  };
+  
+  
 
   
 
