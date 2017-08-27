@@ -1,5 +1,7 @@
 package com.revature.application.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.application.model.Apartment;
 import com.revature.application.service.ApartmentService;
+
+
 
 @RestController
 @RequestMapping("api")
@@ -31,7 +35,7 @@ public class ApartmentController {
 	
 	@GetMapping("Apartments/{id}")
 	public ResponseEntity<Object> displayApartment(@PathVariable("id") int id) {
-		return ResponseEntity.ok(apartmentService.findByAptNumber(id));
+		return ResponseEntity.ok(apartmentService.findByApartmentId(id));
 	}
 	
 	@RequestMapping(value ="ApartmentComplexes/{id}/Apartments/create", method=RequestMethod.POST)
@@ -51,7 +55,7 @@ public class ApartmentController {
 	@RequestMapping(value ="Apartments/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Object> deleteApartment(@PathVariable("id") int id)
 	{
-		Apartment apartment = apartmentService.findByAptNumber(id);
+		Apartment apartment = apartmentService.findByApartmentId(id);
 		
 		if(apartment != null)
 			apartmentService.delete(apartment);

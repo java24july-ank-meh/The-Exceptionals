@@ -31,12 +31,12 @@ public class Apartment {
 	@JsonManagedReference
 	private Set<Resident> residents;
 
-	@Transient
+	
 	private int complexId;
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "COMPLEX_ID")
-	@JsonBackReference
-	private ApartmentComplex complex;
+//	@ManyToOne(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "COMPLEX_ID")
+//	@JsonBackReference
+//	private ApartmentComplex complex;
 
 	public Apartment() {
 		super();
@@ -51,7 +51,6 @@ public class Apartment {
 		this.occupancy = occupancy;
 		this.capacity = capacity;
 		this.residents = residents;
-		this.complex = complex;
 	}
 
 	public Integer getApartmentId() {
@@ -90,15 +89,16 @@ public class Apartment {
 		return complexId;
 	}
 
-	public ApartmentComplex getComplex() {
-		return this.complex;
-	}
 
 	public void setComplex(ApartmentComplex complex) {
-		this.complex = complex;
 		this.complexId = complex.getComplexId();
 	}
-
+	
+	public void setComplexId(int complexId)
+	{
+		this.complexId = complexId;
+	}
+	
 	public Set<Resident> getResidents() {
 		return this.residents;
 	}

@@ -28,8 +28,8 @@ public class ApartmentService {
 		return apartmentComplex.getApartments();
 	}
 	
-	public Apartment findByAptNumber(int id) {
-		return apartmentRepository.findByApartmentNumber(id);
+	public Apartment findByApartmentId(Integer id) {
+		return apartmentRepository.findByApartmentId(id);
 	}
 	
 	public int save(Apartment apartment) {
