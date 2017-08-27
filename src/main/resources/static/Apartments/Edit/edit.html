@@ -1,9 +1,9 @@
 <md-dialog aria-label="">
-<form name="newApartmentForm" ng-submit="newApartmentFormSubmit()"
+<form name="editApartmentForm" ng-submit="editApartmentFormSubmit()"
 	ng-cloak>
 	<md-toolbar>
 	<div class="md-toolbar-tools">
-		<h2>New Apartment</h2>
+		<h2>Edit Apartment</h2>
 		<span flex></span>
 		<md-button class="md-icon-button" ng-click="cancel()"> <ng-icon
 			icon="close" aria-label="Close dialog">
@@ -13,7 +13,7 @@
 
 	<md-dialog-content>
 	<div class="md-dialog-content">
-		<h2>New Apartment</h2>
+		<h2>Edit Apartment</h2>
 
 		<div layout-gt-sm="row">
 			<md-input-container class="md-block" flex-gt-sm>
@@ -32,7 +32,7 @@
 
 	<md-dialog-actions layout="row"> 
 	<md-button class="md-button" ng-click="cancel()">CANCEL</md-button> 
-		<md-button type="submit" class="md-raised md-primary">CREATE</md-button> </md-dialog-actions>
+		<md-button type="submit" class="md-raised md-primary">UPDATE</md-button> </md-dialog-actions>
 </form>
 </md-dialog>
 

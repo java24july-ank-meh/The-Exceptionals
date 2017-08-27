@@ -1,6 +1,5 @@
 angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', '$state', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams, $state) {
 
-
 	  $scope.showConfirm = function(deleteComplex) {
 
 		    var confirm = $mdDialog.confirm()
@@ -31,32 +30,23 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
 
     };
     
-
      $http.get("/api/ApartmentComplexes/"+$stateParams.complexId).then(function(response) {
 
          $scope.complex = response.data;
          
      });
      
-     
 	  $scope.showCreateApartmentForm = function(ev) {
 		  
-			    $mdDialog.show({
-			      controller: 'createApartmentController',
-			      templateUrl: '/../../Apartments/Create/create.html',
-			      parent: angular.element(document.body),
-			      targetEvent: ev,
-			      clickOutsideToClose:true,
-			      fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-			    })
-			    .then(function(answer) {
-			      $scope.status = 'You said the information was "' + answer + '".';
-			    }, function() {
-			      $scope.status = 'You cancelled the dialog.';
-			    });
+		  $mdDialog.show({
+			  controller: 'createApartmentController',
+			  templateUrl: '/../../Apartments/Create/create.html',
+			  parent: angular.element(document.body),
+			  targetEvent: ev,
+			  clickOutsideToClose:true,
+			  fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+		  });
 			  
 	  };
-
-
 
 }]);
