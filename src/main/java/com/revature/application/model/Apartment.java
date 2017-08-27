@@ -52,7 +52,7 @@ public class Apartment {
 	}
 
 	public Integer getApartmentId() {
-		return apartmentId;
+		return this.apartmentId;
 	}
 
 	public void setApartmentId(Integer apartmentId) {
@@ -60,7 +60,7 @@ public class Apartment {
 	}
 
 	public int getApartmentNumber() {
-		return apartmentNumber;
+		return this.apartmentNumber;
 	}
 
 	public void setApartmentNumber(int apartmentNumber) {
@@ -75,7 +75,7 @@ public class Apartment {
 	}
 
 	public int getOccupancy() {
-		return occupancy;
+		return this.occupancy;
 	}
 
 	public void setOccupancy(int occupancy) {
@@ -83,7 +83,7 @@ public class Apartment {
 	}
 
 	public int getCapacity() {
-		return capacity;
+		return this.capacity;
 	}
 
 	public void setCapacity(int capacity) {
@@ -91,7 +91,7 @@ public class Apartment {
 	}
 
 	public int getComplexId() {
-		return complexId;
+		return this.complexId;
 	}
 
 	public void setComplexId(int complexId) {
@@ -99,7 +99,7 @@ public class Apartment {
 	}
 
 	public Set<Resident> getResidents() {
-		return residents;
+		return this.residents;
 	}
 
 	public void setResidents(Set<Resident> residents) {

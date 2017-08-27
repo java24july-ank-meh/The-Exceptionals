@@ -52,7 +52,7 @@ public class Resident {
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
 	}
 
 	public void setFirstName(String firstName) {
@@ -60,7 +60,7 @@ public class Resident {
 	}
 
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
 	}
 
 	public void setLastName(String lastName) {
@@ -68,7 +68,7 @@ public class Resident {
 	}
 
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
 
 	public void setPhone(String phone) {
@@ -76,7 +76,7 @@ public class Resident {
 	}
 
 	public String getAbout() {
-		return about;
+		return this.about;
 	}
 
 	public void setAbout(String about) {
@@ -84,7 +84,7 @@ public class Resident {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -92,7 +92,7 @@ public class Resident {
 	}
 
 	public String getSlackId() {
-		return slackId;
+		return this.slackId;
 	}
 
 	public void setSlackId(String slackId) {
@@ -100,7 +100,7 @@ public class Resident {
 	}
 
 	public Apartment getApartment() {
-		return apartment;
+		return this.apartment;
 	}
 
 	public void setApartment(Apartment apartment) {
