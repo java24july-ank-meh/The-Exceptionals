@@ -10,6 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name="APARTMENT")
@@ -18,12 +23,19 @@ public class Apartment {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer apartmentId;
 	private int apartmentNumber;
+	@Column(name="aptNumber")
+	private int aptNumber;
 	private int occupancy;
 	private int capacity;
 	private int complexId;
 	
 	@OneToMany(mappedBy="apartment", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<Resident> residents;
+	
+//	@ManyToOne
+//	@JoinColumn(name="aptNumber")
+//	private ApartmentComplex complex;
+
 
 	public Apartment() {
 		super();
@@ -40,7 +52,7 @@ public class Apartment {
 	}
 
 	public Integer getApartmentId() {
-		return apartmentId;
+		return this.apartmentId;
 	}
 
 	public void setApartmentId(Integer apartmentId) {
@@ -48,15 +60,22 @@ public class Apartment {
 	}
 
 	public int getApartmentNumber() {
-		return apartmentNumber;
+		return this.apartmentNumber;
 	}
 
 	public void setApartmentNumber(int apartmentNumber) {
 		this.apartmentNumber = apartmentNumber;
 	}
+	public int getAptNumber() {
+		return this.aptNumber;
+	}
+
+	public void setAptNumber(int aptNumber) {
+		this.aptNumber = aptNumber;
+	}
 
 	public int getOccupancy() {
-		return occupancy;
+		return this.occupancy;
 	}
 
 	public void setOccupancy(int occupancy) {
@@ -64,7 +83,7 @@ public class Apartment {
 	}
 
 	public int getCapacity() {
-		return capacity;
+		return this.capacity;
 	}
 
 	public void setCapacity(int capacity) {
@@ -72,7 +91,7 @@ public class Apartment {
 	}
 
 	public int getComplexId() {
-		return complexId;
+		return this.complexId;
 	}
 
 	public void setComplexId(int complexId) {
@@ -80,7 +99,7 @@ public class Apartment {
 	}
 
 	public Set<Resident> getResidents() {
-		return residents;
+		return this.residents;
 	}
 
 	public void setResidents(Set<Resident> residents) {
@@ -89,9 +108,12 @@ public class Apartment {
 
 	@Override
 	public String toString() {
-		return "Apartment [apartmentId=" + apartmentId + ", apartmentNumber=" + apartmentNumber + ", occupancy="
-				+ occupancy + ", capacity=" + capacity + ", complexId=" + complexId + ", residents=" + residents + "]";
+		return "Apartment [apartmentId=" + apartmentId + ", apartmentNumber=" + apartmentNumber + ", aptNumber="
+				+ aptNumber + ", occupancy=" + occupancy + ", capacity=" + capacity + ", complexId=" + complexId
+				+ ", residents=" + residents + "]";
 	}
+
+	
 
 	
 

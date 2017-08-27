@@ -15,9 +15,29 @@ import com.revature.application.repository.ApartmentRepository;
 @Transactional
 public class ApartmentService {
 	@Autowired
-	ApartmentRepository repo;
+	ApartmentRepository apartmentRepository;
 	
-	public List<Apartment> findByComplexId(Integer id) {
-		return repo.findByComplexId(id);
+	public List<Apartment> findAll(){
+		return apartmentRepository.findAll();
+	};
+	
+	public List<Apartment> findByComplexId(int id) {
+		return apartmentRepository.findByComplexId(id);
+	}
+	
+	public Apartment findByAptNumber(int id) {
+		return apartmentRepository.findByAptNumber(id);
+	}
+	
+	public int save(Apartment apartment) {
+		return apartmentRepository.saveAndFlush(apartment).getAptNumber();
+	}
+	
+	public int update(Apartment apartment) {
+		return apartmentRepository.saveAndFlush(apartment).getAptNumber();
+	}
+	
+	public void delete(Apartment apartment) {
+		 apartmentRepository.delete(apartment);
 	}
 }
