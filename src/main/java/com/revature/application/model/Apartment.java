@@ -34,12 +34,11 @@ public class Apartment {
 	@OneToMany(mappedBy = "apartment", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Resident> residents;
 
-	
 	private int complexId;
-//	@ManyToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "COMPLEX_ID")
-//	@JsonBackReference
-//	private ApartmentComplex complex;
+	//@ManyToOne(fetch = FetchType.EAGER)
+	//@JoinColumn(name = "COMPLEX_ID")
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "complexId")
+	//private ApartmentComplex complex;
 
 	public Apartment() {
 		super();
