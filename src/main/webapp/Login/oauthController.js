@@ -2,7 +2,7 @@ angular.module('rhmsApp').controller('oauthController', ['$scope', '$http', '$lo
 	var paramValue = $location.search().code; 
 	
 	$http.get("/HousingOnlineManagementSystem/api/login/oauth",{params: {code : paramValue}}).then(function(response) {
-		$scope.user = response.data;
+		//$scope.user = response.data;
 /*		console.log(response.data);*/
 		$location.path("/home/dashboard");
     });
