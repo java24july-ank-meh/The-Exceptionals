@@ -1,4 +1,4 @@
-﻿# Revature Housing Mangement System
+ # Revature Housing Mangement System [![Stories in Ready](https://badge.waffle.io/java24july-ank-meh/The-Exceptionals.png?label=ready&title=Ready)](https://waffle.io/java24july-ank-meh/The-Exceptionals?utm_source=badge)
  ### The-Exceptionals
   
  ## Overview
@@ -36,5 +36,3 @@ Revature Housing Management System will help to maximize occupancy for Revature 
   * SonarQube
 * Continuous Deployment with a production server on Amazon EC2 with Tomcat
 * Resources stored on Amazon S3 Bucket
-
-readmetest
