@@ -1,4 +1,4 @@
-<md-button class="md-fab md-fab-bottom-right" aria-label="FAB" ui-sref="home.createComplex" >
+<md-button class="md-fab md-fab-bottom-right" aria-label="FAB" ng-click="showAssignResidentForm()" >
     <ng-md-icon icon="add" class="md-icon"></ng-md-icon>
 </md-button>
 
@@ -123,6 +123,9 @@
                             <p> {{resident.phone}}</p>
                             <p> {{resident.email}}</p>
                         </div>
+                        <md-button class="md-secondary ng-icon-button" ng-click="showRemoveResidentConfirm(resident.residentId)" >
+            				<ng-md-icon icon="delete"></ng-md-icon>
+          				</md-button>
                     </md-list-item>
                 </md-list>
             </md-card>
