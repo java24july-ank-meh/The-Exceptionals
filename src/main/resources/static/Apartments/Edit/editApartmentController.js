@@ -14,7 +14,7 @@ angular.module('rhmsApp').controller('editApartmentController', ['$scope', '$htt
 
         var onSuccess = function (data, status, headers, config) {
         	$mdToast.show($mdToast.simple().textContent("Apartment Updated").position('top right'));
-            $state.go('home.showComplex', { complexId: $scope.apartment.complexId});
+            $state.reload();
             $scope.hide();
             
         };
@@ -22,6 +22,8 @@ angular.module('rhmsApp').controller('editApartmentController', ['$scope', '$htt
         var onError = function (data, status, headers, config) {
         	$mdToast.show($mdToast.simple().textContent("An Error Occured").position('top right'));
         }
+        
+        $scope.apartment.complex = null;
         
         $http.put('/api/Apartments/'+$stateParams.apartmentId, $scope.apartment)
             .success(onSuccess)
