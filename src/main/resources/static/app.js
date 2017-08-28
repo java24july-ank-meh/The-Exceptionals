@@ -32,7 +32,12 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
             url:'/residents',
             templateUrl: 'Residents/residents.html',
             controller: 'residentsController'
-	})
+        })
+        .state('home.showResident',{
+            url:'/residents/:residentId',
+            templateUrl: 'Residents/Show/ShowResident.html',
+            controller: 'showResidentController'
+        })
         .state('home.createComplex', {
             url: '/complexes/create',
             templateUrl: 'Complexes/Create/create.html',

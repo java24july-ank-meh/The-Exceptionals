@@ -57,4 +57,10 @@ public class ResidentController {
 		
 	}
 	
+	@GetMapping("Residents/{id}")
+	public ResponseEntity<Object> displayResident(@PathVariable("id") int id) {
+		return ResponseEntity.ok(residentService.findByResidentId(id));
+	}
+	
+	
 }
