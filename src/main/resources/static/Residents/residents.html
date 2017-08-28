@@ -43,10 +43,14 @@
 			{{resident.apartment.apartmentNumber}}</td>
 		<td data-title="'Complex'" filter="{ 'apartment.complex.name': 'select'}" sortable="'complex'" filter-data="complexes">
 			{{resident.apartment.complex.name}}</td>
+		<td>
+			<md-button class="md-raised" data-title="'Resident Id'" ui-sref="home.showResident({residentId: resident.residentId})">Profile</md-button>
+		</td>
 		
 	</tr>
 
 </table>
 {{complexes}}
+{{residents}}
 </md-content>
 
