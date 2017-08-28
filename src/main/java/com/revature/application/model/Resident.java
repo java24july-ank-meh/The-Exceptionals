@@ -12,6 +12,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -34,6 +35,7 @@ public class Resident {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="APARTMENT_ID")
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "apartmentId", scope=Apartment.class)
+	@JsonIdentityReference(alwaysAsId = true)
 	//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="apartmentId", scope = Apartment.class)
 	private Apartment apartment;
 
