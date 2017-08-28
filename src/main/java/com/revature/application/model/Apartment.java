@@ -36,7 +36,8 @@ public class Apartment {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "COMPLEX_ID")
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "complexId")
+	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "complexId")
+	@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id", scope = ApartmentComplex.class)
 	private ApartmentComplex complex;
 
 	public Apartment() {
