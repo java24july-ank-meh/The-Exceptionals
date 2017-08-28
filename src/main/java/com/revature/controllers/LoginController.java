@@ -84,10 +84,56 @@ public class LoginController {
 			System.out.println(line);
 		}
 		br.close();
-		
-		
-		System.out.println(email);
 
 	return ResponseEntity.ok("{\"status\":true}"); 
 	}
+	
+	@RequestMapping(value = "/channel/create", method = RequestMethod.POST)
+	public ResponseEntity<Object> createChannel(String name, HttpSession session) throws IOException{
+		
+		
+		String requestUrl = "https://slack.com/api/channels.create?token=" +"xoxp-229600595489-230131963906-232810897220-39c853254fde441c05938e6b9920c8da" +"&name=" + name;
+		URL url = new URL(requestUrl);
+		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+		httpCon.setDoOutput(true);
+		httpCon.setRequestMethod("GET");
+/*		httpCon.setRequestProperty("token", token);
+		httpCon.setRequestProperty("email", email);*/
+		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+		StringBuilder sb = new StringBuilder();
+		String line;
+		while ((line = br.readLine()) != null) {
+			sb.append(line + "\n");
+			System.out.println(line);
+		}
+		br.close();
+		
+
+	return ResponseEntity.ok("{\"status\":true}"); 
+	}
+	
+	@RequestMapping(value = "/channel/adduser", method = RequestMethod.POST)
+	public ResponseEntity<Object> InviteToChannel(String name, HttpSession session) throws IOException{
+		
+		
+		String requestUrl = "https://slack.com/api/users.list?token=xoxp-229600595489-230131963906-232810897220-39c853254fde441c05938e6b9920c8da";
+		URL url = new URL(requestUrl);
+		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+		httpCon.setDoOutput(true);
+		httpCon.setRequestMethod("GET");
+/*		httpCon.setRequestProperty("token", token);
+		httpCon.setRequestProperty("email", email);*/
+		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+		StringBuilder sb = new StringBuilder();
+		String line;
+		while ((line = br.readLine()) != null) {
+			sb.append(line + "\n");
+			System.out.println(line);
+		}
+		br.close();
+		
+
+	return ResponseEntity.ok("{\"status\":true}"); 
+	}
+	
 }
