@@ -79,7 +79,8 @@ angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdB
 
 	      var onSuccess = function (data, status, headers, config) {
 	    	  $mdToast.show($mdToast.simple().textContent("Resident Removed").position('top right'));
-	          $state.go('home.showComplex', { complexId: $scope.apartment.complexId});
+	          $state.go('home.showApartment', { apartmentId: $scope.apartment.apartmentId});
+	          $state.reload();
 	      };
 
 	      var onError = function (data, status, headers, config) {
@@ -90,6 +91,19 @@ angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdB
 	      	.success(onSuccess)
 	      	.error(onSuccess);
 
+	  };
+	  
+  $scope.showAssignResidentForm = function(ev) {
+		  
+		  $mdDialog.show({
+			  controller: 'assignResidentController',
+			  templateUrl: '/../../Apartments/Assign/assign.html',
+			  parent: angular.element(document.body),
+			  targetEvent: ev,
+			  clickOutsideToClose:true,
+			  fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+		  });
+			  
 	  };
   
 
