@@ -11,7 +11,7 @@ angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdB
         	 $scope.error = true;
          }
          else
-        	$http.get("/api/ApartmentComplexes/"+$scope.apartment.complex.complexId).then(function(response) {
+        	$http.get("/api/ApartmentComplexes/"+$scope.apartment.complex).then(function(response) {
         	 $scope.complex = response.data;
          });
          
