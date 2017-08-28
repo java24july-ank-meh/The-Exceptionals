@@ -14,6 +14,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -36,8 +37,10 @@ public class Apartment {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "COMPLEX_ID")
-	//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "complexId")
-	@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="@id", scope = ApartmentComplex.class)
+	@JsonIdentityInfo(scope=ApartmentComplex.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "complexId")
+	@JsonIdentityReference(alwaysAsId = true)
+	//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="complexId", scope = ApartmentComplex.class)
+	
 	private ApartmentComplex complex;
 
 	public Apartment() {
