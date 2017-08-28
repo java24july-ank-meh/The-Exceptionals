@@ -34,7 +34,7 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
      $http.get("/api/ApartmentComplexes/"+$stateParams.complexId).then(function(response) {
 
          $scope.complex = response.data;
-         
+         console.log($scope.complex);
          if($scope.complex === ''){
         	 $mdToast.show($mdToast.simple().textContent("Complex Not Found").position('top right'));
         	 $scope.error = true;
