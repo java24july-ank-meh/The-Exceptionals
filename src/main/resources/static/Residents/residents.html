@@ -3,7 +3,7 @@
 <div class="md-toolbar-tools">
 	<md-button ng-click="toggleSidenav('left')" hide-gt-md
 		aria-label="Menu"> <ng-md-icon icon="menu"></ng-md-icon> </md-button>
-	<h3>Complexes - Edit Complex</h3>
+	<h3>Residents</h3>
 	<span flex></span>
 	<md-button aria-label="Search" ng-click="showSearch = !showSearch">
 	<ng-md-icon icon="search"></ng-md-icon> </md-button>
@@ -30,23 +30,23 @@
 
 <md-content class="md-padding">
 
-<table ng-table="residentsTable" class="table" show-filter="true">
+<table ng-table="residentsTable" class="table table-condensed table-bordered table-striped" show-filter="true">
 	<tr ng-repeat="resident in $data"> <!-- ui-sref="home.showResident({residentId: resident.residentId})"> -->
 
-		<td title="'First Name'" filter="{ fname: 'text'}" sortable="'fname'">
+		<td data-title="'First Name'" filter="{ firstName: 'text'}" sortable="'firstName'">
 			{{resident.firstName}}</td>	
-		<td title="'Last Name'" filter="{ lname: 'text'}" sortable="'lname'">
+		<td data-title="'Last Name'" filter="{ lastName: 'text'}" sortable="'lastName'">
 			{{resident.lastName}}</td>
-		<td title="'Email'" filter="{ email: 'text'}" sortable="'email'">
+		<td data-title="'Email'" filter="{ email: 'text'}" sortable="'email'">
 			{{resident.email}}</td>
-		<td title="'Room'" filter="{ room: 'text'}" sortable="'room'">
+		<td data-title="'Room'" filter="{ 'apartment.apartmentNumber': 'text'}" sortable="'apartmentNumber'">
 			{{resident.apartment.apartmentNumber}}</td>
-		<td title="'Complex'" filter="{ complex: 'text'}" sortable="'complex'">
+		<td data-title="'Complex'" filter="{ 'apartment.complex.name': 'select'}" sortable="'complex'" filter-data="complexes">
 			{{resident.apartment.complex.name}}</td>
 		
 	</tr>
 
 </table>
-
+{{complexes}}
 </md-content>
 

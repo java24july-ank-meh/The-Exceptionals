@@ -33,7 +33,8 @@ public class Resident {
 	private int apartmentId;
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="APARTMENT_ID")
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "apartmentId")
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "apartmentId", scope=Apartment.class)
+	//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="apartmentId", scope = Apartment.class)
 	private Apartment apartment;
 
 	public Resident() {
