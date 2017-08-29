@@ -25,8 +25,11 @@ public class ApartmentComplex {
 	private String email;
 	private String phone;
 	private String name;
+	private String address;
+	private String photo;
 	
 	
+
 	@OneToMany(mappedBy="complex", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Apartment> apartments;
 
@@ -35,13 +38,15 @@ public class ApartmentComplex {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ApartmentComplex(int complexId, String website, String email, String phone, String name) {
+	public ApartmentComplex(int complexId, String website, String email, String phone, String name, String address, String photo) {
 		super();
 		this.complexId = complexId;
 		this.website = website;
 		this.email = email;
 		this.phone = phone;
 		this.name = name;
+		this.address = address;
+		this.photo = photo;
 	}
 
 	public int getComplexId() {
@@ -84,6 +89,28 @@ public class ApartmentComplex {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+
+	public String getPhoto()
+	{
+		return photo;
+	}
+
+	public void setPhoto(String photo)
+	{
+		this.photo = photo;
+	}
+
+	public String getAddress()
+	{
+		return address;
+	}
+
+	public void setAddress(String address)
+	{
+		this.address = address;
+	}
+
 	
 	public List<Apartment> getApartments() {
 		return this.apartments;
