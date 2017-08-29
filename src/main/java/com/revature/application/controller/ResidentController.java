@@ -1,5 +1,13 @@
 package com.revature.application.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +42,38 @@ public class ResidentController {
 	public ResponseEntity<Object> createNewResident(@RequestBody Resident resident){
 		Apartment apartment = apartmentService.findByApartmentId(1);
 		resident.setApartment(apartment);
-		System.out.println("hi");
+		System.out.println("slack api");
+		
+		String requestUrl = "https://slack.com/api/users.admin.invite?token=" +
+		"xoxp-229600595489-230131963906-232810897220-39c853254fde441c05938e6b9920c8da" +"&email=" +resident.getEmail() +
+		"&first_name=" + resident.getFirstName() + "&last_name=" + resident.getLastName();
+		try {
+		URL url = new URL(requestUrl);
+		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+		httpCon.setDoOutput(true);
+		httpCon.setRequestMethod("GET");
+		
+		//View Slack response
+		/*BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+		StringBuilder sb = new StringBuilder();
+		String line;
+		while ((line = br.readLine()) != null) {
+			sb.append(line + "\n");
+			System.out.println(line);
+		}
+		br.close();
+		*/
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return ResponseEntity.ok(residentService.createResident(resident) );
 	}
 	

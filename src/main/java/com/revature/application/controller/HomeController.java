@@ -18,9 +18,9 @@ public class HomeController {
     
     @RequestMapping("/api/sidenav")
     public ResponseEntity<Object> displaySideNav(HttpServletRequest req) {
-    	Manager manager = (Manager) req.getSession().getAttribute("manager");
-    	if (manager != null)
-    		return ResponseEntity.ok(manager);
-    	return ResponseEntity.ok(null);
+    	String user = (String) req.getSession().getAttribute("user");
+    	if (user != null)
+    		return ResponseEntity.ok(user);
+    	return ResponseEntity.ok("Unknown User");
     }
 }

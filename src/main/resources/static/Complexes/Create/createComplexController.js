@@ -1,6 +1,8 @@
 angular.module('rhmsApp').controller('createComplexController', ['$scope', '$http', '$mdDialog','$state','$mdToast', function($scope, $http, $mdDialog, $state, $mdToast) {
 
-
+	$scope.place = {};
+	$scope.complex = {};
+	
     $scope.newComplexFormSubmit = function () {
 
         var onSuccess = function (data, status, headers, config) {
