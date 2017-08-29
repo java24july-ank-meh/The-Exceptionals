@@ -43,7 +43,7 @@
 			{{resident.email}}</td>
 		<td data-title="'Room'" filter="{ 'apartment.apartmentNumber': 'text'}" sortable="'apartmentNumber'">
 			{{resident.apartmentNumber}}</td>
-		<td data-title="'Complex'" filter="{ 'complex.name': 'select'}" sortable="'complex'" filter-data="complexes">
+		<td data-title="'Complex'" filter="{ 'complex.name': 'text'}" sortable="'complex'">
 			{{resident.complexName}}</td>
 		<td>
 			<md-button class="md-raised" data-title="'Resident Id'" ui-sref="home.showResident({residentId: resident.residentId})">Profile</md-button>

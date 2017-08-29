@@ -13,6 +13,7 @@ angular.module('rhmsApp').controller('residentsController', ['$scope', '$mdBotto
 		$scope.residentsTable = new NgTableParams({}, { dataset: response.data});    
 		//gonna have to make a new call base on ids to retrieve parents.
     });*/
+	//$scope.test = [{id: "", title: ""}, {id: 'Moroni', title: 'Moroni'}, {id: 'Enos', title: 'Enos'}, {id: 'Nephi', title: 'Nephi'}];
 	$http.get("/api/ApartmentComplexes").then(function(response) {
 		$scope.complexes = [];
 		$scope.residentData = [];
