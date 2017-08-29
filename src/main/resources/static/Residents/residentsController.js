@@ -1,4 +1,5 @@
-angular.module('rhmsApp').controller('residentsController', function ($scope, $filter, NgTableParams, $http) {
+angular.module('rhmsApp').controller('residentsController', ['$scope', '$mdBottomSheet','$http', '$mdDialog','$stateParams','$state' ,'$mdToast', '$filter', 'NgTableParams', function($scope, $mdBottomSheet,$http, $mdDialog, $stateParams, $state, $mdToast, $filter, NgTableParams) {
+		//function ($scope, $filter, NgTableParams, $http) {
 	
 	
 	/*$scope.residentsTable = new NgTableParams({}, { getData: function(response) {
@@ -45,8 +46,8 @@ angular.module('rhmsApp').controller('residentsController', function ($scope, $f
 	$scope.showCreateResidentForm = function(ev) {
 		  
 		  $mdDialog.show({
-			  controller: 'assignResidentController',
-			  templateUrl: '/../../Apartments/Assign/assign.html',
+			  controller: 'createResidentController',
+			  templateUrl: '/../../Residents/create/createResident.html',
 			  parent: angular.element(document.body),
 			  targetEvent: ev,
 			  clickOutsideToClose:true,
@@ -55,4 +56,4 @@ angular.module('rhmsApp').controller('residentsController', function ($scope, $f
 			  
 	  };
 	
-});
+}]);
