@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.application.model.Apartment;
+import com.revature.application.model.ApartmentComplex;
 import com.revature.application.model.Resident;
 import com.revature.application.service.ApartmentService;
 import com.revature.application.service.ResidentService;
@@ -30,7 +31,9 @@ public class ResidentController {
 	
 	@RequestMapping(value ="Residents/create", method=RequestMethod.POST)
 	public ResponseEntity<Object> createNewResident(@RequestBody Resident resident){
-
+		Apartment apartment = apartmentService.findByApartmentId(1);
+		resident.setApartment(apartment);
+		System.out.println("hi");
 		return ResponseEntity.ok(residentService.createResident(resident) );
 	}
 	
