@@ -66,6 +66,10 @@ public class ApartmentController {
 	public ResponseEntity<Object> deleteApartment(@PathVariable("id") int id)
 	{
 		Apartment apartment = apartmentService.findByApartmentId(id);
+		apartment.setComplex(null);
+		
+		apartmentService.update(apartment);
+
 		
 		if(apartment != null)
 			apartmentService.delete(apartment);

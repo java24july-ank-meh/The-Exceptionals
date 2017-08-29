@@ -39,8 +39,6 @@ public class Apartment {
 	@JoinColumn(name = "COMPLEX_ID")
 	@JsonIdentityInfo(scope=ApartmentComplex.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "complexId")
 	@JsonIdentityReference(alwaysAsId = true)
-	//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="complexId", scope = ApartmentComplex.class)
-	
 	private ApartmentComplex complex;
 
 	public Apartment() {
@@ -48,14 +46,13 @@ public class Apartment {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Apartment(Integer apartmentId, int apartmentNumber, int occupancy, int capacity, Set<Resident> residents,
-			ApartmentComplex complex) {
+	public Apartment(Integer apartmentId, int apartmentNumber, int occupancy, int capacity) {
 		super();
 		this.apartmentId = apartmentId;
 		this.apartmentNumber = apartmentNumber;
 		this.occupancy = occupancy;
 		this.capacity = capacity;
-		this.residents = residents;
+		
 	}
 
 	public Integer getApartmentId() {
