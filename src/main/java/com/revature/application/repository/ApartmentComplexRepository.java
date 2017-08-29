@@ -8,5 +8,5 @@ import com.revature.application.model.ApartmentComplex;
 
 public interface ApartmentComplexRepository extends JpaRepository<ApartmentComplex, Integer> {
 	public ApartmentComplex findByComplexId(int id);
-	
+
 }
