@@ -27,8 +27,8 @@ import javax.persistence.ManyToOne;
 public class Apartment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer apartmentId;
-	private int apartmentNumber;
+	private long apartmentId;
+	private String apartmentNumber;
 	private int occupancy;
 	private int capacity;
 
@@ -48,29 +48,29 @@ public class Apartment {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Apartment(Integer apartmentId, int apartmentNumber, int occupancy, int capacity, Set<Resident> residents,
+	public Apartment(/*Integer apartmentId,*/ String apartmentNumber, int occupancy, int capacity, Set<Resident> residents,
 			ApartmentComplex complex) {
 		super();
-		this.apartmentId = apartmentId;
+		/*this.apartmentId = apartmentId;*/
 		this.apartmentNumber = apartmentNumber;
 		this.occupancy = occupancy;
 		this.capacity = capacity;
 		this.residents = residents;
 	}
 
-	public Integer getApartmentId() {
+	public long getApartmentId() {
 		return this.apartmentId;
 	}
 
-	public void setApartmentId(Integer apartmentId) {
+	public void setApartmentId(long apartmentId) {
 		this.apartmentId = apartmentId;
 	}
 
-	public int getApartmentNumber() {
+	public String getApartmentNumber() {
 		return this.apartmentNumber;
 	}
 
-	public void setApartmentNumber(int apartmentNumber) {
+	public void setApartmentNumber(String apartmentNumber) {
 		this.apartmentNumber = apartmentNumber;
 	}
 

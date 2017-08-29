@@ -20,12 +20,12 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class ApartmentComplex {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int complexId;
+	private long complexId;
 	private String website;
 	private String email;
 	private String phone;
 	private String name;
-	
+	private String address;
 	
 	@OneToMany(mappedBy="complex", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Apartment> apartments;
@@ -35,7 +35,7 @@ public class ApartmentComplex {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ApartmentComplex(int complexId, String website, String email, String phone, String name) {
+	public ApartmentComplex(long complexId, String website, String email, String phone, String name) {
 		super();
 		this.complexId = complexId;
 		this.website = website;
@@ -44,11 +44,11 @@ public class ApartmentComplex {
 		this.name = name;
 	}
 
-	public int getComplexId() {
+	public long getComplexId() {
 		return this.complexId;
 	}
 
-	public void setComplexId(int complexId) {
+	public void setComplexId(long complexId) {
 		this.complexId = complexId;
 		
 	}

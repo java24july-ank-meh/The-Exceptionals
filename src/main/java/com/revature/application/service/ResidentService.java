@@ -24,11 +24,11 @@ public class ResidentService {
 	}
 	
 	public Integer createResident(Resident resident) {
-		return residentRepository.saveAndFlush(resident).getResidentId();
+		return (int)residentRepository.saveAndFlush(resident).getResidentId();
 	}
 	
 	public Integer updateResident(Resident resident) {
-		return residentRepository.saveAndFlush(resident).getResidentId();
+		return (int) residentRepository.saveAndFlush(resident).getResidentId();
 	}
 }
 
