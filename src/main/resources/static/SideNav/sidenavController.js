@@ -34,5 +34,6 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
     
     $http.get("/api/sidenav").then(function(response) {
         $scope.userinfo = response.data;
+        $scope.isManager = $scope.userinfo.isManager ? "Manager" : "Resident";
     });
 }]);
