@@ -36,7 +36,7 @@ angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdB
 
       var onSuccess = function (data, status, headers, config) {
     	  $mdToast.show($mdToast.simple().textContent("Apartment Deleted").position('top right'));
-          $state.go('home.showComplex', { complexId: $scope.apartment.complexId});
+          $state.go('home.showComplex', { complexId: $scope.apartment.complex});
       };
 
       var onError = function (data, status, headers, config) {
