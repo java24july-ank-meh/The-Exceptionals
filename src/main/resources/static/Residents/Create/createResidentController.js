@@ -5,7 +5,10 @@ angular.module('rhmsApp').controller('createResidentController', ['$scope', '$ht
     .then(function(response) {
         $scope.residents = response.data;
     });
-
+    /*$http.get("/api/Apartments/1").then(function(response) {
+    	$scope.unnassignedApartment = response.data; //assign to the unnassigned complex
+    	console.log($scope.unnassignedApartment)
+    });*/
 	
 	
     $scope.createResidentFormSubmit = function () {
@@ -21,9 +24,8 @@ angular.module('rhmsApp').controller('createResidentController', ['$scope', '$ht
         	$mdToast.show($mdToast.simple().textContent("An Error Occured").position('top right'));
         }
         
-        //uncomment when unnassigned apartment is created
-        //$scope.resident.apartmentId = 0; //assign to the unnassigned complex
-
+        //$scope.resident.apartment = $scope.unnassignedApartment;
+        //console.log($scope.resident);
         $http.post('/api/Residents/create', $scope.resident)
             .success(onSuccess)
             .error(onError);
