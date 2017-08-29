@@ -51,10 +51,11 @@
             
             
             <md-card ng-if="complex">
+            
                 <md-toolbar class="md-hue-1" >
                     <div class="md-toolbar-tools">
                         <md-card-title-text ui-sref="home.editComplex({complexId: complex.id})" >
-                            <span class="md-headline">Apartment {{apartment.apartmentNumber}}</span>
+                            <span class="md-headline">Apartment {{apartment.apartmentNumber}} - {{complex.name}}</span>
                         </md-card-title-text>
                         <md-input-container md-theme="input" flex>
                             <label>&nbsp;</label>
@@ -68,7 +69,7 @@
                     </div>
                 </md-toolbar>
                 <md-divider></md-divider>
-
+				<img ng-src="{{complex.photo}}" class="md-card-image" alt="{{complex.name}}.img" >
                 <md-card-content layout-gt-md="row" layout="column" >
                     <md-list class="md-dense" flex="50">
                         <md-list-item class="md-2-line" >

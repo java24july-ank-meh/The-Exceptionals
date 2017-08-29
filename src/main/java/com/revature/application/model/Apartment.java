@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -86,7 +87,7 @@ public class Apartment {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-
+	
 	public void setComplex(ApartmentComplex complex) {
 		this.complex = complex;
 	}
@@ -94,7 +95,7 @@ public class Apartment {
 	public ApartmentComplex getComplex() {
 		return complex;
 	}
-
+	
 	public Set<Resident> getResidents() {
 		return this.residents;
 	}
