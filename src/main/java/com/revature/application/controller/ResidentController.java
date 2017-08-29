@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.application.model.Apartment;
+import com.revature.application.model.ApartmentComplex;
 import com.revature.application.model.Resident;
 import com.revature.application.service.ApartmentService;
 import com.revature.application.service.ResidentService;
@@ -43,8 +44,23 @@ public class ResidentController {
 		
 		resident.setApartment(apartment);
 		
-		return ResponseEntity.ok(residentService.updateResident(resident) );
+		return ResponseEntity.ok(residentService.updateResident(resident));
 		
+	}
+	
+	@RequestMapping(value="Residents/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Object> updateResident(@PathVariable("id") int id, @RequestBody Resident resident){
+
+	
+		Resident oldRes = residentService.findByResidentId(id);
+		Apartment newApt = oldRes.getApartment();
+		ApartmentComplex aptCom = newApt.getComplex();
+		
+		newApt.setComplex(aptCom);
+		resident.setApartment(newApt);
+		
+		
+		return ResponseEntity.ok(residentService.updateResident(resident));
 	}
 	
 	

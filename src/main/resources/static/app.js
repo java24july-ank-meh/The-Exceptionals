@@ -38,6 +38,11 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
             templateUrl: 'Residents/Show/ShowResident.html',
             controller: 'showResidentController'
         })
+        .state('home.editResident',{
+        	url:'/residents/edit/:residentId',
+        	templateUrl:'Residents/Edit/edit.html',
+        	controller: 'editResidentController'
+        })
         .state('home.createComplex', {
             url: '/complexes/create',
             templateUrl: 'Complexes/Create/create.html',
