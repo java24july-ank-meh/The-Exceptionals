@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -85,8 +86,18 @@ public class ResidentController {
 		
 		resident.setApartment(apartment);
 		
-		return ResponseEntity.ok(residentService.updateResident(resident) );
+		return ResponseEntity.ok(residentService.updateResident(resident));
 		
+	}
+	
+	@PutMapping("Residents/{id}")
+	public ResponseEntity<Object> updateResident(@PathVariable("id") int id, @RequestBody Resident resident){
+		System.out.println("im here right");
+		Apartment apartment = apartmentService.findByApartmentId(id);
+		resident.setApartment(apartment);
+		
+		
+		return ResponseEntity.ok(residentService.updateResident(resident));
 	}
 	
 	
