@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.revature.mockmodels.User;
 
@@ -47,8 +48,10 @@ public class LoginController {
 		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 		JsonObject jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
 		
-		String userId = jobj.get("user").getAsJsonObject().get("id").getAsString();
-		System.out.println(userId);
+		JsonObject user = jobj.get("user").getAsJsonObject();//.get("id").getAsString();
+		user.addProperty("isManager", true);
+		//String userName = jobj.get("user").getAsJsonObject().get("name").getAsString();
+		System.out.println(user);
 		/*System.out.println(br.readLine());
 		StringBuilder sb = new StringBuilder();
 		String line;
@@ -59,10 +62,10 @@ public class LoginController {
 		//line = sb.toString();
 		 HttpSession session = req.getSession(true);
 		 //System.out.println(line.user);
-        session.setAttribute("id", userId);
-        User user = new User("Person", "One", "1@gmail.com");
+        session.setAttribute("user", user.toString());
+        //User user = new User("Person", "One", "1@gmail.com");
         
-		return ResponseEntity.ok(user);
+		return ResponseEntity.ok(user.toString());
         
 	}
 }
