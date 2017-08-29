@@ -26,7 +26,7 @@ angular.module('rhmsApp').controller('createResidentController', ['$scope', '$ht
         
         //$scope.resident.apartment = $scope.unnassignedApartment;
         //console.log($scope.resident);
-        $http.post('/api/Residents/create', $scope.resident)
+        $http.post('/api/Residents/create' + $scope.resident.apartment.id, $scope.resident)
             .success(onSuccess)
             .error(onError);
 

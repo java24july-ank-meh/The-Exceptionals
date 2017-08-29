@@ -19,8 +19,9 @@ angular.module('rhmsApp').controller('editResidentController', ['$scope', '$http
 		var onError = function(data, status, headers, config) {
 			$mdToast.show($mdToast.simple().textContent("An Error Occured").position('top right'));
 		};
-		
-		$http.put('/api/Residents/'+$stateParams.residentId, $scope.resident)
+		$scope.apartment = $scope.resident.apartment;
+		delete $scope.resident.apartment;
+		$http.put('/api/Residents/'+$scope.apartment, $scope.resident)
 			.success(onSuccess)
 			.error(onError);
 		
