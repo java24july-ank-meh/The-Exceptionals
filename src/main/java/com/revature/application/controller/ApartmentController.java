@@ -46,8 +46,11 @@ public class ApartmentController {
 	@RequestMapping(value ="ApartmentComplexes/{id}/Apartments/create", method=RequestMethod.POST)
 	public ResponseEntity<Object> createApartment(@PathVariable("id") int id, @RequestBody Apartment apartment)
 	{
+
 		ApartmentComplex complex = apartmentComplexService.findByComplexId(id);
 		apartment.setComplex(complex);
+
+		String channelName =  complex.getName()+ new Integer(apartment.getApartmentNumber()).toString(); 
 		
 		return ResponseEntity.ok(apartmentService.save(apartment));
 		
