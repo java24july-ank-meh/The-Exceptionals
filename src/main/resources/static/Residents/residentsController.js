@@ -38,7 +38,7 @@ angular.module('rhmsApp').controller('residentsController', ['$scope', '$mdBotto
 		  
 		  $mdDialog.show({
 			  controller: 'createResidentController',
-			  templateUrl: '/../../Residents/create/createResident.html',
+			  templateUrl: '/../../Residents/Create/createResident.html',
 			  parent: angular.element(document.body),
 			  targetEvent: ev,
 			  clickOutsideToClose:true,
