@@ -2,6 +2,10 @@
     <ng-md-icon icon="add"></ng-md-icon>
 </md-button>
 
+<form action="${pageContext.request.contextPath}/logout" method="post" style="width: 129px; ">
+    <input type="submit" value="Logout">
+</form>
+
 <md-toolbar ng-show="!showSearch">
     <div class="md-toolbar-tools">
         <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
@@ -40,7 +44,7 @@
     </div>
 </md-toolbar>
 
-<md-content class="md-padding" >
+<md-content class="md-padding" ng-if="rootUser.isManager">
     <div layout layout-wrap layout-gt-sm="row" layout="column" >
         <div flex="40" flex-sm="100" flex-xs="100" class="container">
              <div layout="row" layout-sm="column" layout-align="space-around" ng-if="!apartments && !error">

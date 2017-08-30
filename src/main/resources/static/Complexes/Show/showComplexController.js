@@ -1,5 +1,6 @@
 angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', '$state','$mdToast', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams, $state, $mdToast) {
 	$scope.error = false;
+	$scope.announcement  = '';
 	
 	  $scope.showConfirm = function(deleteComplex) {
 
@@ -34,10 +35,14 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
      $http.get("/api/ApartmentComplexes/"+$stateParams.complexId).then(function(response) {
 
          $scope.complex = response.data;
-         console.log($scope.complex);
+         
          if($scope.complex === ''){
         	 $mdToast.show($mdToast.simple().textContent("Complex Not Found").position('top right'));
         	 $scope.error = true;
+         } else {
+        	 
+        	 var parsedAddress = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyC9rOv9rx7A2EL0oOZGXkhuvkJYIVfkqGA&origin="+$scope.complex.address.split(' ').join('+')+"&destination=11730+Plaza+America+Drive,+Reston,+VA&avoid=tolls|highways";
+        	 document.getElementById('complexMap').src = parsedAddress;
          }
          
      });
@@ -53,6 +58,12 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
 			  fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
 		  });
 			  
+	  };
+	  
+	  $scope.sendAnnouncementFormSubmit = function(event){
+		  
+		  alert($scope.announcement);
+		  
 	  };
 
 }]);

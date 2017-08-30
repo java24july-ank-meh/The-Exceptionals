@@ -7,18 +7,19 @@
             
             <md-card ng-if="resident">
             	<img ng-src="http://www.androidguys.com/wp-content/uploads/2013/07/wlp_retro-air_C.jpg" class="md-card-image" alt="Washed Out">
+            	<!-- <img ng-src="{{rootUser.image_1024}}" class="md-card-image" alt="Washed Out" ng-if="rootUser" width="20" height="20"> -->
                 <md-toolbar class="md-hue-1" >
                     <div class="md-toolbar-tools">
                         <md-card-title-text>
                             <span class="md-headline">{{resident.firstName}} {{resident.lastName}}</span>
                         </md-card-title-text>
-                        <md-input-container md-theme="input" flex>
+                        <md-input-container md-theme="input" flex>	
                             <label>&nbsp;</label>
                         </md-input-container>
-                        <md-button id="edit" class="ng-icon-button" ng-click="showEditResidentForm()">
+                        <md-button id="edit" class="ng-icon-button" ng-click="showEditResidentForm()"  ng-if="rootUser.isManager || rootResident.residentId == resident.residentId">
                             <ng-md-icon icon="edit"></ng-md-icon>
                         </md-button>
-                        <md-button class="ng-icon-button" ng-click="showConfirm()">
+                        <md-button class="ng-icon-button" ng-click="showConfirm()" ng-if="rootUser.isManager">
                             <ng-md-icon icon="delete"></ng-md-icon>
                         </md-button>
                     </div>

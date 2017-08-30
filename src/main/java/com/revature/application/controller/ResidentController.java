@@ -10,6 +10,8 @@ import java.net.URL;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -38,12 +40,12 @@ public class ResidentController {
 		return ResponseEntity.ok(residentService.findAll());
 	}
 	
-	@RequestMapping(value ="Residents/create", method=RequestMethod.POST)
+	@RequestMapping(value ="Residents/Create", method=RequestMethod.POST)
 	public ResponseEntity<Object> createNewResident(@RequestBody Resident resident){
 		System.out.println("slack api");
 		
 		String requestUrl = "https://slack.com/api/users.admin.invite?token=" +
-		"xoxp-229600595489-230131963906-232810897220-39c853254fde441c05938e6b9920c8da" +"&email=" +resident.getEmail() +
+		"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b" +"&email=" +resident.getEmail() +
 		"&first_name=" + resident.getFirstName() + "&last_name=" + resident.getLastName();
 		try {
 		URL url = new URL(requestUrl);
@@ -52,15 +54,11 @@ public class ResidentController {
 		httpCon.setRequestMethod("GET");
 		
 		//View Slack response
-		/*BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 		StringBuilder sb = new StringBuilder();
 		String line;
-		while ((line = br.readLine()) != null) {
-			sb.append(line + "\n");
-			System.out.println(line);
-		}
-		br.close();
-		*/
+		System.out.println(br.readLine());
+		
 		} catch (ProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,6 +115,15 @@ public class ResidentController {
 	public ResponseEntity<Object> displayResident(@PathVariable("email") String email) {
 		email += ".com";//the .com is lost here because of url
 		return ResponseEntity.ok(residentService.findByEmail(email));
+	}
+	
+	@DeleteMapping("Residents/{id}")
+	public void deleteResident(@PathVariable("id") int id){
+		Resident resident = residentService.findByResidentId(id);
+		resident.removeApartment();
+		residentService.deleteResident(resident);
+		//return ResponseEntity.ok();
+		
 	}
 	
 	

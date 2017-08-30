@@ -15,7 +15,7 @@ angular.module('rhmsApp').controller('createResidentController', ['$scope', '$ht
 
         var onSuccess = function (data, status, headers, config) {
         	$mdToast.show($mdToast.simple().textContent("Resident Created").position('top right'));
-            $state.go('home.residents');
+            $state.go('home.showResident', { residentId: data});
             $scope.hide();
             
         };
@@ -26,7 +26,7 @@ angular.module('rhmsApp').controller('createResidentController', ['$scope', '$ht
         
         //$scope.resident.apartment = $scope.unnassignedApartment;
         //console.log($scope.resident);
-        $http.post('/api/Residents/create' + $scope.resident.apartment.id, $scope.resident)
+        $http.post('/api/Residents/Create', $scope.resident)
             .success(onSuccess)
             .error(onError);
 

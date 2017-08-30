@@ -25,7 +25,7 @@ public class ApartmentComplexService {
 	}
 	
 	public int save(ApartmentComplex complex){
-		return apartmentComplexRepository.saveAndFlush(complex).getComplexId();
+		return (int)apartmentComplexRepository.saveAndFlush(complex).getComplexId();
 	}
 	
 	public void delete(ApartmentComplex complex) {

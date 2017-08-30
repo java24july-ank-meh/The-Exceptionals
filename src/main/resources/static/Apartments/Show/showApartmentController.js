@@ -1,4 +1,4 @@
-angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdBottomSheet','$http', '$mdDialog','$stateParams','$state' ,'$mdToast', function($scope, $mdBottomSheet,$http, $mdDialog, $stateParams, $state, $mdToast ) {
+angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdBottomSheet','$http', '$mdDialog','$stateParams','$state' ,'$mdToast', '$rootScope', function($scope, $mdBottomSheet,$http, $mdDialog, $stateParams, $state, $mdToast, $rootScope ) {
 
 	$scope.error = false;
 	
@@ -104,6 +104,12 @@ angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdB
 			  fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
 		  });
 			  
+	  };
+	  
+$scope.sendAnnouncementFormSubmit = function(event){
+		  
+		  alert($scope.announcement);
+		  
 	  };
   
 
