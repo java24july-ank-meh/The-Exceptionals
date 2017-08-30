@@ -51,7 +51,7 @@ public class LoginController {
 		JsonObject user = jobj.get("user").getAsJsonObject();//.get("id").getAsString();
 		String id = jobj.get("user").getAsJsonObject().get("id").getAsString();
 		
-		redirectUrl = "https://slack.com/api/users.info?token=xoxp-229600595489-230131963906-233040140545-7e731ba52127f9adaadee62b925ac827" +
+		redirectUrl = "https://slack.com/api/users.info?token=xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b" +
 		"&user="+ id;
 		
 		url = new URL(redirectUrl);
@@ -86,4 +86,4 @@ public class LoginController {
 		return ResponseEntity.ok(user.toString());
         
 	}
-}
+}	
