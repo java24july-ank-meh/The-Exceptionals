@@ -15,6 +15,19 @@
     </md-toolbar>
     <md-divider></md-divider>
     <md-list>
+    	<div ng-if="!userinfo.isManager">
+    		<md-list-item ng-repeat="item in residentMenu">
+            <a ui-sref="{{item.link}}" ui-sref-active="active" style="text-decoration: none; color:#333;">
+                <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                    <div class="inset">
+                        <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
+                    </div>
+                    <div class="inset">{{item.title}}</div>
+                </md-item-content>
+            </a>
+        </md-list-item>
+    	</div>
+        <div ng-if="userinfo.isManager">
         <md-list-item ng-repeat="item in menu">
             <a ui-sref="{{item.link}}" ui-sref-active="active" style="text-decoration: none; color:#333;">
                 <md-item-content md-ink-ripple layout="row" layout-align="start center">
@@ -38,6 +51,8 @@
                 </md-item-content>
             </a>
         </md-list-item>
+        </div>
+        <md-divider></md-divider>
     </md-list>
 </md-sidenav>
 
