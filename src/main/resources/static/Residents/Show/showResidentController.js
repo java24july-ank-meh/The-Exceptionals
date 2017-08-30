@@ -1,4 +1,4 @@
-angular.module('rhmsApp').controller('showResidentController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', '$state', '$rootScope', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams, $state, $rootScope) {
+angular.module('rhmsApp').controller('showResidentController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', '$state', '$rootScope', '$mdToast', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams, $state, $rootScope, $mdToast) {
 	
 	
 	  $scope.showConfirm = function(deleteResident) {
@@ -18,15 +18,15 @@ angular.module('rhmsApp').controller('showResidentController', ['$scope', '$mdBo
     $scope.deleteResident = function () {
 
         var onSuccess = function (data, status, headers, config) {
-            alert("Resident deleted.");
+        	$mdToast.show($mdToast.simple().textContent("Resident Deleted").position('top right'));
             $state.go('home.residents');
         };
 
         var onError = function (data, status, headers, config) {
-            alert('Error occured.');
+        	$mdToast.show($mdToast.simple().textContent("Error occured").position('top right'));
         };
 
-        $http.delete('/api/Residents/', $stateParams.residentId)
+        $http.delete('/api/Residents/'+ $scope.resident.residentId)
         	.success(onSuccess)
         	.error(onError);
 

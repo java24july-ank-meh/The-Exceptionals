@@ -10,6 +10,7 @@ import java.net.URL;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -120,12 +121,12 @@ public class ResidentController {
 		return ResponseEntity.ok(residentService.findByEmail(email));
 	}
 	
-	@DeleteMapping("Residents/")
-	public ResponseEntity<Object> deleteResident(@RequestBody int id){
+	@DeleteMapping("Residents/{id}")
+	public void deleteResident(@PathVariable("id") int id){
 		Resident resident = residentService.findByResidentId(id);
 		resident.removeApartment();
 		residentService.deleteResident(resident);
-		return ResponseEntity.ok("Resident deleted.");
+		//return ResponseEntity.ok();
 		
 	}
 	
