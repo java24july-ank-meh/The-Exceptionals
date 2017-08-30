@@ -35,22 +35,17 @@ public class ResidentController {
 	@Autowired
 	ApartmentService apartmentService;
 	
-	
-	
 	@GetMapping("Residents")
 	public ResponseEntity<Object> displayResidents() {
 		return ResponseEntity.ok(residentService.findAll());
 	}
 	
-	@RequestMapping(value ="Residents/create", method=RequestMethod.POST)
+	@RequestMapping(value ="Residents/Create", method=RequestMethod.POST)
 	public ResponseEntity<Object> createNewResident(@RequestBody Resident resident){
-		Apartment apartment = apartmentService.findByApartmentId(234);
-		resident.setApartment(apartment);
-
 		System.out.println("slack api");
 		
 		String requestUrl = "https://slack.com/api/users.admin.invite?token=" +
-		"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b" +"&email=" +resident.getEmail() +
+		"xoxp-229600595489-230131963906-232810897220-39c853254fde441c05938e6b9920c8da" +"&email=" +resident.getEmail() +
 		"&first_name=" + resident.getFirstName() + "&last_name=" + resident.getLastName();
 		try {
 		URL url = new URL(requestUrl);
@@ -59,11 +54,15 @@ public class ResidentController {
 		httpCon.setRequestMethod("GET");
 		
 		//View Slack response
-		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+		/*BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 		StringBuilder sb = new StringBuilder();
 		String line;
-		System.out.println(br.readLine());
-		
+		while ((line = br.readLine()) != null) {
+			sb.append(line + "\n");
+			System.out.println(line);
+		}
+		br.close();
+		*/
 		} catch (ProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,8 +76,6 @@ public class ResidentController {
 		
 		return ResponseEntity.ok(residentService.createResident(resident) );
 	}
-	
-	
 	
 	@RequestMapping(value ="Apartments/{apartmentId}/Resident/{residentId}", method=RequestMethod.POST)
 	public ResponseEntity<Object> removeResidentFromApartment(@PathVariable("apartmentId") int apartmentId, @PathVariable("residentId") int residentId){
@@ -95,9 +92,10 @@ public class ResidentController {
 	
 	@PutMapping("Residents/{id}")
 	public ResponseEntity<Object> updateResident(@PathVariable("id") int id, @RequestBody Resident resident){
-		
+		System.out.println("im here right");
 		Apartment apartment = apartmentService.findByApartmentId(id);
 		resident.setApartment(apartment);
+		
 		
 		return ResponseEntity.ok(residentService.updateResident(resident));
 	}

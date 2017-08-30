@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class Resident {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long residentId;
+	private Integer residentId;
 	private String firstName;
 	private String lastName;
 	private String phone;
@@ -31,7 +31,7 @@ public class Resident {
 	private String slackId;
 	
 	@Transient
-	private long apartmentId;
+	private int apartmentId;
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="APARTMENT_ID")
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "apartmentId", scope=Apartment.class)
@@ -56,11 +56,11 @@ public class Resident {
 		this.apartment = apartment;
 	}
 	
-	public long getResidentId() {
+	public Integer getResidentId() {
 		return residentId;
 	}
 
-	public void setResidentId(long residentId) {
+	public void setResidentId(Integer residentId) {
 		this.residentId = residentId;
 	}
 
@@ -112,7 +112,7 @@ public class Resident {
 		this.slackId = slackId;
 	}
 
-	public long getApartmentId() {
+	public int getApartmentId() {
 		return this.apartmentId;
 	}
 
@@ -122,6 +122,7 @@ public class Resident {
 
 	public void setApartment(Apartment apartment) {
 		this.apartment = apartment;
+		this.apartmentId = apartment.getApartmentId();
 	}
 	
 	public void removeApartment() {
