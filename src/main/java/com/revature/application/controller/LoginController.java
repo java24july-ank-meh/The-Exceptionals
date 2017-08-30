@@ -60,8 +60,10 @@ public class LoginController {
 		httpCon.setRequestMethod("POST");
 		br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 		
+		String test = br.readLine();
+		System.out.println(test);
+		jobj = new Gson().fromJson(test, JsonObject.class);
 		
-		jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
 		Boolean isAdmin = jobj.get("user").getAsJsonObject().get("is_admin").getAsBoolean();
 		if(isAdmin) {
 			user.addProperty("isManager", true);

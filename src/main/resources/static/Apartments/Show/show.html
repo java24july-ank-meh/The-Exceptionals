@@ -53,7 +53,7 @@
             <md-card ng-if="complex">
             
                 <md-toolbar class="md-hue-1" >
-                    <div class="md-toolbar-tools">
+                    <div class="md-toolbar-tools" ng-if="rootUser.isManager">
                         <md-card-title-text ui-sref="home.editComplex({complexId: complex.id})" >
                             <span class="md-headline">Apartment {{apartment.apartmentNumber}} - {{complex.name}}</span>
                         </md-card-title-text>
