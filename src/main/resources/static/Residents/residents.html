@@ -1,4 +1,6 @@
-
+<md-button class="md-fab md-fab-bottom-right" aria-label="FAB" ng-click="showCreateResidentForm()" >
+    <ng-md-icon icon="add" class="md-icon"></ng-md-icon>
+</md-button>
 <md-toolbar ng-show="!showSearch">
 <div class="md-toolbar-tools">
 	<md-button ng-click="toggleSidenav('left')" hide-gt-md
@@ -39,18 +41,15 @@
 			{{resident.lastName}}</td>
 		<td data-title="'Email'" filter="{ email: 'text'}" sortable="'email'">
 			{{resident.email}}</td>
-		<td data-title="'Room'" filter="{ 'apartment.apartmentNumber': 'text'}" sortable="'apartmentNumber'">
-			{{resident.apartment.apartmentNumber}}</td>
-		<td data-title="'Complex'" filter="{ 'apartment.complex.name': 'select'}" sortable="'complex'" filter-data="complexes">
-			{{resident.apartment.complex.name}}</td>
+		<td data-title="'Room'" filter="{ apartmentNumber: 'number'}" sortable="'apartmentNumber'">
+			{{resident.apartmentNumber}}</td>
+		<td data-title="'Complex'" filter="{ complexName: 'text'}" sortable="'complex'">
+			{{resident.complexName}}</td>
 		<td>
-			<md-button class="md-raised" data-title="'Resident Id'" ui-sref="home.showResident({residentId: resident.residentId})">Profile</md-button>
+			<md-button class="md-flat md-primary" data-title="'Resident Id'" ui-sref="home.showResident({residentId: resident.residentId})">Profile</md-button>
 		</td>
-		
 	</tr>
-
 </table>
-{{complexes}}
-{{residents}}
+
 </md-content>
 

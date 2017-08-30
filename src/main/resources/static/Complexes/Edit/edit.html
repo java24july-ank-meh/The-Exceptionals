@@ -43,7 +43,7 @@
                 <md-card-content layout-padding>
                     <md-card-title>
                         <md-card-title-text>
-                            <h3 class="md-headline">Edit Apartment Complex {{complex.complexId}}</h3>
+                            <h3 class="md-headline">Edit Apartment Complex</h3>
                         </md-card-title-text>
                     </md-card-title>
 
@@ -58,7 +58,7 @@
                         <div layout-gt-sm="row">
                             <md-input-container class="md-block" flex-gt-sm>
                                 <label>Email</label>
-                                <input ng-model="complex.email" type="email" required>
+                                <input ng-model="complex.email" type="email" >
                             </md-input-container>
                         </div>
 
@@ -81,23 +81,8 @@
                             <input ng-model="complex.address" required>
                         </md-input-container>
 
-                        <div layout-gt-sm="row">
-                            <md-input-container class="md-block" flex-gt-sm>
-                                <label>City</label>
-                                <input ng-model="complex.city" required>
-                            </md-input-container>
-
-                            <md-input-container class="md-block" flex-gt-sm>
-                                <label>State</label>
-                                <md-select ng-model="complex.state">
-                                    <md-option ng-repeat="state in states" value="{{state.abbrev}}">
-                                        {{state.abbrev}}
-                                    </md-option>
-                                </md-select>
-                            </md-input-container>
-
-              
-                        </div>
+                                     
+                       
                         <br>
                         <md-card-actions layout="row" layout-align="end center">
                             <md-button type="submit"  class="md-raised md-primary">UPDATE</md-button>

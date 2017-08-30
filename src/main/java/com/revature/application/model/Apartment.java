@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -39,8 +40,6 @@ public class Apartment {
 	@JoinColumn(name = "COMPLEX_ID")
 	@JsonIdentityInfo(scope=ApartmentComplex.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "complexId")
 	@JsonIdentityReference(alwaysAsId = true)
-	//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property="complexId", scope = ApartmentComplex.class)
-	
 	private ApartmentComplex complex;
 
 	public Apartment() {
@@ -48,17 +47,17 @@ public class Apartment {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Apartment(/*Integer apartmentId,*/ int apartmentNumber, int occupancy, int capacity, Set<Resident> residents,
-			ApartmentComplex complex) {
+
+	public Apartment(Integer apartmentId, int apartmentNumber, int occupancy, int capacity) {
 		super();
-		/*this.apartmentId = apartmentId;*/
+		this.apartmentId = apartmentId;
 		this.apartmentNumber = apartmentNumber;
 		this.occupancy = occupancy;
 		this.capacity = capacity;
-		this.residents = residents;
+		
 	}
 
-	public long getApartmentId() {
+	public Integer getApartmentId() {
 		return this.apartmentId;
 	}
 
@@ -89,7 +88,7 @@ public class Apartment {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-
+	
 	public void setComplex(ApartmentComplex complex) {
 		this.complex = complex;
 	}
@@ -97,7 +96,7 @@ public class Apartment {
 	public ApartmentComplex getComplex() {
 		return complex;
 	}
-
+	
 	public Set<Resident> getResidents() {
 		return this.residents;
 	}

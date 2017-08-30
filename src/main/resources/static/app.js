@@ -1,5 +1,9 @@
 var app = angular.module('rhmsApp', ['ngMaterial', 'ngMdIcons', 'ui.router', 'ngTable']);
 
+app.run(function($rootScope) {
+    $rootScope.rootTest = 'test';
+});
+
 app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
     $urlRouterProvider.otherwise('/home/dashboard');
 
@@ -21,7 +25,8 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
         })
         .state('home.dashboard',{
             url:'/dashboard',
-            templateUrl: 'Dashboard/dashboard.html'
+            templateUrl: 'Dashboard/dashboard.html',
+            controller: 'dashboardController'
         })
         .state('home.complexes', {
             url: '/complexes',
@@ -37,6 +42,11 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
             url:'/residents/:residentId',
             templateUrl: 'Residents/Show/ShowResident.html',
             controller: 'showResidentController'
+        })
+        .state('home.editResident',{
+        	url:'/residents/edit/:residentId',
+        	templateUrl:'Residents/Edit/edit.html',
+        	controller: 'editResidentController'
         })
         .state('home.createComplex', {
             url: '/complexes/create',
@@ -72,6 +82,10 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
                     value: null
                 }
             }
+        })
+        .state('home.resources',{
+            url:'/resources',
+            templateUrl: 'Resources/resources.html'
         });
 
     var customBlueMap =$mdThemingProvider.extendPalette('deep-orange', {

@@ -6,7 +6,7 @@
 	<groupId>com.revature</groupId>
 	<artifactId>HousingManagementSystem</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>HousingManagementSystem</name>
 	<description>Demo project for Spring Boot</description>
@@ -76,6 +76,9 @@
 			<artifactId>hamcrest-library</artifactId>
 			<version>1.3</version>
 			<scope>test</scope>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+refs/remotes/origin/dev
 		</dependency>
 	</dependencies>
 

@@ -22,17 +22,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.revature.mockmodels.User;
 
 @Controller
 public class LoginController {
-	@RequestMapping(value = "/login/oauth", method = RequestMethod.GET)
+	@RequestMapping(value = "api/login/{data}", method = RequestMethod.GET)
 	public ResponseEntity<Object> login(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		//slack code to get token
 		String code = req.getParameter("code");
 		String clientId = "229600595489.230193848804";
 		String clientSecret = "c779a43e2f51027a9865f3631db02696";
-		System.out.println(code);
 		// get parameters client_id, client_secret,code to retrieve token
 		String redirectUrl = "https://slack.com/api/oauth.access?client_id=" + clientId + "&client_secret="
 				+ clientSecret + "&code=" + code;
@@ -42,21 +44,46 @@ public class LoginController {
 		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 		httpCon.setDoOutput(true);
 		httpCon.setRequestMethod("POST");
-
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+		JsonObject jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
+		
+		JsonObject user = jobj.get("user").getAsJsonObject();//.get("id").getAsString();
+		String id = jobj.get("user").getAsJsonObject().get("id").getAsString();
+		
+		redirectUrl = "https://slack.com/api/users.info?token=xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b" +
+		"&user="+ id;
+		
+		url = new URL(redirectUrl);
+		httpCon = (HttpURLConnection) url.openConnection();
+		httpCon.setDoOutput(true);
+		httpCon.setRequestMethod("POST");
+		br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+		
+		
+		jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
+		Boolean isAdmin = jobj.get("user").getAsJsonObject().get("is_admin").getAsBoolean();
+		if(isAdmin) {
+			user.addProperty("isManager", true);
+		} else {
+			user.addProperty("isManager", false);
+		}
+		//String userName = jobj.get("user").getAsJsonObject().get("name").getAsString();
+		//System.out.println(user);
+		/*System.out.println(br.readLine());
 		StringBuilder sb = new StringBuilder();
 		String line;
 		while ((line = br.readLine()) != null) {
 			sb.append(line + "\n");
-			System.out.println(line);
-		}
+		}*/
 		br.close();
-		line = sb.toString();
+		//line = sb.toString();
 		 HttpSession session = req.getSession(true);
-        session.setAttribute("token", line);
-        User user = new User("Person", "One", "1@gmail.com");
+		 //System.out.println(line.user);
+        session.setAttribute("user", user.toString());
+        //User user = new User("Person", "One", "1@gmail.com");
         
-		return ResponseEntity.ok(user);
+		return ResponseEntity.ok(user.toString());
         
 	}
-}
+}	

@@ -1,4 +1,4 @@
-angular.module('rhmsApp').controller('showResidentController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', '$state', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams, $state) {
+angular.module('rhmsApp').controller('showResidentController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', '$state', '$rootScope', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams, $state, $rootScope) {
 	
 	
 	  /*$scope.showConfirm = function(deleteComplex) {
@@ -38,5 +38,19 @@ angular.module('rhmsApp').controller('showResidentController', ['$scope', '$mdBo
          $scope.resident = response.data;
          console.log(response.data);
      });
+     
+     
+     $scope.showEditResidentForm = function(ev){
+    	
+    	 $mdDialog.show({
+    		 controller: 'editResidentController',
+    		 templateUrl: '/../../Residents/Edit/edit.html',
+    		 parent: angular.element(document.body),
+    		 targetEvent: ev,
+    		 clickOutsideToClose: true,
+    		 fullscreen: $scope.customFullScreen
+    	 });
+    	 
+     };
 
 }]);

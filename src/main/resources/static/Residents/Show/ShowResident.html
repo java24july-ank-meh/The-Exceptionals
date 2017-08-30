@@ -1,22 +1,25 @@
+
 <md-content class="md-padding" >
     <div layout layout-wrap layout-gt-sm="row" layout="column" >
         <div flex="60" flex-sm="100" flex-xs="100" class="container">
-            <div layout="row" layout-sm="column" layout-align="space-around" ng-if="!complex">
-                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-            </div>
+    
+            
+            
             <md-card ng-if="resident">
+            	<img ng-src="http://www.androidguys.com/wp-content/uploads/2013/07/wlp_retro-air_C.jpg" class="md-card-image" alt="Washed Out" ng-if="!rootUser">
+            	<img ng-src="{{rootUser.image_1024}}" class="md-card-image" alt="Washed Out" ng-if="rootUser" width="20" height="20">
                 <md-toolbar class="md-hue-1" >
                     <div class="md-toolbar-tools">
-                        <md-card-title-text >
+                        <md-card-title-text>
                             <span class="md-headline">{{resident.firstName}} {{resident.lastName}}</span>
                         </md-card-title-text>
-                        <md-input-container md-theme="input" flex>
+                        <md-input-container md-theme="input" flex>	
                             <label>&nbsp;</label>
                         </md-input-container>
-                        <md-button class="ng-icon-button" ui-sref="home.editComplex({complexId: complex.complexId})">
+                        <md-button id="edit" class="ng-icon-button" ng-click="showEditResidentForm()"  ng-if="rootUser.isManager || rootResident.residentId == resident.residentId">
                             <ng-md-icon icon="edit"></ng-md-icon>
                         </md-button>
-                        <md-button class="ng-icon-button" ng-click="showConfirm()">
+                        <md-button class="ng-icon-button" ng-click="showConfirm()" ng-if="rootUser.isManager">
                             <ng-md-icon icon="delete"></ng-md-icon>
                         </md-button>
                     </div>
@@ -39,24 +42,17 @@
                         </md-list-item>
                     </md-list>
                     <md-list class="md-dense">
-                        <md-list-item class="md-2-line" >
+                        <md-list-item class="md-2-line" ng-if="resident.apartment">
                             <md-icon> <ng-md-icon icon="place"></ng-md-icon></md-icon>
                             <div class="md-list-item-text" >
-                                <h3>{{resident.apartmentId}}</h3>
-                                <p> APARTMENT</p>
-                            </div>
-                        </md-list-item>
-                        <md-list-item class="md-2-line" >
-                            <md-icon> <ng-md-icon icon="place"></ng-md-icon></md-icon>
-                            <div class="md-list-item-text" >
-                                <h3>{{resident.apartmentId}}</h3>
+                                <h3>{{resident.apartment}}</h3>
                                 <p> COMPLEX</p>
                             </div>
                         </md-list-item>
                     </md-list>
                     <md-list class="md-dense">
                     	<md-list-item class="md-2-line" >
-                            <md-icon> <ng-md-icon icon="web"></ng-md-icon></md-icon>
+                            <md-icon> <ng-md-icon icon="person"></ng-md-icon></md-icon>
                             <div class="md-list-item-text" >
                                 <h3>{{resident.about}} </h3>
                                 <p> ABOUT</p>
@@ -66,28 +62,9 @@
                 </md-card-content>
             </md-card>
         </div>
-        {{resident}}
-        <!-- <div flex flex-sm="100" flex-xs="100" class="container" >
-            <md-card layout="column">
-                <md-card-title>
-                    <md-card-title-text >
-                        <span class="md-headline">Apartments</span>
-                    </md-card-title-text>
-                </md-card-title>
-                <md-divider></md-divider>
-                <md-list flex>
-                    <md-list-item class="md-2-line noright" ng-repeat="apartment in complex.apartments" ui-sref="home.showApartment({apartmentId: apartment.id})">
-                        <md-icon class="md-avatar"> <ng-md-icon icon="home" ></ng-md-icon></md-icon>
-                        <div class="md-list-item-text" >
-                            <h3> {{apartment.number}}</h3>
-                            <p> {{apartment.occupancy}} of {{apartment.capacity}} residents</p>
-                        </div>
-                    </md-list-item>
-                </md-list>
-            </md-card>
-        </div> -->
+     
 
     </div>
-
+   
 
 </md-content> 	
