@@ -26,18 +26,7 @@ import com.revature.application.service.ManagerService;
 public class ManagerController {
 
 	@Autowired
-	ManagerService service;
-	
-    @RequestMapping(method = RequestMethod.GET)
-	public String getResident(@RequestParam(value="name", required=false)String name, Model model){
-        ApartmentComplex ac = null;
-        
-      
-        List<ApartmentResident> res = this.service.getApartmentForResidentByApartmentComplex(ac);
-        model.addAttribute("apartmentResidents", res);
-        return "api";
-    }
-	
+	ManagerService service;	
 	
 	
 }

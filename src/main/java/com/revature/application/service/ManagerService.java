@@ -1,6 +1,7 @@
 package com.revature.application.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,19 +26,10 @@ import com.revature.application.repository.ResidentRepository;
 @Transactional
 public class ManagerService {
 
-	private ResidentRepository resident;
+	/*private ResidentRepository resident;
 	private ApartmentRepository apartment;
 	private ApartmentComplexRepository apartmentcomplex;
 	private PlacementRepository placement;
-	/*public Long id;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}*/
 
 	@Autowired
 	public ManagerService(ResidentRepository resident, ApartmentRepository apartment,
@@ -85,5 +77,5 @@ public class ManagerService {
             apartmentResidents.add(ApartmentResidentMap.get(residentId));
         }
         return apartmentResidents;
-    }
+    }*/
 }
