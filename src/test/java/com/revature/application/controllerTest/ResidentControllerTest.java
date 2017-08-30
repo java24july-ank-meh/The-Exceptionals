@@ -69,29 +69,24 @@ public class ResidentControllerTest {
 				.andExpect(status().isOk());
 	}
 	
-	@Test//this still has problems with the apartment...
+	@Test//Doubtfull functionality
 	public void createNewResidentTest() throws Exception {
 		
 		
 		Apartment apartment = apartmentService.findByApartmentId(234);
 		
 		resident = new Resident();
-		resident.setResidentId(2);
 		resident.setFirstName("Cool");
 		resident.setLastName("Man");
 		resident.setEmail("coolman@cool.com");
-		resident.setPhone("548791234");
-		resident.setSlackId("32f4443rwd");
-		resident.setAbout("Yeah boi");
-		resident.setApartment(apartment);
 		
 		Gson gson = new Gson();
 		
 		String json = gson.toJson(resident);
 		System.out.println(json);
-		mvc.perform(MockMvcRequestBuilders.put("http://localhost:8181/api/Residents/create")
+		mvc.perform(MockMvcRequestBuilders.post("http://localhost:8181/api/Residents/create")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("Something")
+				.content(json)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 		
@@ -145,9 +140,9 @@ public class ResidentControllerTest {
 		
 		String a_id = apartment.getApartmentId().toString();
 		//String r_id = resident.getResidentId().toString();
-		/*mvc.perform(MockMvcRequestBuilders.post("http://localhost:8181/api/Apartments/" + a_id + "/Resident/" + r_id)
+		mvc.perform(MockMvcRequestBuilders.post("http://localhost:8181/api/Apartments/{apartmentId}/Resident/{residentId}")
 				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk());*/
+				.andExpect(status().isOk());
 	
 	}
 	
