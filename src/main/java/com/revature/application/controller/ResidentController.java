@@ -33,6 +33,8 @@ public class ResidentController {
 	@Autowired
 	ApartmentService apartmentService;
 	
+	
+	
 	@GetMapping("Residents")
 	public ResponseEntity<Object> displayResidents() {
 		return ResponseEntity.ok(residentService.findAll());
@@ -40,7 +42,7 @@ public class ResidentController {
 	
 	@RequestMapping(value ="Residents/create", method=RequestMethod.POST)
 	public ResponseEntity<Object> createNewResident(@RequestBody Resident resident){
-		Apartment apartment = apartmentService.findByApartmentId(167);
+		Apartment apartment = apartmentService.findByApartmentId(234);
 		resident.setApartment(apartment);
 		System.out.println("slack api");
 		
@@ -76,6 +78,8 @@ public class ResidentController {
 		
 		return ResponseEntity.ok(residentService.createResident(resident) );
 	}
+	
+	
 	
 	@RequestMapping(value ="Apartments/{apartmentId}/Resident/{residentId}", method=RequestMethod.POST)
 	public ResponseEntity<Object> removeResidentFromApartment(@PathVariable("apartmentId") int apartmentId, @PathVariable("residentId") int residentId){

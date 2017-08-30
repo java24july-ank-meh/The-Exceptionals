@@ -16,17 +16,6 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 public class HousingManagementSystemApplicationTests {
 
-	@Autowired
-	public WebApplicationContext wac;
-	
-	public MockMvc mockMvc;
-	
-	@Before
-	public void setUp() {
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
-	}
-	
-	
 	@Test
 	public void contextLoads() {
 	}
