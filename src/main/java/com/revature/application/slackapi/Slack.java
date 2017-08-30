@@ -24,7 +24,7 @@ String channelId = null;
 		Apartment apartment = apt;
 		try {
 			String requestUrl = "https://slack.com/api/channels.list?token=" +
-			"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b";
+			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460";
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -59,7 +59,7 @@ String channelId = null;
 			System.out.println("channelname: " + channelName + " id:"+channelId);
 			
 			requestUrl = "https://slack.com/api/channels.rename?token=" +
-			"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b&channel=" +channelId+
+			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460&channel=" +channelId+
 			"&name="+newChannelName;
 			url = new URL(requestUrl);
 			httpCon = (HttpURLConnection) url.openConnection();
@@ -88,7 +88,7 @@ String channelId = null;
 		String channelId = null;
 		try {
 			String requestUrl = "https://slack.com/api/channels.list?token=" +
-			"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b";
+			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460";
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -116,7 +116,7 @@ String channelId = null;
 			System.out.println("channelname: " + channelName + " id:"+channelId);
 			
 			requestUrl = "https://slack.com/api/channels.archive?token=" +
-			"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b&channel=" +channelId;
+			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460&channel=" +channelId;
 			url = new URL(requestUrl);
 			httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
