@@ -107,7 +107,60 @@ public class ApartmentController {
 	{
 		Apartment oldApartment = apartmentService.findByApartmentId(id);
 		apartment.setComplex(oldApartment.getComplex());
-
+		
+		String channelId = null;
+		
+		try {
+			String requestUrl = "https://slack.com/api/channels.list?token=" +
+			"xoxp-229600595489-230131963906-233040140545-7e731ba52127f9adaadee62b925ac827";
+			URL url = new URL(requestUrl);
+			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+			httpCon.setDoOutput(true);
+			httpCon.setRequestMethod("GET");
+			
+			ApartmentComplex complex = apartment.getComplex();
+			//slack channel naming must be 21 characters or less
+			String shortenedComplexName;
+			if(complex.getName().length() > 19) {
+				shortenedComplexName =complex.getName().replaceAll("\\s","").substring(0, 19);
+			} else {
+				shortenedComplexName = complex.getName().replaceAll("\\s","");
+			}
+			String channelName = shortenedComplexName+ new Integer(oldApartment.getApartmentNumber()).toString(); 
+			String newChannelName = shortenedComplexName+ new Integer(apartment.getApartmentNumber()).toString(); 
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+			JsonObject jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
+			JsonArray jarray = jobj.get("channels").getAsJsonArray();
+			for(int i = 0; i < jarray.size(); ++i) {
+				if(channelName.toLowerCase().equals(jarray.get(i).getAsJsonObject().get("name").getAsString())) {
+					channelId = jarray.get(i).getAsJsonObject().get("id").getAsString();
+				}
+			}
+			System.out.println("channelname: " + channelName + " id:"+channelId);
+			
+			requestUrl = "https://slack.com/api/channels.rename?token=" +
+			"xoxp-229600595489-230131963906-233040140545-7e731ba52127f9adaadee62b925ac827&channel=" +channelId+
+			"&name="+newChannelName;
+			url = new URL(requestUrl);
+			httpCon = (HttpURLConnection) url.openConnection();
+			httpCon.setDoOutput(true);
+			httpCon.setRequestMethod("GET");
+			
+			br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+			System.out.println(br.readLine());
+			
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return ResponseEntity.ok(apartmentService.update(apartment));
 		
 	}
