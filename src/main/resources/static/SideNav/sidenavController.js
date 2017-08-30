@@ -1,5 +1,8 @@
-angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog', '$http', '$rootScope', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $rootScope){
-    $scope.toggleSidenav = function(menuId) {
+angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog', '$http', '$rootScope', '$state', '$location', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $rootScope, $state, $location){
+   
+	
+
+	$scope.toggleSidenav = function(menuId) {
         $mdSidenav(menuId).toggle();
     };
     $scope.menu = [
@@ -54,19 +57,29 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
         }
     ];
     $scope.residentApartment = 'Apartment';
-    $http.get("/api/sidenav").then(function(response) {
-        $rootScope.rootUser = response.data;
-        console.log($rootScope.rootUser);
-        $rootScope.rootTest = "test two";
-        $scope.isManager = $rootScope.rootUser.isManager ? "Manager" : "Resident";
-        if(!$rootScope.rootUser.isManager) {
-        	$http.get("/api/Residents/email/"+$rootScope.rootUser.email).then(function(response) {
-                $rootScope.rootResident = response.data;
-                if(!$rootScope.rootResident.apartment) {
-                	//do a thing to disable clicking on apartment
-                }
-            });
-        }
-    });
+  
+    
+    if($rootScope.rootUser == undefined){
+    	
+	    $http.get("/api/sidenav").then(function(response) {
+	    	
+	        $rootScope.rootUser = response.data;
+	
+	        $scope.isManager = $rootScope.rootUser.isManager ? "Manager" : "Resident";
+	        if(!$rootScope.rootUser.isManager) {
+	        	$http.get("/api/Residents/email/"+$rootScope.rootUser.email).then(function(response) {
+	                $rootScope.rootResident = response.data;
+	                if(!$rootScope.rootResident.apartment) {
+	                	//do a thing to disable clicking on apartment
+	                }
+	            });
+	        }
+	    });
+	    
+	    if($rootScope.rootUser == undefined){
+	    	$state.go("login");
+	    }
+
+    }
     
 }]);

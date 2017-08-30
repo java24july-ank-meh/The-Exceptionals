@@ -26,12 +26,16 @@ import com.google.gson.JsonObject;
 import com.revature.application.model.Apartment;
 import com.revature.application.model.ApartmentComplex;
 import com.revature.application.service.ApartmentComplexService;
+import com.revature.application.slackapi.Slack;
 
 @RestController
 @RequestMapping("api")
 public class ApartmentComplexController {
 	@Autowired
 	ApartmentComplexService apartmentComplexService;
+	
+	@Autowired
+	Slack slack;
 	
 	@GetMapping("ApartmentComplexes")
 	public ResponseEntity<Object> displayApartmentComplexes() {
@@ -47,6 +51,76 @@ public class ApartmentComplexController {
 	@RequestMapping(value = "ApartmentComplexes/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> updateApartmentComplex(@RequestBody ApartmentComplex complex) {
 	
+		ApartmentComplex oldComplex = apartmentComplexService.findByComplexId(complex.getComplexId());
+		try {
+			String requestUrl = "https://slack.com/api/channels.list?token=" +
+			"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b";
+			URL url = new URL(requestUrl);
+			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+			httpCon.setDoOutput(true);
+			httpCon.setRequestMethod("GET");
+			
+			//slack channel naming must be 21 characters or less
+			String shortenedComplexName;
+			if(complex.getName().length() > 17) {
+				shortenedComplexName =complex.getName().replaceAll("\\s","").substring(0, 17);
+			} else {
+				shortenedComplexName = complex.getName().replaceAll("\\s","");
+			}
+			
+			String oldShortenedComplexName;
+			if(complex.getName().length() > 17) {
+				oldShortenedComplexName =oldComplex.getName().replaceAll("\\s","").substring(0, 17);
+			} else {
+				oldShortenedComplexName = oldComplex.getName().replaceAll("\\s","");
+			}
+			
+			String channelName = oldShortenedComplexName; 
+			String newChannelName = shortenedComplexName; 
+			
+			Apartment newApartment = new Apartment();
+			newApartment.setComplex(complex);
+			
+			List<Apartment> apartments = new ArrayList<Apartment>();
+			apartments = oldComplex.getApartments();
+			for(int i = 0; i < complex.getApartments().size(); ++i) {
+				newApartment.setApartmentNumber(apartments.get(i).getApartmentNumber());
+				slack.updateApartmentName(newApartment, apartments.get(i));
+			}
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+			JsonObject jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
+			JsonArray jarray = jobj.get("channels").getAsJsonArray();
+			String channelId = null;
+			for(int i = 0; i < jarray.size(); ++i) {
+				if(channelName.toLowerCase().equals(jarray.get(i).getAsJsonObject().get("name").getAsString())) {
+					channelId  = jarray.get(i).getAsJsonObject().get("id").getAsString();
+				}
+			}
+			System.out.println("channelname: " + channelName + " id:"+channelId);
+			
+			requestUrl = "https://slack.com/api/channels.rename?token=" +
+			"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b&channel=" +channelId+
+			"&name="+newChannelName;
+			url = new URL(requestUrl);
+			httpCon = (HttpURLConnection) url.openConnection();
+			httpCon.setDoOutput(true);
+			httpCon.setRequestMethod("GET");
+			
+			br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+			System.out.println(br.readLine());
+			
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return ResponseEntity.ok(apartmentComplexService.save(complex));
 	}
 	
@@ -60,13 +134,19 @@ public class ApartmentComplexController {
 		String channelId = null;
 		
 		String shortenedComplexName;
-		if(complex.getName().length() > 19) {
-			shortenedComplexName =complex.getName().replaceAll("\\s","").substring(0, 19);
+		if(complex.getName().length() > 17) {
+			shortenedComplexName =complex.getName().replaceAll("\\s","").substring(0, 17);
 		} else {
 			shortenedComplexName = complex.getName().replaceAll("\\s","");
 		}
 		
 		try {
+			List<Apartment> apartments = new ArrayList<Apartment>();
+			apartments = complex.getApartments();
+			for(int i = 0; i < apartments.size(); ++i) {
+				slack.deleteApartment(apartments.get(i));
+			}
+			
 			String requestUrl = "https://slack.com/api/channels.list?token=" +
 			"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b";
 			URL url = new URL(requestUrl);
@@ -122,8 +202,8 @@ public class ApartmentComplexController {
 	public ResponseEntity<Object> createApartmentComplex(@RequestBody ApartmentComplex complex) {
 		
 		String shortenedComplexName;
-		if(complex.getName().length() > 19) {
-			shortenedComplexName =complex.getName().replaceAll("\\s","").substring(0, 19);
+		if(complex.getName().length() > 17) {
+			shortenedComplexName =complex.getName().replaceAll("\\s","").substring(0, 17);
 		} else {
 			shortenedComplexName = complex.getName().replaceAll("\\s","");
 		}
