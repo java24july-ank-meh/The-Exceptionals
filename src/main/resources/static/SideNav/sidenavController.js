@@ -1,4 +1,4 @@
-angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog', '$http', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http){
+angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog', '$http', '$rootScope', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $rootScope){
     $scope.toggleSidenav = function(menuId) {
         $mdSidenav(menuId).toggle();
     };
@@ -26,7 +26,7 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
             icon: 'dashboard'
         },
         {
-            link : 'showApartment({apartmentId: resident.apartment})',
+            link : '.showApartment({apartmentId: rootResident.apartment})',
             title: 'Apartment',
             icon: 'business'
         },
@@ -48,17 +48,16 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
             icon: 'settings'
         }
     ];
-    
+    $scope.residentApartment = 'Apartment';
     $http.get("/api/sidenav").then(function(response) {
-        $scope.userinfo = response.data;
-        $scope.isManager = $scope.userinfo.isManager ? "Manager" : "Resident";
-        if(!$scope.userinfo.isManager) {
-        	console.log($scope.userinfo);
-        	$http.get("/api/Residents/email/"+$scope.userinfo.email).then(function(response) {
-                $scope.resident = response.data;
-                console.log($scope.resident);
-                if(!$scope.resident.apartment) {
-                	$scope.userinfo.unnassigned = true;
+        $rootScope.rootUser = response.data;
+        $rootScope.rootTest = "test two";
+        $scope.isManager = $rootScope.rootUser.isManager ? "Manager" : "Resident";
+        if(!$rootScope.rootUser.isManager) {
+        	$http.get("/api/Residents/email/"+$rootScope.rootUser.email).then(function(response) {
+                $rootScope.rootResident = response.data;
+                if(!$rootScope.rootResident.apartment) {
+                	//do a thing to disable clicking on apartment
                 }
             });
         }
