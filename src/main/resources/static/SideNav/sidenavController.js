@@ -31,6 +31,11 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
             icon: 'business'
         },
         {
+            link : '.showResident({residentId: rootResident.residentId})',
+            title: 'Profile',
+            icon: 'account_box'
+        },
+        {
             link : 'home.resources()',
             title: 'Resources',
             icon: 'bookmark'
@@ -51,6 +56,7 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
     $scope.residentApartment = 'Apartment';
     $http.get("/api/sidenav").then(function(response) {
         $rootScope.rootUser = response.data;
+        console.log($rootScope.rootUser);
         $rootScope.rootTest = "test two";
         $scope.isManager = $rootScope.rootUser.isManager ? "Manager" : "Resident";
         if(!$rootScope.rootUser.isManager) {
