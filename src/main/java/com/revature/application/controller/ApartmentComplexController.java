@@ -63,10 +63,12 @@ public class ApartmentComplexController {
 	@RequestMapping(value = "ApartmentComplexes/create", method = RequestMethod.POST)
 	public ResponseEntity<Object> createApartmentComplex(@RequestBody ApartmentComplex complex) {
 		
+		
+		
 		try {
 			String requestUrl = "https://slack.com/api/channels.create?token=" +
 			"xoxp-229600595489-230131963906-233040140545-7e731ba52127f9adaadee62b925ac827" +"&name=" + complex.getName();
-			requestUrl = requestUrl.replaceAll("\\s","");
+			requestUrl = requestUrl;
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
