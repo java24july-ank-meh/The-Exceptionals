@@ -46,7 +46,9 @@ public class LoginController {
 		httpCon.setRequestMethod("POST");
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
-		JsonObject jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
+		String auth = br.readLine();
+		System.out.println(auth);
+		JsonObject jobj = new Gson().fromJson(auth, JsonObject.class);
 		
 		JsonObject user = jobj.get("user").getAsJsonObject();//.get("id").getAsString();
 		String id = jobj.get("user").getAsJsonObject().get("id").getAsString();
