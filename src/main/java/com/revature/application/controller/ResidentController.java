@@ -40,8 +40,6 @@ public class ResidentController {
 	
 	@RequestMapping(value ="Residents/create", method=RequestMethod.POST)
 	public ResponseEntity<Object> createNewResident(@RequestBody Resident resident){
-		Apartment apartment = apartmentService.findByApartmentId(1);
-		resident.setApartment(apartment);
 		System.out.println("slack api");
 		
 		String requestUrl = "https://slack.com/api/users.admin.invite?token=" +
@@ -113,6 +111,12 @@ public class ResidentController {
 	@GetMapping("Residents/{id}")
 	public ResponseEntity<Object> displayResident(@PathVariable("id") int id) {
 		return ResponseEntity.ok(residentService.findByResidentId(id));
+	}
+	
+	@GetMapping("Residents/email/{email}")
+	public ResponseEntity<Object> displayResident(@PathVariable("email") String email) {
+		email += ".com";//the .com is lost here because of url
+		return ResponseEntity.ok(residentService.findByEmail(email));
 	}
 	
 	

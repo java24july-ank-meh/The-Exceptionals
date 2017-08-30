@@ -30,5 +30,9 @@ public class ResidentService {
 	public Integer updateResident(Resident resident) {
 		return residentRepository.saveAndFlush(resident).getResidentId();
 	}
+	
+	public Resident findByEmail(String email) {
+		return residentRepository.findByEmail(email);
+	}
 }
 
