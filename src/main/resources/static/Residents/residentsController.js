@@ -1,19 +1,5 @@
 angular.module('rhmsApp').controller('residentsController', ['$scope', '$mdBottomSheet','$http', '$mdDialog','$stateParams','$state' ,'$mdToast', '$filter', 'NgTableParams', function($scope, $mdBottomSheet,$http, $mdDialog, $stateParams, $state, $mdToast, $filter, NgTableParams) {
-		//function ($scope, $filter, NgTableParams, $http) {
-	
-	
-	/*$scope.residentsTable = new NgTableParams({}, { getData: function(response) {
-		return $http.get("/api/Residents").then(function(response) {
-			console.log(response.data)
-	        return response.data;        
-	    });
-	}});*/
-	
-	/*$http.get("/api/Residents").then(function(response) {
-		$scope.residentsTable = new NgTableParams({}, { dataset: response.data});    
-		//gonna have to make a new call base on ids to retrieve parents.
-    });*/
-	//$scope.test = [{id: "", title: ""}, {id: 'Moroni', title: 'Moroni'}, {id: 'Enos', title: 'Enos'}, {id: 'Nephi', title: 'Nephi'}];
+
 	$http.get("/api/ApartmentComplexes").then(function(response) {
 		$scope.complexes = [];
 		$scope.residentData = [];
@@ -48,7 +34,7 @@ angular.module('rhmsApp').controller('residentsController', ['$scope', '$mdBotto
 		  
 		  $mdDialog.show({
 			  controller: 'createResidentController',
-			  templateUrl: '/../../Residents/create/createResident.html',
+			  templateUrl: '/../../Residents/Create/createResident.html',
 			  parent: angular.element(document.body),
 			  targetEvent: ev,
 			  clickOutsideToClose:true,
