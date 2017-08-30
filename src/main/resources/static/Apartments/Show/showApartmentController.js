@@ -105,6 +105,12 @@ angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdB
 		  });
 			  
 	  };
+	  
+$scope.sendAnnouncementFormSubmit = function(event){
+		  
+		  alert($scope.announcement);
+		  
+	  };
   
 
 }]);
