@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.revature.mockmodels.User;
 
@@ -43,12 +44,32 @@ public class LoginController {
 		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 		httpCon.setDoOutput(true);
 		httpCon.setRequestMethod("POST");
-
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 		JsonObject jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
 		
-		String userId = jobj.get("user").getAsJsonObject().get("id").getAsString();
-		System.out.println(userId);
+		JsonObject user = jobj.get("user").getAsJsonObject();//.get("id").getAsString();
+		String id = jobj.get("user").getAsJsonObject().get("id").getAsString();
+		
+		redirectUrl = "https://slack.com/api/users.info?token=xoxp-229600595489-230131963906-233040140545-7e731ba52127f9adaadee62b925ac827" +
+		"&user="+ id;
+		
+		url = new URL(redirectUrl);
+		httpCon = (HttpURLConnection) url.openConnection();
+		httpCon.setDoOutput(true);
+		httpCon.setRequestMethod("POST");
+		br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+		
+		
+		jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
+		Boolean isAdmin = jobj.get("user").getAsJsonObject().get("is_admin").getAsBoolean();
+		if(isAdmin) {
+			user.addProperty("isManager", true);
+		} else {
+			user.addProperty("isManager", false);
+		}
+		//String userName = jobj.get("user").getAsJsonObject().get("name").getAsString();
+		//System.out.println(user);
 		/*System.out.println(br.readLine());
 		StringBuilder sb = new StringBuilder();
 		String line;
@@ -59,10 +80,10 @@ public class LoginController {
 		//line = sb.toString();
 		 HttpSession session = req.getSession(true);
 		 //System.out.println(line.user);
-        session.setAttribute("id", userId);
-        User user = new User("Person", "One", "1@gmail.com");
+        session.setAttribute("user", user.toString());
+        //User user = new User("Person", "One", "1@gmail.com");
         
-		return ResponseEntity.ok(user);
+		return ResponseEntity.ok(user.toString());
         
 	}
 }

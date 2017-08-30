@@ -21,7 +21,8 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
         })
         .state('home.dashboard',{
             url:'/dashboard',
-            templateUrl: 'Dashboard/dashboard.html'
+            templateUrl: 'Dashboard/dashboard.html',
+            controller: 'dashboardController'
         })
         .state('home.complexes', {
             url: '/complexes',
