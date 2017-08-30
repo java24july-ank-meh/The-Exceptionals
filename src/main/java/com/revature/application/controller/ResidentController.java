@@ -40,7 +40,7 @@ public class ResidentController {
 	
 	@RequestMapping(value ="Residents/create", method=RequestMethod.POST)
 	public ResponseEntity<Object> createNewResident(@RequestBody Resident resident){
-		Apartment apartment = apartmentService.findByApartmentId(1);
+		Apartment apartment = apartmentService.findByApartmentId(167);
 		resident.setApartment(apartment);
 		System.out.println("slack api");
 		
@@ -92,10 +92,9 @@ public class ResidentController {
 	
 	@PutMapping("Residents/{id}")
 	public ResponseEntity<Object> updateResident(@PathVariable("id") int id, @RequestBody Resident resident){
-		System.out.println("im here right");
+		
 		Apartment apartment = apartmentService.findByApartmentId(id);
 		resident.setApartment(apartment);
-		
 		
 		return ResponseEntity.ok(residentService.updateResident(resident));
 	}
