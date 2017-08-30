@@ -8,4 +8,6 @@ import com.revature.application.model.Apartment;
 
 public interface ApartmentRepository extends JpaRepository<Apartment, Integer> {	
 	public Apartment findByApartmentId(Integer id);
+
+	public Iterable<Apartment> findByOccupancy(Integer occupancy);
 }

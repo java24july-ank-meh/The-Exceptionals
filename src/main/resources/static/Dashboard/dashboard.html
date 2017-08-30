@@ -44,7 +44,7 @@
     </div>
 </md-toolbar>
 
-<md-content class="md-padding" >
+<md-content class="md-padding" ng-if="rootUser.isManager">
     <div layout layout-wrap layout-gt-sm="row" layout="column" >
         <div flex="40" flex-sm="100" flex-xs="100" class="container">
              <div layout="row" layout-sm="column" layout-align="space-around" ng-if="!apartments && !error">

@@ -34,6 +34,11 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
             icon: 'business'
         },
         {
+            link : '.showResident({residentId: rootResident.residentId})',
+            title: 'Profile',
+            icon: 'account_box'
+        },
+        {
             link : 'home.resources()',
             title: 'Resources',
             icon: 'bookmark'
@@ -52,7 +57,7 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
         }
     ];
     $scope.residentApartment = 'Apartment';
-    
+  
     
     if($rootScope.rootUser == undefined){
     	
@@ -76,10 +81,5 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
 	    }
 
     }
-    
-    
-		
-      
-   
     
 }]);

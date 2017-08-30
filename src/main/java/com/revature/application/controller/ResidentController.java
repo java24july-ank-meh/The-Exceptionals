@@ -38,7 +38,7 @@ public class ResidentController {
 		return ResponseEntity.ok(residentService.findAll());
 	}
 	
-	@RequestMapping(value ="Residents/create", method=RequestMethod.POST)
+	@RequestMapping(value ="Residents/Create", method=RequestMethod.POST)
 	public ResponseEntity<Object> createNewResident(@RequestBody Resident resident){
 		System.out.println("slack api");
 		
