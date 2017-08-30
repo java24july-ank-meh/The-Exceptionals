@@ -105,6 +105,24 @@
                     </md-list>
                 </md-card-content>
             </md-card>
+            <md-card layout="column" >
+            	<md-card-title>
+	            	<md-card-title-text >
+	                     <span class="md-headline">Announcement</span>
+	                     <span class="md-subtitle">Send announcement to Apartment</span>
+	                 </md-card-title-text>
+	             </md-card-title>
+	             <md-divider></md-divider>
+	             	<form name="sendAnnouncementForm" ng-submit="sendAnnouncementFormSubmit()">
+						<md-input-container  class="md-block">
+					          <label>Announcement</label>
+					          <textarea ng-model="announcement" md-maxlength="150" rows="3" md-select-on-focus></textarea>
+					    </md-input-container>    
+					    <md-card-actions layout="row" layout-align="end center">
+	                            <md-button type="submit" ng-disabled="!announcement" class="md-flat md-primary">SEND</md-button>
+	                    </md-card-actions>      
+                    </form>    
+            </md-card>
         </div>
      
         <div flex flex-sm="100" flex-xs="100" class="container" ng-cloak ng-if="!error">
