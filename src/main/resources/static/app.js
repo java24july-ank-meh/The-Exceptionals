@@ -78,6 +78,10 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
                     value: null
                 }
             }
+        })
+        .state('home.resources',{
+            url:'/resources',
+            templateUrl: 'Resources/resources.html'
         });
 
     var customBlueMap =$mdThemingProvider.extendPalette('deep-orange', {

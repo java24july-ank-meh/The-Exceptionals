@@ -70,7 +70,7 @@ public class ApartmentController {
 		String channelName = shortenedComplexName+ new Integer(apartment.getApartmentNumber()).toString(); 
 		try {
 		String requestUrl = "https://slack.com/api/channels.create?token=" +
-		"xoxp-229600595489-230131963906-233040140545-7e731ba52127f9adaadee62b925ac827" +"&name=" + channelName;
+		"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b" +"&name=" + channelName;
 		requestUrl = requestUrl.replaceAll("\\s","");
 		URL url = new URL(requestUrl);
 		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
@@ -112,7 +112,7 @@ public class ApartmentController {
 		
 		try {
 			String requestUrl = "https://slack.com/api/channels.list?token=" +
-			"xoxp-229600595489-230131963906-233040140545-7e731ba52127f9adaadee62b925ac827";
+			"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b";
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -140,7 +140,7 @@ public class ApartmentController {
 			System.out.println("channelname: " + channelName + " id:"+channelId);
 			
 			requestUrl = "https://slack.com/api/channels.rename?token=" +
-			"xoxp-229600595489-230131963906-233040140545-7e731ba52127f9adaadee62b925ac827&channel=" +channelId+
+			"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b&channel=" +channelId+
 			"&name="+newChannelName;
 			url = new URL(requestUrl);
 			httpCon = (HttpURLConnection) url.openConnection();
@@ -174,7 +174,7 @@ public class ApartmentController {
 		
 		try {
 			String requestUrl = "https://slack.com/api/channels.list?token=" +
-			"xoxp-229600595489-230131963906-233040140545-7e731ba52127f9adaadee62b925ac827";
+			"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b";
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -202,7 +202,7 @@ public class ApartmentController {
 			System.out.println("channelname: " + channelName + " id:"+channelId);
 			
 			requestUrl = "https://slack.com/api/channels.archive?token=" +
-			"xoxp-229600595489-230131963906-233040140545-7e731ba52127f9adaadee62b925ac827&channel=" +channelId;
+			"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b&channel=" +channelId;
 			url = new URL(requestUrl);
 			httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
