@@ -15,7 +15,7 @@ angular.module('rhmsApp').controller('createResidentController', ['$scope', '$ht
 
         var onSuccess = function (data, status, headers, config) {
         	$mdToast.show($mdToast.simple().textContent("Resident Created").position('top right'));
-            $state.go('home.residents');
+            $state.go('home.showResident', { residentId: data});
             $scope.hide();
             
         };
