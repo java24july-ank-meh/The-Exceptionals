@@ -58,8 +58,8 @@ public class ApartmentController {
 		
 		ApartmentComplex complex = apartmentComplexService.findByComplexId(id);
 		apartment.setComplex(complex);
-
-		String channelName =  complex.getName()+ new Integer(apartment.getApartmentNumber()).toString(); 
+		String shortenedComplexName =complex.getName().substring(0, 19);
+		String channelName = shortenedComplexName+ new Integer(apartment.getApartmentNumber()).toString(); 
 		try {
 		String requestUrl = "https://slack.com/api/channels.create?token=" +
 		"xoxp-229600595489-230131963906-233040140545-7e731ba52127f9adaadee62b925ac827" +"&name=" + channelName;
