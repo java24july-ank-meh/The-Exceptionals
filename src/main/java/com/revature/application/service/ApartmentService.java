@@ -33,11 +33,11 @@ public class ApartmentService {
 	}
 	
 	public int save(Apartment apartment) {
-		return apartmentRepository.saveAndFlush(apartment).getApartmentId();
+		return (int)apartmentRepository.saveAndFlush(apartment).getApartmentId();
 	}
 	
 	public int update(Apartment apartment) {
-		return apartmentRepository.saveAndFlush(apartment).getApartmentId();
+		return (int)apartmentRepository.saveAndFlush(apartment).getApartmentId();
 	}
 	
 	public void delete(Apartment apartment) {
