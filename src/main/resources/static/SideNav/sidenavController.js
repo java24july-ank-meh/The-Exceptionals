@@ -26,7 +26,7 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
             icon: 'dashboard'
         },
         {
-            link : '.showApartment({apartmentId: resident.apartment})',
+            link : '.showApartment({apartmentId: rootResident.apartment})',
             title: 'Apartment',
             icon: 'business'
         },
@@ -50,13 +50,13 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
     ];
     $scope.residentApartment = 'Apartment';
     $http.get("/api/sidenav").then(function(response) {
-        $scope.rootUser = response.data;
-        $rootScope.rootTest = "test";
-        $scope.isManager = $scope.rootUser.isManager ? "Manager" : "Resident";
-        if(!$scope.rootUser.isManager) {
-        	$http.get("/api/Residents/email/"+$scope.rootUser.email).then(function(response) {
-                $scope.rootResident = response.data;
-                if(!$scope.rootResident.apartment) {
+        $rootScope.rootUser = response.data;
+        $rootScope.rootTest = "test two";
+        $scope.isManager = $rootScope.rootUser.isManager ? "Manager" : "Resident";
+        if(!$rootScope.rootUser.isManager) {
+        	$http.get("/api/Residents/email/"+$rootScope.rootUser.email).then(function(response) {
+                $rootScope.rootResident = response.data;
+                if(!$rootScope.rootResident.apartment) {
                 	//do a thing to disable clicking on apartment
                 }
             });

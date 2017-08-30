@@ -1,5 +1,9 @@
 var app = angular.module('rhmsApp', ['ngMaterial', 'ngMdIcons', 'ui.router', 'ngTable']);
 
+app.run(function($rootScope) {
+    $rootScope.rootTest = 'test';
+});
+
 app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
     $urlRouterProvider.otherwise('/home/dashboard');
 

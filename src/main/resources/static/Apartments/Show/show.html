@@ -1,4 +1,4 @@
-<md-button class="md-fab md-fab-bottom-right" aria-label="FAB" ng-click="showAssignResidentForm()" >
+<md-button class="md-fab md-fab-bottom-right" aria-label="FAB" ng-click="showAssignResidentForm()"  ng-if="rootUser.isManager">
     <ng-md-icon icon="add" class="md-icon"></ng-md-icon>
 </md-button>
 
@@ -53,17 +53,17 @@
             <md-card ng-if="complex">
             
                 <md-toolbar class="md-hue-1" >
-                    <div class="md-toolbar-tools" ng-if="rootUser.isManager">
+                    <div class="md-toolbar-tools">
                         <md-card-title-text ui-sref="home.editComplex({complexId: complex.id})" >
                             <span class="md-headline">Apartment {{apartment.apartmentNumber}} - {{complex.name}}</span>
                         </md-card-title-text>
                         <md-input-container md-theme="input" flex>
                             <label>&nbsp;</label>
                         </md-input-container>
-                        <md-button class="ng-icon-button" ng-click="showEditApartmentForm()">
+                        <md-button class="ng-icon-button" ng-click="showEditApartmentForm()" ng-if="rootUser.isManager">
                             <ng-md-icon icon="edit"></ng-md-icon>
                         </md-button>
-                        <md-button class="ng-icon-button" ng-click="showConfirm()">
+                        <md-button class="ng-icon-button" ng-click="showConfirm()" ng-if="rootUser.isManager">
                             <ng-md-icon icon="delete"></ng-md-icon>
                         </md-button>
                     </div>
@@ -124,7 +124,7 @@
                             <p> {{resident.phone}}</p>
                             <p> {{resident.email}}</p>
                         </div>
-                        <md-button class="md-secondary ng-icon-button" ng-click="showRemoveResidentConfirm(resident.residentId)" >
+                        <md-button class="md-secondary ng-icon-button" ng-click="showRemoveResidentConfirm(resident.residentId)"  ng-if="rootUser.isManager">
             				<ng-md-icon icon="delete"></ng-md-icon>
           				</md-button>
                     </md-list-item>

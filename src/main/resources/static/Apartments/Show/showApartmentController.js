@@ -1,5 +1,5 @@
 angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdBottomSheet','$http', '$mdDialog','$stateParams','$state' ,'$mdToast', '$rootScope', function($scope, $mdBottomSheet,$http, $mdDialog, $stateParams, $state, $mdToast, $rootScope ) {
-	console.log($rootScope.rootTest);
+
 	$scope.error = false;
 	
      $http.get("/api/Apartments/"+$stateParams.apartmentId).then(function(response) {
