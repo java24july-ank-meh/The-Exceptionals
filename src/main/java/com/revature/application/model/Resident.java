@@ -122,7 +122,6 @@ public class Resident {
 
 	public void setApartment(Apartment apartment) {
 		this.apartment = apartment;
-		this.apartmentId = apartment.getApartmentId();
 	}
 	
 	public void removeApartment() {

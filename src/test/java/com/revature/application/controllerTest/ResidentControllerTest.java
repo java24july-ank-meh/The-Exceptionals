@@ -37,6 +37,8 @@ import com.revature.application.service.ResidentService;
 
 import oracle.net.aso.e;
 
+import com.google.gson.*;
+
 @RunWith(SpringRunner.class)
 @WebMvcTest(ResidentController.class)
 public class ResidentControllerTest {
@@ -70,29 +72,11 @@ public class ResidentControllerTest {
 	@Test//this still has problems with the apartment...
 	public void createNewResidentTest() throws Exception {
 		
-		apartmentComplex = new ApartmentComplex();
-		apartmentComplex.setComplexId(1);
-		apartmentComplex.setAddress("1234 theAddress");
-		apartmentComplex.setEmail("some@email.com");
-		apartmentComplex.setName("westerly");
-		apartmentComplex.setPhone("8548");
-		apartmentComplex.setWebsite("www.serwtet.com");
-		apartmentComplex.setPhoto("weewtfsw");
 		
-		
-		apartment = new Apartment();
-		apartment.setApartmentId(1);
-		apartment.setApartmentNumber(101);
-		apartment.setCapacity(6);
-		apartment.setOccupancy(3);
-		
-		List<Apartment> apt = new ArrayList<>();
-		apt.add(apartment);
-		apartmentComplex.setApartments(apt);
-		
+		Apartment apartment = apartmentService.findByApartmentId(234);
 		
 		resident = new Resident();
-		resident.setResidentId(1);
+		resident.setResidentId(2);
 		resident.setFirstName("Cool");
 		resident.setLastName("Man");
 		resident.setEmail("coolman@cool.com");
@@ -101,13 +85,25 @@ public class ResidentControllerTest {
 		resident.setAbout("Yeah boi");
 		resident.setApartment(apartment);
 		
-		Set<Resident> resLis = new HashSet<Resident>();
-		resLis.add(resident);
-		apartment.setResidents(resLis);
+		Gson gson = new Gson();
 		
-		mvc.perform(MockMvcRequestBuilders.post("http://localhost:8181/api/Residents/create", resident)
+		String json = gson.toJson(resident);
+		System.out.println(json);
+		mvc.perform(MockMvcRequestBuilders.put("http://localhost:8181/api/Residents/create")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
+		
+		/*.param("residentId", resident.getResidentId().toString())
+		.param("firstName", resident.getFirstName())
+		.param("lastName", resident.getLastName())
+		.param("phone", resident.getPhone())
+		.param("about", resident.getAbout())
+		.param("email", resident.getEmail())
+		.param("slackId", resident.getSlackId())
+		.param("apartmentId", "0")
+		.param("apartment", "234")*/
 	}
 	
 	@Test
