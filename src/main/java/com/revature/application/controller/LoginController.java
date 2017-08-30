@@ -44,14 +44,32 @@ public class LoginController {
 		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 		httpCon.setDoOutput(true);
 		httpCon.setRequestMethod("POST");
-
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 		JsonObject jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
 		
 		JsonObject user = jobj.get("user").getAsJsonObject();//.get("id").getAsString();
-		user.addProperty("isManager", true);
+		String id = jobj.get("user").getAsJsonObject().get("id").getAsString();
+		
+		redirectUrl = "https://slack.com/api/users.info?token=xoxp-229600595489-230131963906-233040140545-7e731ba52127f9adaadee62b925ac827" +
+		"&user="+ id;
+		
+		url = new URL(redirectUrl);
+		httpCon = (HttpURLConnection) url.openConnection();
+		httpCon.setDoOutput(true);
+		httpCon.setRequestMethod("POST");
+		br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+		
+		
+		jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
+		Boolean isAdmin = jobj.get("user").getAsJsonObject().get("is_admin").getAsBoolean();
+		if(isAdmin) {
+			user.addProperty("isManager", true);
+		} else {
+			user.addProperty("isManager", false);
+		}
 		//String userName = jobj.get("user").getAsJsonObject().get("name").getAsString();
-		System.out.println(user);
+		//System.out.println(user);
 		/*System.out.println(br.readLine());
 		StringBuilder sb = new StringBuilder();
 		String line;
@@ -68,4 +86,4 @@ public class LoginController {
 		return ResponseEntity.ok(user.toString());
         
 	}
-}
+}	

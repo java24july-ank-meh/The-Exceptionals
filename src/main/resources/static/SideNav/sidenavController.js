@@ -19,6 +19,18 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
             icon: 'group'
         }
     ];
+    $scope.residentMenu = [
+		{
+            link : '.dashboard',
+            title: 'Dashboard',
+            icon: 'dashboard'
+        },
+        {
+            link : 'showApartment({apartmentId: resident.apartment})',
+            title: 'Apartment',
+            icon: 'business'
+        }
+    ];
     $scope.admin = [
         {
             link : '',
@@ -35,5 +47,16 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
     $http.get("/api/sidenav").then(function(response) {
         $scope.userinfo = response.data;
         $scope.isManager = $scope.userinfo.isManager ? "Manager" : "Resident";
+        if(!$scope.userinfo.isManager) {
+        	console.log($scope.userinfo);
+        	$http.get("/api/Residents/email/"+$scope.userinfo.email).then(function(response) {
+                $scope.resident = response.data;
+                console.log($scope.resident);
+                if(!$scope.resident.apartment) {
+                	$scope.userinfo.unnassigned = true;
+                }
+            });
+        }
     });
+    
 }]);
