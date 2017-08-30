@@ -1,34 +1,34 @@
 angular.module('rhmsApp').controller('showResidentController', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog','$http', '$stateParams', '$state', '$rootScope', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $http, $stateParams, $state, $rootScope) {
 	
 	
-	  /*$scope.showConfirm = function(deleteComplex) {
+	  $scope.showConfirm = function(deleteResident) {
 
 		    var confirm = $mdDialog.confirm()
-		          .title('Do you really want to delete the Apartment Complex?')
+		          .title('Do you really want to delete the Resident?')
 		          .targetEvent(event)
 		          .ok('Delete')
 		          .cancel('Cancel');
 
 		    $mdDialog.show(confirm).then(function() {
-		      $scope.deleteComplex();
+		      $scope.deleteResident();
 		    });
-		  };*/
+		  };
 
 	
     $scope.deleteResident = function () {
 
         var onSuccess = function (data, status, headers, config) {
-            alert("Complex deleted.");
-            $state.go('home.complexes');
+            alert("Resident deleted.");
+            $state.go('home.residents');
         };
 
         var onError = function (data, status, headers, config) {
             alert('Error occured.');
         };
 
-        $http.delete('/api/ApartmentComplexes/'+$stateParams.complexId)
+        $http.delete('/api/Residents/', $stateParams.residentId)
         	.success(onSuccess)
-        	.error(onSuccess);
+        	.error(onError);
 
     };
     
