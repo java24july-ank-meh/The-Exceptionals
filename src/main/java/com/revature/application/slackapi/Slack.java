@@ -21,12 +21,13 @@ import com.revature.application.model.ApartmentComplex;
 @Component
 public class Slack {
 	
+	private String legacyToken = "xoxp-229600595489-230131963906-234509735570-17a3145b533362b2859ee0bed449127d";
+	
 	public String updateApartmentName(Apartment apt, Apartment oldApartment) {
 String channelId = null;
 		Apartment apartment = apt;
 		try {
-			String requestUrl = "https://slack.com/api/channels.list?token=" +
-			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460";
+			String requestUrl = "https://slack.com/api/channels.list?token=" +legacyToken;
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -60,8 +61,7 @@ String channelId = null;
 			}
 			System.out.println("channelname: " + channelName + " id:"+channelId);
 			
-			requestUrl = "https://slack.com/api/channels.rename?token=" +
-			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460&channel=" +channelId+
+			requestUrl = "https://slack.com/api/channels.rename?token=" + legacyToken+"&channel=" +channelId+
 			"&name="+newChannelName;
 			url = new URL(requestUrl);
 			httpCon = (HttpURLConnection) url.openConnection();
@@ -89,8 +89,7 @@ String channelId = null;
 	public String deleteApartment(Apartment apartment) {
 		String channelId = null;
 		try {
-			String requestUrl = "https://slack.com/api/channels.list?token=" +
-			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460";
+			String requestUrl = "https://slack.com/api/channels.list?token=" +legacyToken;
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -117,8 +116,7 @@ String channelId = null;
 			}
 			System.out.println("channelname: " + channelName + " id:"+channelId);
 			
-			requestUrl = "https://slack.com/api/channels.archive?token=" +
-			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460&channel=" +channelId;
+			requestUrl = "https://slack.com/api/channels.archive?token=" + legacyToken+"&channel=" +channelId;
 			url = new URL(requestUrl);
 			httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -152,8 +150,7 @@ String channelId = null;
 		}
 		
 		try {
-			String requestUrl = "https://slack.com/api/channels.list?token=" +
-			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460";
+			String requestUrl = "https://slack.com/api/channels.list?token=" + legacyToken;
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -175,7 +172,7 @@ String channelId = null;
 			requestUrl = "https://slack.com/api/chat.postMessage";
 			url = new URL(requestUrl);
 			
-			String urlParameters  = "token=xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460" +
+			String urlParameters  = "token=" + legacyToken +
 					 "&channel="+ channelId+"&text=" + message;
 			byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
 			int    postDataLength = postData.length;
@@ -202,8 +199,7 @@ String channelId = null;
 
 		String channelId = null;
 		try {
-			String requestUrl = "https://slack.com/api/channels.list?token="
-					+ "xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460";
+			String requestUrl = "https://slack.com/api/channels.list?token="+ legacyToken;
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -230,7 +226,7 @@ String channelId = null;
 
 			requestUrl = "https://slack.com/api/chat.postMessage";
 			url = new URL(requestUrl);
-			String urlParameters  = "token=xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460" +
+			String urlParameters  = "token" + legacyToken+
 					 "&channel="+ channelId+"&text=" + message;
 			byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
 			int    postDataLength = postData.length;
@@ -264,8 +260,7 @@ String channelId = null;
 		
 		try {
 			String channelId = null;
-			String requestUrl = "https://slack.com/api/channels.list?token="
-					+ "xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460";
+			String requestUrl = "https://slack.com/api/channels.list?token="+legacyToken;
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -292,7 +287,7 @@ String channelId = null;
 
 			requestUrl = "https://slack.com/api/channels.invite";
 			url = new URL(requestUrl);
-			String urlParameters  = "token=xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460" +
+			String urlParameters  = "token=" + legacyToken +
 					 "&channel="+ channelId+"&user=" + userId;
 			byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
 			int    postDataLength = postData.length;
@@ -324,8 +319,7 @@ String channelId = null;
 
 		String channelId = null;
 		try {
-			String requestUrl = "https://slack.com/api/channels.list?token="
-					+ "xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460";
+			String requestUrl = "https://slack.com/api/channels.list?token=" + legacyToken;
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -352,7 +346,7 @@ String channelId = null;
 
 			requestUrl = "https://slack.com/api/channels.invite";
 			url = new URL(requestUrl);
-			String urlParameters  = "token=xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460" +
+			String urlParameters  = "token=" + legacyToken +
 					 "&channel="+ channelId+"&user=" + userId;
 			byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
 			int    postDataLength = postData.length;
