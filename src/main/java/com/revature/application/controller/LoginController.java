@@ -17,24 +17,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.revature.application.model.Resident;
+import com.revature.application.service.ResidentService;
 import com.revature.mockmodels.User;
 
 @Controller
 public class LoginController {
+	@Autowired
+	ResidentService residentService;
+	
+	
 	@RequestMapping(value = "api/login/{data}", method = RequestMethod.GET)
 	public ResponseEntity<Object> login(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		//slack code to get token
 		String code = req.getParameter("code");
 		String clientId = "229600595489.230193848804";
 		String clientSecret = "c779a43e2f51027a9865f3631db02696";
+		String legacyToken = "xoxp-229600595489-230131963906-233947627280-e2ab7d071d9f9bd8bb946f806c7aa774";
 		// get parameters client_id, client_secret,code to retrieve token
 		String redirectUrl = "https://slack.com/api/oauth.access?client_id=" + clientId + "&client_secret="
 				+ clientSecret + "&code=" + code;
@@ -46,12 +58,21 @@ public class LoginController {
 		httpCon.setRequestMethod("POST");
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
-		JsonObject jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
-		
+		String s = br.readLine();
+		System.out.println(s);
+
+		JsonObject jobj = new Gson().fromJson(s, JsonObject.class);
+
 		JsonObject user = jobj.get("user").getAsJsonObject();//.get("id").getAsString();
-		String id = jobj.get("user").getAsJsonObject().get("id").getAsString();
+		String id = user.get("id").getAsString();
 		
-		redirectUrl = "https://slack.com/api/users.info?token=xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b" +
+		Resident resident = residentService.findByEmail(user.get("email").getAsString());
+		if (resident != null) {
+			resident.setSlackId(id);
+			residentService.updateResident(resident);
+		}
+		
+		redirectUrl = "https://slack.com/api/users.info?token=" + legacyToken +
 		"&user="+ id;
 		
 		url = new URL(redirectUrl);
@@ -63,27 +84,28 @@ public class LoginController {
 		
 		jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
 		Boolean isAdmin = jobj.get("user").getAsJsonObject().get("is_admin").getAsBoolean();
-		if(isAdmin) {
-			user.addProperty("isManager", true);
-		} else {
-			user.addProperty("isManager", false);
-		}
-		//String userName = jobj.get("user").getAsJsonObject().get("name").getAsString();
-		//System.out.println(user);
-		/*System.out.println(br.readLine());
-		StringBuilder sb = new StringBuilder();
-		String line;
-		while ((line = br.readLine()) != null) {
-			sb.append(line + "\n");
-		}*/
+		user.addProperty("isManager", isAdmin);
+				
 		br.close();
 		//line = sb.toString();
 		 HttpSession session = req.getSession(true);
 		 //System.out.println(line.user);
         session.setAttribute("user", user.toString());
         //User user = new User("Person", "One", "1@gmail.com");
+/*		if(isAdmin) {
+			
+			redirectUrl =  "https://slack.com/oauth/authorize?scope=channels:write&client_id=229600595489.230193848804";
+			url = new URL(redirectUrl);
+			httpCon = (HttpURLConnection) url.openConnection();
+			httpCon.setDoOutput(true);
+			httpCon.setRequestMethod("POST");
+			br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+			System.out.println(br.readLine());
+		}*/
+        
         
 		return ResponseEntity.ok(user.toString());
         
 	}
+	
 }	

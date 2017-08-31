@@ -47,7 +47,6 @@ public class Apartment {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	public Apartment(Integer apartmentId, int apartmentNumber, int occupancy, int capacity) {
 		super();
 		this.apartmentId = apartmentId;

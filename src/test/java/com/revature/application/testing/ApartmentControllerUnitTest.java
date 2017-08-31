@@ -1,10 +1,8 @@
 package com.revature.application.testing;
 
-
-
-
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -14,6 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -42,6 +41,8 @@ import com.revature.application.service.ApartmentService;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ApartmentControllerUnitTest {
 	
+	private static final int UNKNOWN_ID = Integer.MAX_VALUE;
+	
 	private MockMvc mockMvc;
 	
 	@Mock
@@ -61,9 +62,10 @@ public class ApartmentControllerUnitTest {
 		List<Apartment> mockApartments =Arrays.asList(new Apartment(32, 301, 4, 6), 
 				new Apartment(12, 120, 6, 8)); 
 		when(apartmentService.findAll()).thenReturn(mockApartments);
-		
-		mockMvc.perform(get("http://localhost:8181/api/Apartment")).andExpect(status().isOk())
+		assertThat(this.apartmentController).isNotNull();
+		mockMvc.perform(get("/Apartments")).andExpect(status().isOk()).andDo(print())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$", hasSize(2)))
 		.andExpect(jsonPath("$[0].apartmentId", is(32)))
         .andExpect(jsonPath("$[0].apartmentNumber", is(301)))
         .andExpect(jsonPath("$[0].occupancy", is(4)))
@@ -76,6 +78,7 @@ public class ApartmentControllerUnitTest {
 	    verifyNoMoreInteractions(apartmentService);
 	}
 	
+
 	//*************Getting the Apartments By Complex Id*************	
 	
 	@Test
@@ -160,6 +163,5 @@ public class ApartmentControllerUnitTest {
 	    verify(apartmentService, times(1)).delete(mockApartment6);
 	    verifyNoMoreInteractions(apartmentService);
 	}
-	
+
 }
-	

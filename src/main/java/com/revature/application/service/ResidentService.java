@@ -24,15 +24,19 @@ public class ResidentService {
 	}
 	
 	public Integer createResident(Resident resident) {
-		return (int)residentRepository.saveAndFlush(resident).getResidentId();
+		return residentRepository.saveAndFlush(resident).getResidentId();
 	}
 	
 	public Integer updateResident(Resident resident) {
-		return (int) residentRepository.saveAndFlush(resident).getResidentId();
+		return residentRepository.saveAndFlush(resident).getResidentId();
 	}
 	
 	public Resident findByEmail(String email) {
 		return residentRepository.findByEmail(email);
+	}
+	
+	public void deleteResident(Resident resident) {
+		residentRepository.delete(resident);
 	}
 }
 

@@ -10,6 +10,8 @@ import java.net.URL;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,6 +25,7 @@ import com.revature.application.model.ApartmentComplex;
 import com.revature.application.model.Resident;
 import com.revature.application.service.ApartmentService;
 import com.revature.application.service.ResidentService;
+import com.revature.application.slackapi.Slack;
 
 @RestController
 @RequestMapping("api")
@@ -32,6 +35,10 @@ public class ResidentController {
 	ResidentService residentService;
 	@Autowired
 	ApartmentService apartmentService;
+	@Autowired
+	Slack slack;
+	
+	private String legacyToken = "xoxp-229600595489-230131963906-233947627280-e2ab7d071d9f9bd8bb946f806c7aa774";
 	
 	@GetMapping("Residents")
 	public ResponseEntity<Object> displayResidents() {
@@ -40,17 +47,17 @@ public class ResidentController {
 	
 	@RequestMapping(value ="Residents/Create", method=RequestMethod.POST)
 	public ResponseEntity<Object> createNewResident(@RequestBody Resident resident){
-		System.out.println("slack api");
 		
 		String requestUrl = "https://slack.com/api/users.admin.invite?token=" +
-		"xoxp-229600595489-230131963906-232810897220-39c853254fde441c05938e6b9920c8da" +"&email=" +resident.getEmail() +
+				legacyToken +"&email=" +resident.getEmail() +
 		"&first_name=" + resident.getFirstName() + "&last_name=" + resident.getLastName();
 		try {
 		URL url = new URL(requestUrl);
 		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 		httpCon.setDoOutput(true);
 		httpCon.setRequestMethod("GET");
-		
+		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+		System.out.println(br.readLine());
 		//View Slack response
 		/*BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 		StringBuilder sb = new StringBuilder();
@@ -81,6 +88,11 @@ public class ResidentController {
 		Apartment apartment = apartmentService.findByApartmentId(apartmentId);
 		
 		Resident resident = residentService.findByResidentId(residentId);
+		
+		
+		System.out.println(resident.getSlackId());
+		slack.inviteUserApartmentComplexChannel(apartment, resident.getSlackId());
+		slack.inviteUserApartmentChannel(apartment, resident.getSlackId());
 		
 		resident.setApartment(apartment);
 		
@@ -117,6 +129,15 @@ public class ResidentController {
 	public ResponseEntity<Object> displayResident(@PathVariable("email") String email) {
 		email += ".com";//the .com is lost here because of url
 		return ResponseEntity.ok(residentService.findByEmail(email));
+	}
+	
+	@DeleteMapping("Residents/{id}")
+	public void deleteResident(@PathVariable("id") int id){
+		Resident resident = residentService.findByResidentId(id);
+		resident.removeApartment();
+		residentService.deleteResident(resident);
+		//return ResponseEntity.ok();
+		
 	}
 	
 	

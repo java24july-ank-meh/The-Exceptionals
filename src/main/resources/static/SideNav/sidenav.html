@@ -4,7 +4,10 @@
         <span flex></span>
         <div layout="column" class="md-toolbar-tools-bottom inset">
             <md-list-item class="md-3-line noright">
-                <md-icon class="md-avatar"> <ng-md-icon icon="person" ></ng-md-icon></md-icon>
+                <md-icon class="md-avatar" ng-if="!rootUser.image_32"> <ng-md-icon icon="person" ></ng-md-icon></md-icon>
+                 <img ng-src="{{rootUser.image_32}}" class="md-avatar" alt="{{rootUser.name}}"
+               ng-if="rootUser.image_24"/>
+                
                 <div class="md-list-item-text" >
                     <h3><strong>{{rootUser.name}}</strong></h3>
                     <p>{{rootUser.email}}</p>
@@ -25,6 +28,7 @@
                     <div class="inset">{{item.title}}</div>
                 </md-item-content>
             </a>
+   
         </md-list-item>
     	</div>
         <div ng-if="rootUser.isManager">
@@ -52,6 +56,17 @@
             </a>
         </md-list-item>
         </div>
+        <md-divider></md-divider>
+        <md-list-item ng-repeat="item in commonMenu">
+            <a ui-sref="{{item.link}}" ui-sref-active="active" style="text-decoration: none; color:#333;">
+                <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                    <div class="inset">
+                        <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
+                    </div>
+                    <div class="inset">{{item.title}}</div>
+                </md-item-content>
+            </a>
+        </md-list-item>
         <md-divider></md-divider>
     </md-list>
 </md-sidenav>
