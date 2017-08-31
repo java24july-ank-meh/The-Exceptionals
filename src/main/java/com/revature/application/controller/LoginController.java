@@ -63,7 +63,8 @@ public class LoginController {
 
 		br.close();
 		JsonObject jobj = new Gson().fromJson(s, JsonObject.class);
-        String token = jobj.get("access_token").getAsString();
+		JsonObject jobj2 = new Gson().fromJson(s, JsonObject.class);
+        String token = jobj2.get("access_token").getAsString();
 		JsonObject user = jobj.get("user").getAsJsonObject();//.get("id").getAsString();
 		String id = user.get("id").getAsString();
 		
