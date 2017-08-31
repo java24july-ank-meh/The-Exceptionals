@@ -41,6 +41,10 @@ public class ApartmentController {
 	@Autowired
 	Slack slack;
 	
+	public void setApartmentService (ApartmentService as) {
+		this.apartmentService = as;
+	}
+	
 	@GetMapping("Apartments")
 	public ResponseEntity<Object> displayAllApartments() {
 		return ResponseEntity.ok(apartmentService.findAll());
@@ -59,7 +63,6 @@ public class ApartmentController {
 	@RequestMapping(value ="ApartmentComplexes/{id}/Apartments/create", method=RequestMethod.POST)
 	public ResponseEntity<Object> createApartment(@PathVariable("id") int id, @RequestBody Apartment apartment)
 	{
-
 		
 		
 		ApartmentComplex complex = apartmentComplexService.findByComplexId(id);

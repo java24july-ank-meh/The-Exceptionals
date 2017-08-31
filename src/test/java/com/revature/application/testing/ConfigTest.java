@@ -10,7 +10,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = { "com.revature.application.service", "com.revature.application.controller" })
+@ComponentScan(basePackages = { "com.revature.application.*"})
 public class ConfigTest extends WebMvcConfigurerAdapter {
 	@Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {

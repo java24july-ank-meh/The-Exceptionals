@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.application.domain.ApartmentResident;
 import com.revature.application.model.ApartmentComplex;
 import com.revature.application.service.ManagerService;
 
