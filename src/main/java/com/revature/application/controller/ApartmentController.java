@@ -73,7 +73,7 @@ public class ApartmentController {
 		String channelName = shortenedComplexName+ new Integer(apartment.getApartmentNumber()).toString(); 
 		try {
 		String requestUrl = "https://slack.com/api/channels.create?token=" +
-		"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b" +"&name=" + channelName;
+		"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460" +"&name=" + channelName;
 		requestUrl = requestUrl.replaceAll("\\s","");
 		URL url = new URL(requestUrl);
 		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
