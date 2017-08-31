@@ -75,7 +75,7 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
 	        $rootScope.rootUser = response.data;
 	        console.log($rootScope.rootUser);
 	        console.log(!$rootScope.rootUser);
-	        if(!$rootScope.rootUser){
+	        if(!$rootScope.rootUser.id){ // check if empty unknown user
 		    	$state.go("logout");
 		    }
 	
