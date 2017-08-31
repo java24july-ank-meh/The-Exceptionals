@@ -350,7 +350,7 @@ String channelId = null;
 				}
 			}
 
-			requestUrl = "https://slack.com/api/chat.postMessage";
+			requestUrl = "https://slack.com/api/channels.invite";
 			url = new URL(requestUrl);
 			String urlParameters  = "token=xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460" +
 					 "&channel="+ channelId+"&user=" + userId;

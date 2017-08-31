@@ -89,7 +89,7 @@ public class ResidentController {
 		Resident resident = residentService.findByResidentId(residentId);
 		
 		
-		
+		System.out.println(resident.getSlackId());
 		slack.inviteUserApartmentComplexChannel(apartment, resident.getSlackId());
 		slack.inviteUserApartmentChannel(apartment, resident.getSlackId());
 		
