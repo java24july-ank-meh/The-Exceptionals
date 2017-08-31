@@ -55,6 +55,7 @@ public class ResidentController {
 		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 		httpCon.setDoOutput(true);
 		httpCon.setRequestMethod("GET");
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 		System.out.println(br.readLine());
 		//View Slack response

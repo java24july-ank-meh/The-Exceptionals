@@ -27,6 +27,7 @@ String channelId = null;
 		try {
 			String requestUrl = "https://slack.com/api/channels.list?token=" +
 			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460";
+
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -62,6 +63,7 @@ String channelId = null;
 			
 			requestUrl = "https://slack.com/api/channels.rename?token=" +
 			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460&channel=" +channelId+
+
 			"&name="+newChannelName;
 			url = new URL(requestUrl);
 			httpCon = (HttpURLConnection) url.openConnection();
@@ -89,6 +91,7 @@ String channelId = null;
 	public String deleteApartment(Apartment apartment) {
 		String channelId = null;
 		try {
+
 			String requestUrl = "https://slack.com/api/channels.list?token=" +
 			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460";
 			URL url = new URL(requestUrl);
@@ -152,6 +155,7 @@ String channelId = null;
 		}
 		
 		try {
+
 			String requestUrl = "https://slack.com/api/channels.list?token=" +
 			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460";
 			URL url = new URL(requestUrl);
@@ -311,13 +315,12 @@ String channelId = null;
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		return "success";
 	}
 	public String inviteUserApartmentComplexChannel(Apartment apartment, String userId) {
@@ -380,4 +383,5 @@ String channelId = null;
 		}
 		return "success";
 	}
+
 }
