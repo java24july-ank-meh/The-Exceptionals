@@ -21,9 +21,8 @@ import com.revature.application.model.ApartmentComplex;
 @Component
 public class Slack {
 	
-	private String legacyToken = "xoxp-229600595489-230131963906-234509735570-17a3145b533362b2859ee0bed449127d";
 	
-	public String updateApartmentName(Apartment apt, Apartment oldApartment) {
+	public String updateApartmentName(Apartment apt, Apartment oldApartment, String legacyToken ) {
 String channelId = null;
 		Apartment apartment = apt;
 		try {
@@ -86,7 +85,7 @@ String channelId = null;
 	}
 	
 	
-	public String deleteApartment(Apartment apartment) {
+	public String deleteApartment(Apartment apartment,String legacyToken ) {
 		String channelId = null;
 		try {
 			String requestUrl = "https://slack.com/api/channels.list?token=" +legacyToken;
@@ -138,7 +137,7 @@ String channelId = null;
 		return "Failed to delete slack channel";
 	}
 	
-	public String sendApartmentComplexMessage(ApartmentComplex complex, String message) {
+	public String sendApartmentComplexMessage(ApartmentComplex complex, String message,String legacyToken ) {
 		
 String channelId = null;
 		
@@ -195,7 +194,7 @@ String channelId = null;
 		return "success";
 	}
 
-	public String sendApartmentMessage(Apartment apartment, String message) {
+	public String sendApartmentMessage(Apartment apartment, String message,String legacyToken ) {
 
 		String channelId = null;
 		try {
@@ -255,7 +254,7 @@ String channelId = null;
 		return "success";
 	}
 	
-	public String inviteUserApartmentChannel (Apartment apartment, String userId) {
+	public String inviteUserApartmentChannel (Apartment apartment, String userId,String legacyToken ) {
 		
 		
 		try {
@@ -315,7 +314,7 @@ String channelId = null;
 		}
 		return "success";
 	}
-	public String inviteUserApartmentComplexChannel(Apartment apartment, String userId) {
+	public String inviteUserApartmentComplexChannel(Apartment apartment, String userId,String legacyToken ) {
 
 		String channelId = null;
 		try {
@@ -333,7 +332,7 @@ String channelId = null;
 			} else {
 				shortenedComplexName = complex.getName().replaceAll("\\s", "");
 			}
-			String channelName = shortenedComplexName + new Integer(apartment.getApartmentNumber()).toString();
+			String channelName = shortenedComplexName;
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 			JsonObject jobj = new Gson().fromJson(br.readLine(), JsonObject.class);

@@ -9,11 +9,14 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,8 +44,6 @@ public class ApartmentController {
 	@Autowired
 	Slack slack;
 	
-	private String legacyToken = "xoxp-229600595489-230131963906-234509735570-17a3145b533362b2859ee0bed449127d";
-	
 	@GetMapping("Apartments")
 	public ResponseEntity<Object> displayAllApartments() {
 		return ResponseEntity.ok(apartmentService.findAll());
@@ -59,11 +60,11 @@ public class ApartmentController {
 	}
 	
 	@RequestMapping(value ="ApartmentComplexes/{id}/Apartments/create", method=RequestMethod.POST)
-	public ResponseEntity<Object> createApartment(@PathVariable("id") int id, @RequestBody Apartment apartment)
+	public ResponseEntity<Object> createApartment(@PathVariable("id") int id, @RequestBody Apartment apartment, HttpSession session)
 	{
 
 		
-		
+		String legacyToken = (String) session.getAttribute("token");
 		ApartmentComplex complex = apartmentComplexService.findByComplexId(id);
 		apartment.setComplex(complex);
 		String shortenedComplexName;
@@ -108,22 +109,24 @@ public class ApartmentController {
 	}
 	
 	@RequestMapping(value ="Apartments/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Object> updateApartment(@PathVariable("id") int id, @RequestBody Apartment apartment)
+	public ResponseEntity<Object> updateApartment(@PathVariable("id") int id, @RequestBody Apartment apartment, HttpSession session)
 	{
+		String legacyToken = (String) session.getAttribute("token");
 		Apartment oldApartment = apartmentService.findByApartmentId(id);
 		apartment.setComplex(oldApartment.getComplex());
-		System.out.println(slack.updateApartmentName(apartment, oldApartment));
+		System.out.println(slack.updateApartmentName(apartment, oldApartment,legacyToken));
 
 		return ResponseEntity.ok(apartmentService.update(apartment));
 		
 	}
 	
 	@DeleteMapping(value ="Apartments/{id}")
-	public ResponseEntity<Object> deleteApartment(@PathVariable("id") int id)
+	public ResponseEntity<Object> deleteApartment(@PathVariable("id") int id, HttpSession session)
 	{
 		
+		String legacyToken = (String) session.getAttribute("token");
 		Apartment apartment = apartmentService.findByApartmentId(id);
-		slack.deleteApartment(apartment);
+		slack.deleteApartment(apartment, legacyToken);
 		
 		
 		apartment.setComplex(null);
@@ -138,13 +141,16 @@ public class ApartmentController {
 		return ResponseEntity.ok("apartment deleted");
 		
 	}
-	
-	@RequestMapping(value ="Apartments/message/{id}")
-	public ResponseEntity<Object> messageApartmentChannel(@PathVariable("id") int id, @RequestBody String announcement)
+	@RequestMapping(value = "Apartments/message/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Object> messageApartmentChannel(@PathVariable("id") int id, @RequestBody String announcement, HttpSession session)
 	{
+		String legacyToken = (String) session.getAttribute("token");
 		System.out.println(id + "announcement" + announcement);
 		Apartment apartment = apartmentService.findByApartmentId(id);
-		slack.sendApartmentMessage(apartment, announcement);
-		return ResponseEntity.ok("Message sent");
+		slack.sendApartmentMessage(apartment, announcement, legacyToken);
+		
+		JsonObject jobj = new JsonObject();
+    	jobj.addProperty("message", "success");
+    	return ResponseEntity.ok(jobj.toString());
 	}
 }
