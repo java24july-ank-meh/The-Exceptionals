@@ -31,7 +31,7 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
         {
             link : '.showApartment({apartmentId: rootResident.apartment})',
             title: 'Apartment',
-            icon: 'business'
+            icon: 'home'
         },
         {
             link : '.showResident({residentId: rootResident.residentId})',
