@@ -21,7 +21,7 @@ import com.revature.application.model.ApartmentComplex;
 @Component
 public class Slack {
 	
-	private String legacyToken = "xoxp-229600595489-230131963906-234509735570-17a3145b533362b2859ee0bed449127d";
+	private String legacyToken = "xoxp-229600595489-230131963906-233947627280-e2ab7d071d9f9bd8bb946f806c7aa774";
 	
 	public String updateApartmentName(Apartment apt, Apartment oldApartment) {
 String channelId = null;
@@ -333,7 +333,7 @@ String channelId = null;
 			} else {
 				shortenedComplexName = complex.getName().replaceAll("\\s", "");
 			}
-			String channelName = shortenedComplexName + new Integer(apartment.getApartmentNumber()).toString();
+			String channelName = shortenedComplexName;
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 			JsonObject jobj = new Gson().fromJson(br.readLine(), JsonObject.class);

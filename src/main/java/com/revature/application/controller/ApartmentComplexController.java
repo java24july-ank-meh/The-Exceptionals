@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +39,7 @@ public class ApartmentComplexController {
 	@Autowired
 	Slack slack;
 	
-	private String legacyToken = "xoxp-229600595489-230131963906-234509735570-17a3145b533362b2859ee0bed449127d";
+	private String legacyToken = "xoxp-229600595489-230131963906-233947627280-e2ab7d071d9f9bd8bb946f806c7aa774";
 	
 	@GetMapping("ApartmentComplexes")
 	public ResponseEntity<Object> displayApartmentComplexes() {
@@ -50,8 +52,8 @@ public class ApartmentComplexController {
 	}
 	
 	@RequestMapping(value = "ApartmentComplexes/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> updateApartmentComplex(@RequestBody ApartmentComplex complex) {
-	
+	public ResponseEntity<Object> updateApartmentComplex(@RequestBody ApartmentComplex complex, HttpSession session) {
+		
 		ApartmentComplex oldComplex = apartmentComplexService.findByComplexId(complex.getComplexId());
 		try {
 			String requestUrl = "https://slack.com/api/channels.list?token=" + legacyToken;
@@ -196,8 +198,7 @@ public class ApartmentComplexController {
 	
 	
 	@RequestMapping(value = "ApartmentComplexes/create", method = RequestMethod.POST)
-	public ResponseEntity<Object> createApartmentComplex(@RequestBody ApartmentComplex complex) {
-		
+	public ResponseEntity<Object> createApartmentComplex(@RequestBody ApartmentComplex complex, HttpSession session) {
 		String shortenedComplexName;
 		if(complex.getName().length() > 17) {
 			shortenedComplexName =complex.getName().replaceAll("\\s","").substring(0, 17);
