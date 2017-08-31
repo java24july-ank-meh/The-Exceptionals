@@ -39,6 +39,11 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
             icon: 'account_box'
         },
         {
+            link : 'home.createMaintenance()',
+            title: 'Maintenance',
+            icon: 'build'
+        },
+        {
             link : 'home.resources()',
             title: 'Resources',
             icon: 'bookmark'
@@ -76,9 +81,9 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
 	        }
 	    });
 	    
-	    /*if($rootScope.rootUser == undefined){
-	    	$state.go("login");
-	    }*/
+//	    if($rootScope.rootUser == undefined){
+//	    	$state.go("login");
+//	    }
 
     }
     
