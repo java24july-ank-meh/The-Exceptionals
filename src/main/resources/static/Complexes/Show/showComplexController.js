@@ -40,9 +40,10 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
         	 $mdToast.show($mdToast.simple().textContent("Complex Not Found").position('top right'));
         	 $scope.error = true;
          } else {
-        	 
         	 var parsedAddress = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyC9rOv9rx7A2EL0oOZGXkhuvkJYIVfkqGA&origin="+$scope.complex.address.split(' ').join('+')+"&destination=11730+Plaza+America+Drive,+Reston,+VA&avoid=tolls|highways";
         	 document.getElementById('complexMap').src = parsedAddress;
+        	 /*var parsedAddress = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyC9rOv9rx7A2EL0oOZGXkhuvkJYIVfkqGA&origin="+$scope.complex.address.split(' ').join('+')+"&destination=11730+Plaza+America+Drive,+Reston,+VA&avoid=tolls|highways";
+        	 document.getElementById('complexMap').src = parsedAddress;*/
          }
          
      });

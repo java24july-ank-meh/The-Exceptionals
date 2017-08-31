@@ -8,6 +8,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
@@ -39,6 +41,7 @@ public class ResidentController {
 	Slack slack;
 	
 	private String legacyToken = "xoxp-229600595489-230131963906-233947627280-e2ab7d071d9f9bd8bb946f806c7aa774";
+
 	
 	@GetMapping("Residents")
 	public ResponseEntity<Object> displayResidents() {
@@ -47,7 +50,8 @@ public class ResidentController {
 	
 	@RequestMapping(value ="Residents/Create", method=RequestMethod.POST)
 	public ResponseEntity<Object> createNewResident(@RequestBody Resident resident){
-		
+	public ResponseEntity<Object> createNewResident(@RequestBody Resident resident, HttpSession session){
+		String legacyToken = (String) session.getAttribute("token");
 		String requestUrl = "https://slack.com/api/users.admin.invite?token=" +
 				legacyToken +"&email=" +resident.getEmail() +
 		"&first_name=" + resident.getFirstName() + "&last_name=" + resident.getLastName();
@@ -83,17 +87,16 @@ public class ResidentController {
 	}
 	
 	@RequestMapping(value ="Apartments/{apartmentId}/Resident/{residentId}", method=RequestMethod.POST)
-	public ResponseEntity<Object> removeResidentFromApartment(@PathVariable("apartmentId") int apartmentId, @PathVariable("residentId") int residentId){
+	public ResponseEntity<Object> removeResidentFromApartment(@PathVariable("apartmentId") int apartmentId, @PathVariable("residentId") int residentId, HttpSession session){
 		
 		Apartment apartment = apartmentService.findByApartmentId(apartmentId);
-		
+		String legacyToken = (String) session.getAttribute("token");
 		Resident resident = residentService.findByResidentId(residentId);
 		
 		
 		System.out.println(resident.getSlackId());
-		slack.inviteUserApartmentComplexChannel(apartment, resident.getSlackId());
-		slack.inviteUserApartmentChannel(apartment, resident.getSlackId());
-		
+		slack.inviteUserApartmentComplexChannel(apartment, resident.getSlackId(), legacyToken);
+		slack.inviteUserApartmentChannel(apartment, resident.getSlackId(), legacyToken);
 		resident.setApartment(apartment);
 		
 		return ResponseEntity.ok(residentService.updateResident(resident));

@@ -110,6 +110,8 @@
             	<iframe width="600" height="450" id="complexMap" frameborder="0" style="border:0" src="" allowfullscreen></iframe>
             </md-card>
             <md-card layout="column" ng-if="rootUser.isMananger">
+            
+            <md-card layout="column" ng-if="rootUser.isManager">
             	<md-card-title>
 	            	<md-card-title-text >
 	                     <span class="md-headline">Announcement</span>
@@ -125,7 +127,7 @@
 					    <md-card-actions layout="row" layout-align="end center">
 	                            <md-button type="submit" ng-disabled="!announcement" class="md-flat md-primary">SEND</md-button>
 	                    </md-card-actions>      
-                    </form>    
+                    </form>  
             </md-card>
             
             <md-card layout="column" ng-if="maintenanceRequests">

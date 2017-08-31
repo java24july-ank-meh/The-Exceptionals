@@ -23,7 +23,7 @@ public class Slack {
 	
 	private String legacyToken = "xoxp-229600595489-230131963906-233947627280-e2ab7d071d9f9bd8bb946f806c7aa774";
 	
-	public String updateApartmentName(Apartment apt, Apartment oldApartment) {
+	public String updateApartmentName(Apartment apt, Apartment oldApartment, String legacyToken ) {
 String channelId = null;
 		Apartment apartment = apt;
 		try {
@@ -86,7 +86,7 @@ String channelId = null;
 	}
 	
 	
-	public String deleteApartment(Apartment apartment) {
+	public String deleteApartment(Apartment apartment,String legacyToken ) {
 		String channelId = null;
 		try {
 			String requestUrl = "https://slack.com/api/channels.list?token=" +legacyToken;
@@ -138,7 +138,11 @@ String channelId = null;
 		return "Failed to delete slack channel";
 	}
 	
+<<<<<<< HEAD
 	public String sendApartmentComplexMessage(ApartmentComplex complex, String message) {
+=======
+	public String sendApartmentComplexMessage(ApartmentComplex complex, String message,String legacyToken ) {
+>>>>>>> refs/remotes/origin/dev
 		
 String channelId = null;
 		
@@ -195,7 +199,11 @@ String channelId = null;
 		return "success";
 	}
 
+<<<<<<< HEAD
 	public String sendApartmentMessage(Apartment apartment, String message) {
+=======
+	public String sendApartmentMessage(Apartment apartment, String message,String legacyToken ) {
+>>>>>>> refs/remotes/origin/dev
 
 		String channelId = null;
 		try {
@@ -255,7 +263,11 @@ String channelId = null;
 		return "success";
 	}
 	
+<<<<<<< HEAD
 	public String inviteUserApartmentChannel (Apartment apartment, String userId) {
+=======
+	public String inviteUserApartmentChannel (Apartment apartment, String userId,String legacyToken ) {
+>>>>>>> refs/remotes/origin/dev
 		
 		
 		try {
@@ -315,7 +327,11 @@ String channelId = null;
 		}
 		return "success";
 	}
+<<<<<<< HEAD
 	public String inviteUserApartmentComplexChannel(Apartment apartment, String userId) {
+=======
+	public String inviteUserApartmentComplexChannel(Apartment apartment, String userId,String legacyToken ) {
+>>>>>>> refs/remotes/origin/dev
 
 		String channelId = null;
 		try {

@@ -62,7 +62,10 @@ public class LoginController {
 		System.out.println(s);
 
 		JsonObject jobj = new Gson().fromJson(s, JsonObject.class);
-
+		br.close();
+		JsonObject jobj = new Gson().fromJson(s, JsonObject.class);
+		JsonObject jobj2 = new Gson().fromJson(s, JsonObject.class);
+        String token = jobj2.get("access_token").getAsString();
 		JsonObject user = jobj.get("user").getAsJsonObject();//.get("id").getAsString();
 		String id = user.get("id").getAsString();
 		
@@ -83,6 +86,7 @@ public class LoginController {
 		
 		
 		jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
+		System.out.println(jobj);
 		Boolean isAdmin = jobj.get("user").getAsJsonObject().get("is_admin").getAsBoolean();
 		user.addProperty("isManager", isAdmin);
 				
@@ -91,6 +95,7 @@ public class LoginController {
 		 HttpSession session = req.getSession(true);
 		 //System.out.println(line.user);
         session.setAttribute("user", user.toString());
+        session.setAttribute("token",token);
         //User user = new User("Person", "One", "1@gmail.com");
 /*		if(isAdmin) {
 			
@@ -102,8 +107,6 @@ public class LoginController {
 			br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 			System.out.println(br.readLine());
 		}*/
-        
-        
 		return ResponseEntity.ok(user.toString());
         
 	}

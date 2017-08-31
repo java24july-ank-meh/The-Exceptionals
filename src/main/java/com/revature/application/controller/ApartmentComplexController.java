@@ -38,9 +38,13 @@ public class ApartmentComplexController {
 	
 	@Autowired
 	Slack slack;
+<<<<<<< HEAD
 	
 	private String legacyToken = "xoxp-229600595489-230131963906-233947627280-e2ab7d071d9f9bd8bb946f806c7aa774";
 	
+=======
+		
+>>>>>>> refs/remotes/origin/dev
 	@GetMapping("ApartmentComplexes")
 	public ResponseEntity<Object> displayApartmentComplexes() {
 		return ResponseEntity.ok(apartmentComplexService.findAll());
@@ -53,7 +57,11 @@ public class ApartmentComplexController {
 	
 	@RequestMapping(value = "ApartmentComplexes/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> updateApartmentComplex(@RequestBody ApartmentComplex complex, HttpSession session) {
+<<<<<<< HEAD
 		
+=======
+		String legacyToken = (String) session.getAttribute("token");
+>>>>>>> refs/remotes/origin/dev
 		ApartmentComplex oldComplex = apartmentComplexService.findByComplexId(complex.getComplexId());
 		try {
 			String requestUrl = "https://slack.com/api/channels.list?token=" + legacyToken;
@@ -87,7 +95,7 @@ public class ApartmentComplexController {
 			apartments = oldComplex.getApartments();
 			for(int i = 0; i < complex.getApartments().size(); ++i) {
 				newApartment.setApartmentNumber(apartments.get(i).getApartmentNumber());
-				slack.updateApartmentName(newApartment, apartments.get(i));
+				slack.updateApartmentName(newApartment, apartments.get(i),legacyToken);
 			}
 			
 			BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
@@ -127,11 +135,11 @@ public class ApartmentComplexController {
 	
 	
 	@RequestMapping(value = "ApartmentComplexes/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> deleteApartmentComplex(@PathVariable("id") int id ) {
+	public ResponseEntity<Object> deleteApartmentComplex(@PathVariable("id") int id, HttpSession session ) {
 		
 		ApartmentComplex complex = apartmentComplexService.findByComplexId(id);
 		
-		
+		String legacyToken = (String) session.getAttribute("token");
 		String channelId = null;
 		
 		String shortenedComplexName;
@@ -145,7 +153,7 @@ public class ApartmentComplexController {
 			List<Apartment> apartments = new ArrayList<Apartment>();
 			apartments = complex.getApartments();
 			for(int i = 0; i < apartments.size(); ++i) {
-				slack.deleteApartment(apartments.get(i));
+				slack.deleteApartment(apartments.get(i), legacyToken);
 			}
 			
 			String requestUrl = "https://slack.com/api/channels.list?token=" +legacyToken;
@@ -200,6 +208,7 @@ public class ApartmentComplexController {
 	@RequestMapping(value = "ApartmentComplexes/create", method = RequestMethod.POST)
 	public ResponseEntity<Object> createApartmentComplex(@RequestBody ApartmentComplex complex, HttpSession session) {
 		String shortenedComplexName;
+		String legacyToken = (String) session.getAttribute("token");
 		if(complex.getName().length() > 17) {
 			shortenedComplexName =complex.getName().replaceAll("\\s","").substring(0, 17);
 		} else {
@@ -238,6 +247,7 @@ public class ApartmentComplexController {
 	}
 	
 	@RequestMapping(value = "ApartmentComplexes/message/{id}", method = RequestMethod.POST)
+<<<<<<< HEAD
 	public ResponseEntity<Object> messageComplexChannel(@PathVariable("id") int id, @RequestBody String announcement) {
 	
 		ApartmentComplex complex = apartmentComplexService.findByComplexId(id);
@@ -245,5 +255,19 @@ public class ApartmentComplexController {
 		slack.sendApartmentComplexMessage(complex, announcement);
 		
 		return ResponseEntity.ok("success");
+=======
+	public ResponseEntity<Object> messageComplexChannel(@PathVariable("id") int id, @RequestBody String announcement, HttpSession session) {
+		
+		
+		String legacyToken = (String) session.getAttribute("token");
+		ApartmentComplex complex = apartmentComplexService.findByComplexId(id);
+		
+		slack.sendApartmentComplexMessage(complex, announcement, legacyToken);
+		
+		
+		JsonObject jobj = new JsonObject();
+    	jobj.addProperty("message", "success");
+    	return ResponseEntity.ok(jobj.toString());
+>>>>>>> refs/remotes/origin/dev
 	}
 }
