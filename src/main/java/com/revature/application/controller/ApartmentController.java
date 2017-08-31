@@ -44,7 +44,7 @@ public class ApartmentController {
 	@GetMapping("Apartments")
 	public ResponseEntity<Object> displayAllApartments() {
 		return ResponseEntity.ok(apartmentService.findAll());
-	}
+	}	
 	
 	@GetMapping("ApartmentComplexes/{id}/Apartments")
 	public ResponseEntity<Object> displayApartmentsFromComplex(@PathVariable("id") int id) {

@@ -13,6 +13,11 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
 			templateUrl: 'Login/login.html',
 			controller: 'loginController'
 		})
+		.state('logout', {
+			url: '/logout',
+			templateUrl: 'Login/logout.html',
+			controller: 'logoutController'
+		})
 		.state('oauth', {
 			url: '/login/oauth',
 			templateUrl: 'Login/oauth.html',
@@ -86,6 +91,11 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
         .state('home.resources',{
             url:'/resources',
             templateUrl: 'Resources/resources.html'
+        })
+       .state('home.createMaintenance', {
+            url: '/maintenance/create',
+            templateUrl: 'Maintenance/Create/create.html',
+            controller: 'createMaintenanceController'
         });
 
     var customBlueMap =$mdThemingProvider.extendPalette('deep-orange', {
