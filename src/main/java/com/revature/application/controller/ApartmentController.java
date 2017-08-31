@@ -41,7 +41,7 @@ public class ApartmentController {
 	@Autowired
 	Slack slack;
 	
-	private String legacyToken = "xoxp-229600595489-230131963906-234509735570-17a3145b533362b2859ee0bed449127d";
+	private String legacyToken = "xoxp-229600595489-230131963906-233947627280-e2ab7d071d9f9bd8bb946f806c7aa774";
 	
 	@GetMapping("Apartments")
 	public ResponseEntity<Object> displayAllApartments() {
