@@ -13,6 +13,11 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
 			templateUrl: 'Login/login.html',
 			controller: 'loginController'
 		})
+		.state('logout', {
+			url: '/logout',
+			templateUrl: 'Login/logout.html',
+			controller: 'logoutController'
+		})
 		.state('oauth', {
 			url: '/login/oauth',
 			templateUrl: 'Login/oauth.html',

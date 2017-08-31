@@ -37,6 +37,8 @@ public class ApartmentComplexController {
 	@Autowired
 	Slack slack;
 	
+	private String legacyToken = "xoxp-229600595489-230131963906-234509735570-17a3145b533362b2859ee0bed449127d";
+	
 	@GetMapping("ApartmentComplexes")
 	public ResponseEntity<Object> displayApartmentComplexes() {
 		return ResponseEntity.ok(apartmentComplexService.findAll());
@@ -44,7 +46,6 @@ public class ApartmentComplexController {
 	
 	@GetMapping("ApartmentComplexes/{id}")
 	public ResponseEntity<Object> displayApartmentComplex(@PathVariable("id") int id) {
-
 		return ResponseEntity.ok(apartmentComplexService.findByComplexId(id));
 	}
 	
@@ -53,8 +54,7 @@ public class ApartmentComplexController {
 	
 		ApartmentComplex oldComplex = apartmentComplexService.findByComplexId(complex.getComplexId());
 		try {
-			String requestUrl = "https://slack.com/api/channels.list?token=" +
-			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460";
+			String requestUrl = "https://slack.com/api/channels.list?token=" + legacyToken;
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -99,8 +99,7 @@ public class ApartmentComplexController {
 			}
 			System.out.println("channelname: " + channelName + " id:"+channelId);
 			
-			requestUrl = "https://slack.com/api/channels.rename?token=" +
-			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460&channel=" +channelId+
+			requestUrl = "https://slack.com/api/channels.rename?token=" +legacyToken +"&channel=" +channelId+
 			"&name="+newChannelName;
 			url = new URL(requestUrl);
 			httpCon = (HttpURLConnection) url.openConnection();
@@ -147,8 +146,7 @@ public class ApartmentComplexController {
 				slack.deleteApartment(apartments.get(i));
 			}
 			
-			String requestUrl = "https://slack.com/api/channels.list?token=" +
-			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460";
+			String requestUrl = "https://slack.com/api/channels.list?token=" +legacyToken;
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -168,8 +166,7 @@ public class ApartmentComplexController {
 			}
 			System.out.println("channelname: " + channelName + " id:"+channelId);
 			
-			requestUrl = "https://slack.com/api/channels.archive?token=" +
-			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460&channel=" +channelId;
+			requestUrl = "https://slack.com/api/channels.archive?token=" +legacyToken +"&channel=" +channelId;
 			url = new URL(requestUrl);
 			httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -210,7 +207,7 @@ public class ApartmentComplexController {
 		
 		try {
 			String requestUrl = "https://slack.com/api/channels.create?token=" +
-			"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460" +"&name=" + shortenedComplexName;
+			legacyToken +"&name=" + shortenedComplexName;
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
@@ -237,5 +234,15 @@ public class ApartmentComplexController {
 		}
 			
 		return ResponseEntity.ok(apartmentComplexService.save(complex));
+	}
+	
+	@RequestMapping(value = "ApartmentComplexes/message/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Object> messageComplexChannel(@PathVariable("id") int id, @RequestBody String announcement) {
+	
+		ApartmentComplex complex = apartmentComplexService.findByComplexId(id);
+		
+		slack.sendApartmentComplexMessage(complex, announcement);
+		
+		return ResponseEntity.ok("success");
 	}
 }

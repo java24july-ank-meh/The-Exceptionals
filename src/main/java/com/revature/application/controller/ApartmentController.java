@@ -41,10 +41,12 @@ public class ApartmentController {
 	@Autowired
 	Slack slack;
 	
+	private String legacyToken = "xoxp-229600595489-230131963906-234509735570-17a3145b533362b2859ee0bed449127d";
+	
 	@GetMapping("Apartments")
 	public ResponseEntity<Object> displayAllApartments() {
 		return ResponseEntity.ok(apartmentService.findAll());
-	}
+	}	
 	
 	@GetMapping("ApartmentComplexes/{id}/Apartments")
 	public ResponseEntity<Object> displayApartmentsFromComplex(@PathVariable("id") int id) {
@@ -73,7 +75,7 @@ public class ApartmentController {
 		String channelName = shortenedComplexName+ new Integer(apartment.getApartmentNumber()).toString(); 
 		try {
 		String requestUrl = "https://slack.com/api/channels.create?token=" +
-		"xoxp-229600595489-230131963906-232677184583-fcc568c120301b6ec3d0c390f15f835b" +"&name=" + channelName;
+		legacyToken +"&name=" + channelName;
 		requestUrl = requestUrl.replaceAll("\\s","");
 		URL url = new URL(requestUrl);
 		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
@@ -135,5 +137,14 @@ public class ApartmentController {
 		
 		return ResponseEntity.ok("apartment deleted");
 		
+	}
+	
+	@RequestMapping(value ="Apartments/message/{id}")
+	public ResponseEntity<Object> messageApartmentChannel(@PathVariable("id") int id, @RequestBody String announcement)
+	{
+		System.out.println(id + "announcement" + announcement);
+		Apartment apartment = apartmentService.findByApartmentId(id);
+		slack.sendApartmentMessage(apartment, announcement);
+		return ResponseEntity.ok("Message sent");
 	}
 }
