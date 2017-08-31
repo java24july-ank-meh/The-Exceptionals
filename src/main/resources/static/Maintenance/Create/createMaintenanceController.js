@@ -29,7 +29,7 @@ angular.module('rhmsApp').controller('createMaintenanceController', ['$scope', '
         var onSuccess = function (data, status, headers, config) {
             
         	 $mdToast.show($mdToast.simple().textContent("Maintenance Created").position('top right'));
-            $state.go('home.showComplex', { complexId: data});
+            $state.go('home.showApartment', { apartmentId: $rootScope.rootResident.apartment});
             
         };
 
