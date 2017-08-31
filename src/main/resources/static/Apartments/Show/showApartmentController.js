@@ -1,7 +1,7 @@
 angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdBottomSheet','$http', '$mdDialog','$stateParams','$state' ,'$mdToast', '$rootScope', function($scope, $mdBottomSheet,$http, $mdDialog, $stateParams, $state, $mdToast, $rootScope ) {
 
 	$scope.error = false;
-	$scope.announcement = 'hi';
+	$scope.announcement = '';
 	
      $http.get("/api/Apartments/"+$stateParams.apartmentId).then(function(response) {
          $scope.apartment = response.data;
