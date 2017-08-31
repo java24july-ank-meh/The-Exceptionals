@@ -136,4 +136,13 @@ public class ApartmentController {
 		return ResponseEntity.ok("apartment deleted");
 		
 	}
+	
+	@RequestMapping(value ="Apartments/message/{id}")
+	public ResponseEntity<Object> messageApartmentChannel(@PathVariable("id") int id, @RequestBody String announcement)
+	{
+		System.out.println(id + "announcement" + announcement);
+		Apartment apartment = apartmentService.findByApartmentId(id);
+		slack.sendApartmentMessage(apartment, announcement);
+		return ResponseEntity.ok("Message sent");
+	}
 }

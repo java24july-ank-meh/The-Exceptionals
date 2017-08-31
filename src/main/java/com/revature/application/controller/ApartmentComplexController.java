@@ -44,7 +44,6 @@ public class ApartmentComplexController {
 	
 	@GetMapping("ApartmentComplexes/{id}")
 	public ResponseEntity<Object> displayApartmentComplex(@PathVariable("id") int id) {
-		System.out.println("put stuf here");
 		return ResponseEntity.ok(apartmentComplexService.findByComplexId(id));
 	}
 	
@@ -237,5 +236,15 @@ public class ApartmentComplexController {
 		}
 			
 		return ResponseEntity.ok(apartmentComplexService.save(complex));
+	}
+	
+	@RequestMapping(value = "ApartmentComplexes/message/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Object> messageComplexChannel(@PathVariable("id") int id, @RequestBody String announcement) {
+	
+		ApartmentComplex complex = apartmentComplexService.findByComplexId(id);
+		
+		slack.sendApartmentComplexMessage(complex, announcement);
+		
+		return ResponseEntity.ok("success");
 	}
 }

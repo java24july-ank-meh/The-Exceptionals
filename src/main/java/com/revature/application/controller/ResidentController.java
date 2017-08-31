@@ -25,6 +25,7 @@ import com.revature.application.model.ApartmentComplex;
 import com.revature.application.model.Resident;
 import com.revature.application.service.ApartmentService;
 import com.revature.application.service.ResidentService;
+import com.revature.application.slackapi.Slack;
 
 @RestController
 @RequestMapping("api")
@@ -34,6 +35,9 @@ public class ResidentController {
 	ResidentService residentService;
 	@Autowired
 	ApartmentService apartmentService;
+	@Autowired
+	Slack slack;
+	
 	
 	@GetMapping("Residents")
 	public ResponseEntity<Object> displayResidents() {
@@ -83,6 +87,11 @@ public class ResidentController {
 		Apartment apartment = apartmentService.findByApartmentId(apartmentId);
 		
 		Resident resident = residentService.findByResidentId(residentId);
+		
+		
+		
+		slack.inviteUserApartmentComplexChannel(apartment, resident.getSlackId());
+		slack.inviteUserApartmentChannel(apartment, resident.getSlackId());
 		
 		resident.setApartment(apartment);
 		
