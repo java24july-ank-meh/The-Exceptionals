@@ -38,6 +38,7 @@ public class ResidentController {
 	@Autowired
 	Slack slack;
 	
+	private String legacyToken = "xoxp-229600595489-230131963906-234509735570-17a3145b533362b2859ee0bed449127d";
 	
 	@GetMapping("Residents")
 	public ResponseEntity<Object> displayResidents() {
@@ -48,7 +49,7 @@ public class ResidentController {
 	public ResponseEntity<Object> createNewResident(@RequestBody Resident resident){
 		
 		String requestUrl = "https://slack.com/api/users.admin.invite?token=" +
-		"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460" +"&email=" +resident.getEmail() +
+				legacyToken +"&email=" +resident.getEmail() +
 		"&first_name=" + resident.getFirstName() + "&last_name=" + resident.getLastName();
 		try {
 		URL url = new URL(requestUrl);
@@ -89,7 +90,7 @@ public class ResidentController {
 		Resident resident = residentService.findByResidentId(residentId);
 		
 		
-		
+		System.out.println(resident.getSlackId());
 		slack.inviteUserApartmentComplexChannel(apartment, resident.getSlackId());
 		slack.inviteUserApartmentChannel(apartment, resident.getSlackId());
 		
