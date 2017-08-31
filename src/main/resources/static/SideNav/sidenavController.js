@@ -76,9 +76,9 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
 	        }
 	    });
 	    
-	    if($rootScope.rootUser == undefined){
+	    /*if($rootScope.rootUser == undefined){
 	    	$state.go("login");
-	    }
+	    }*/
 
     }
     
