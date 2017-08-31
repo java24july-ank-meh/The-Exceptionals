@@ -91,7 +91,12 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
             url: '/maintenance/create',
             templateUrl: 'Maintenance/Create/create.html',
             controller: 'createMaintenanceController'
-        });
+        })
+        .state('home.maintenance', {
+            url: '/maintenance/',
+            templateUrl: 'Maintenance/maintenance.html',
+            controller: 'maintenanceController'
+        });;
 
     var customBlueMap =$mdThemingProvider.extendPalette('deep-orange', {
         'contrastDefaultColor': 'light',
