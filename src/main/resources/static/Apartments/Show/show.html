@@ -96,16 +96,20 @@
                             </div>
                         </md-list-item>
                         <md-list-item class="md-2-line" >
-                            <md-icon> <ng-md-icon icon="web"></ng-md-icon></md-icon>
+                            <md-icon> <ng-md-icon icon="public"></ng-md-icon></md-icon>
                             <div class="md-list-item-text" >
                                 <h3>{{complex.website}} </h3>
                                 <p> WEBSITE</p>
                             </div>
                         </md-list-item>
                     </md-list>
+                    
                 </md-card-content>
             </md-card>
-            <md-card layout="column" >
+            <md-card layout="column" ng-if="rootUser.isMananger">
+            	<iframe width="600" height="450" id="complexMap" frameborder="0" style="border:0" src="" allowfullscreen></iframe>
+            </md-card>
+            <md-card layout="column" ng-if="rootUser.isMananger">
             	<md-card-title>
 	            	<md-card-title-text >
 	                     <span class="md-headline">Announcement</span>
@@ -123,8 +127,32 @@
 	                    </md-card-actions>      
                     </form>    
             </md-card>
+            
+            <md-card layout="column" ng-if="maintenanceRequests">
+                <md-card-title>
+                    <md-card-title-text >
+                        <span class="md-headline">Maintenance Requests </span>
+                        
+                    </md-card-title-text>
+                </md-card-title>
+                <md-divider></md-divider>
+                <md-list flex >
+                    <md-list-item class="md-3-line noright" ng-repeat="maintenance in maintenanceRequests" >
+                        <md-icon class="md-avatar"> <ng-md-icon icon="build" ></ng-md-icon></md-icon>
+                        <div class="md-list-item-text" >
+                            <h3><strong>{{maintenance.type}}</strong> {{maintenance.submitDate | date}} {{maintenance.status}}</h3>
+                            <p> {{maintenance.location}}</p>
+                            <p> {{maintenance.description}}</p>
+                        </div>
+                        <md-button class="md-secondary ng-icon-button" ng-click="showRemoveResidentConfirm(resident.residentId)"  ng-if="rootUser.isManager">
+            				<ng-md-icon icon="delete"></ng-md-icon>
+          				</md-button>
+                    </md-list-item>
+                </md-list>
+            </md-card>
+    
         </div>
-     
+     	
         <div flex flex-sm="100" flex-xs="100" class="container" ng-cloak ng-if="!error">
             <md-card layout="column" >
                 <md-card-title>
@@ -148,6 +176,11 @@
                     </md-list-item>
                 </md-list>
             </md-card>
+            
+                    
+             <md-card layout="column">
+            	<iframe width="100%" height="450" id="complexMap" frameborder="0" style="border:0" src="" allowfullscreen></iframe>
+        	</md-card>
         </div>
 
     </div>

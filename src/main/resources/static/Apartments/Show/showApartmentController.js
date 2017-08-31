@@ -13,6 +13,20 @@ angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdB
          else
         	$http.get("/api/ApartmentComplexes/"+$scope.apartment.complex).then(function(response) {
         	 $scope.complex = response.data;
+        	 
+        	 $http.get("/api/Apartments/"+$scope.apartment.apartmentId +'/Maintenance').then(function(response) {
+            	 $scope.maintenanceRequests = response.data;
+        	 });
+        	 
+        	 
+             if($scope.complex === ''){
+            	 $mdToast.show($mdToast.simple().textContent("Complex Not Found").position('top right'));
+            	 $scope.error = true;
+             } else {
+            	 
+            	 var parsedAddress = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyC9rOv9rx7A2EL0oOZGXkhuvkJYIVfkqGA&origin="+$scope.complex.address.split(' ').join('+')+"&destination=11730+Plaza+America+Drive,+Reston,+VA&avoid=tolls|highways";
+            	 document.getElementById('complexMap').src = parsedAddress;
+             }
          });
          
      },function (response){
@@ -108,7 +122,20 @@ angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdB
 	  
 $scope.sendAnnouncementFormSubmit = function(event){
 		  
-		  alert($scope.announcement);
+	  var onSuccess = function (data, status, headers, config) {
+          
+     	 $mdToast.show($mdToast.simple().textContent("Message sent!").position('top right'));
+         
+     };
+
+     var onError = function (data, status, headers, config) {
+     	 $mdToast.show($mdToast.simple().textContent("An Error Occured").position('top right'));
+     }
+
+     $http.post('/api/Apartments/message/'+$stateParams.apartmentId, $scope.announcement )
+         .success(onSuccess)
+         .error(onError);
+
 		  
 	  };
   

@@ -2,10 +2,6 @@
     <ng-md-icon icon="add"></ng-md-icon>
 </md-button>
 
-<form action="${pageContext.request.contextPath}/logout" method="post" style="width: 129px; ">
-    <input type="submit" value="Logout">
-</form>
-
 <md-toolbar ng-show="!showSearch">
     <div class="md-toolbar-tools">
         <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
@@ -107,4 +103,8 @@
     </div>
 
 
+</md-content>
+
+<md-content ng-if="!rootUser.isManager" class="md-padding" style="text-align: center;" >
+	<h3>Welcome to REVATURE Housing Management System</h3>
 </md-content>
