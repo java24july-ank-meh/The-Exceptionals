@@ -41,6 +41,8 @@ public class ApartmentController {
 	@Autowired
 	Slack slack;
 	
+	private String legacyToken = "xoxp-229600595489-230131963906-234509735570-17a3145b533362b2859ee0bed449127d";
+	
 	@GetMapping("Apartments")
 	public ResponseEntity<Object> displayAllApartments() {
 		return ResponseEntity.ok(apartmentService.findAll());
@@ -73,7 +75,7 @@ public class ApartmentController {
 		String channelName = shortenedComplexName+ new Integer(apartment.getApartmentNumber()).toString(); 
 		try {
 		String requestUrl = "https://slack.com/api/channels.create?token=" +
-		"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460" +"&name=" + channelName;
+		legacyToken +"&name=" + channelName;
 		requestUrl = requestUrl.replaceAll("\\s","");
 		URL url = new URL(requestUrl);
 		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();

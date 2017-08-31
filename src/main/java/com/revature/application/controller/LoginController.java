@@ -39,12 +39,14 @@ public class LoginController {
 	@Autowired
 	ResidentService residentService;
 	
+	
 	@RequestMapping(value = "api/login/{data}", method = RequestMethod.GET)
 	public ResponseEntity<Object> login(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		//slack code to get token
 		String code = req.getParameter("code");
 		String clientId = "229600595489.230193848804";
 		String clientSecret = "c779a43e2f51027a9865f3631db02696";
+		String legacyToken = "xoxp-229600595489-230131963906-234509735570-17a3145b533362b2859ee0bed449127d";
 		// get parameters client_id, client_secret,code to retrieve token
 		String redirectUrl = "https://slack.com/api/oauth.access?client_id=" + clientId + "&client_secret="
 				+ clientSecret + "&code=" + code;
@@ -56,7 +58,9 @@ public class LoginController {
 		httpCon.setRequestMethod("POST");
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
-		JsonObject jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
+		String s = br.readLine();
+		System.out.println(s);
+		JsonObject jobj = new Gson().fromJson(s, JsonObject.class);
 		
 		JsonObject user = jobj.get("user").getAsJsonObject();//.get("id").getAsString();
 		String id = user.get("id").getAsString();
@@ -67,7 +71,7 @@ public class LoginController {
 			residentService.updateResident(resident);
 		}
 		
-		redirectUrl = "https://slack.com/api/users.info?token=xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460" +
+		redirectUrl = "https://slack.com/api/users.info?token=" + legacyToken +
 		"&user="+ id;
 		
 		url = new URL(redirectUrl);
