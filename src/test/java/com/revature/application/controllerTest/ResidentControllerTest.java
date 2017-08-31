@@ -1,6 +1,8 @@
 package com.revature.application.controllerTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
@@ -83,7 +85,6 @@ public class ResidentControllerTest {
 		Gson gson = new Gson();
 		
 		String json = gson.toJson(resident);
-		System.out.println(json);
 		mvc.perform(MockMvcRequestBuilders.post("http://localhost:8181/api/Residents/create")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json)
@@ -101,54 +102,94 @@ public class ResidentControllerTest {
 		.param("apartment", "234")*/
 	}
 	
-	@Test
-	public void removeResidentFromApartment() throws Exception {
+	@Test//doubtful
+	public void removeResidentFromApartmentTest() throws Exception {
 		
-		apartmentComplex = new ApartmentComplex();
-		apartment = new Apartment();
-		resident = new Resident();
+		List<Apartment> aptLis = new ArrayList();
+		Set<Resident> resSet = new HashSet();
+		ApartmentComplex aptCom = new ApartmentComplex();
+		Apartment apt = new Apartment();
+		Resident res = new Resident();
 		
-		//complex
-		apartmentComplex.setComplexId(111);
-		apartmentComplex.setEmail("this@isatest.com");
-		apartmentComplex.setName("Westerly");
-		apartmentComplex.setPhone("9526445555");
-		apartmentComplex.setAddress("1234 theStreet");
-		apartmentComplex.setWebsite("www.westerly.com");
+		aptCom.setComplexId(1);
+		aptCom.setName("westerly");
+		aptCom.setAddress("1234 raven");
+		aptCom.setEmail("westerly@westerly.com");
+		aptCom.setPhone("9876541122");
+		aptCom.setPhoto("somePhoto");
+		aptCom.setWebsite("thiswebsite.com");
 		
-		//apartment
-		apartment.setApartmentId(1);
-		apartment.setApartmentNumber(101);
-		apartment.setCapacity(6);
-		apartment.setComplex(apartmentComplex);
-		apartment.setOccupancy(1);
+		apt.setApartmentId(1);
+		apt.setApartmentNumber(101);
+		apt.setCapacity(6);
+		apt.setOccupancy(1);
+		apt.setComplex(aptCom);
 		
-		//resident
-		resident.setResidentId(1);
-		resident.setFirstName("Cool");
-		resident.setLastName("Man");
-		resident.setEmail("coolman@cool.com");
-		resident.setPhone("4995468585");
-		resident.setSlackId("23rf34f");
-		resident.setAbout("I am a cool man");
+		aptLis.add(apt);
+		aptCom.setApartments(aptLis);
 		
-		Set<Resident> resLi = new HashSet<Resident>();
+		res.setResidentId(1);
+		res.setFirstName("cool");
+		res.setLastName("Man");
+		res.setEmail("cool@man.com");
+		res.setPhone("9548257575");
+		res.setSlackId("efer234f");
+		res.setApartment(apt);
 		
-		resLi.add(resident);
+		resSet.add(res);
+		apt.setResidents(resSet);
 		
-		apartment.setResidents(resLi);
+		String r_id = res.getResidentId().toString();
+		String a_id = apt.getApartmentId().toString();
 		
-		String a_id = apartment.getApartmentId().toString();
-		//String r_id = resident.getResidentId().toString();
-		mvc.perform(MockMvcRequestBuilders.post("http://localhost:8181/api/Apartments/{apartmentId}/Resident/{residentId}")
+		mvc.perform(MockMvcRequestBuilders.post("http://localhost:8181/api/Apartments/{apartmentId}/Resident/{residentId}", a_id, r_id)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 	
 	}
 	
 	@Test
-	public void updateResidentTest() {
+	public void updateResidentTest() throws Exception{
 		
+		Apartment apt = new Apartment();
+		Resident res = new Resident();
+		Resident newRes = new Resident();
+		
+		
+		
+		apt.setApartmentId(1);
+		apt.setApartmentNumber(101);
+		apt.setCapacity(6);
+		apt.setOccupancy(1);
+		apt.setComplex(null);
+		apt.setResidents(null);
+		
+		res.setResidentId(1);
+		res.setFirstName("cool");
+		res.setLastName("Man");
+		res.setEmail("cool@man.com");
+		res.setPhone("9548257575");
+		res.setSlackId("efer234f");
+		res.setApartment(apt);
+		
+		
+		newRes.setResidentId(1);
+		newRes.setFirstName("coolest");
+		newRes.setLastName("Man");
+		newRes.setEmail("coolest@man.com");
+		newRes.setPhone("9548200575");
+		newRes.setSlackId("efeww34f");
+		newRes.setApartment(res.getApartment());
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(newRes);
+		System.out.println(json);
+		int id = res.getResidentId();
+		mvc.perform(MockMvcRequestBuilders.put("http://localhost:8181/api/Residents/{id}", id)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(json)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
 	}
 
 }
