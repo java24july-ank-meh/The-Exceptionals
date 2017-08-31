@@ -25,6 +25,7 @@ import com.revature.application.model.ApartmentComplex;
 import com.revature.application.model.Resident;
 import com.revature.application.service.ApartmentService;
 import com.revature.application.service.ResidentService;
+import com.revature.application.slackapi.Slack;
 
 @RestController
 @RequestMapping("api")
@@ -34,6 +35,9 @@ public class ResidentController {
 	ResidentService residentService;
 	@Autowired
 	ApartmentService apartmentService;
+	@Autowired
+	Slack slack;
+	
 	
 	@GetMapping("Residents")
 	public ResponseEntity<Object> displayResidents() {
@@ -42,17 +46,17 @@ public class ResidentController {
 	
 	@RequestMapping(value ="Residents/Create", method=RequestMethod.POST)
 	public ResponseEntity<Object> createNewResident(@RequestBody Resident resident){
-		System.out.println("slack api");
 		
 		String requestUrl = "https://slack.com/api/users.admin.invite?token=" +
-		"xoxp-229600595489-230131963906-232810897220-39c853254fde441c05938e6b9920c8da" +"&email=" +resident.getEmail() +
+		"xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460" +"&email=" +resident.getEmail() +
 		"&first_name=" + resident.getFirstName() + "&last_name=" + resident.getLastName();
 		try {
 		URL url = new URL(requestUrl);
 		HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 		httpCon.setDoOutput(true);
 		httpCon.setRequestMethod("GET");
-		
+		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+		System.out.println(br.readLine());
 		//View Slack response
 		/*BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 		StringBuilder sb = new StringBuilder();
@@ -83,6 +87,11 @@ public class ResidentController {
 		Apartment apartment = apartmentService.findByApartmentId(apartmentId);
 		
 		Resident resident = residentService.findByResidentId(residentId);
+		
+		
+		
+		slack.inviteUserApartmentComplexChannel(apartment, resident.getSlackId());
+		slack.inviteUserApartmentChannel(apartment, resident.getSlackId());
 		
 		resident.setApartment(apartment);
 		

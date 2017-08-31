@@ -62,7 +62,21 @@ angular.module('rhmsApp').controller('showComplexController', ['$scope', '$mdBot
 	  
 	  $scope.sendAnnouncementFormSubmit = function(event){
 		  
-		  alert($scope.announcement);
+		  var onSuccess = function (data, status, headers, config) {
+	            
+	        	 $mdToast.show($mdToast.simple().textContent("Message sent!").position('top right'));
+	            
+	        };
+
+	        var onError = function (data, status, headers, config) {
+	        	 $mdToast.show($mdToast.simple().textContent("An Error Occured").position('top right'));
+	        }
+
+	      /*  $stateParams.complexId*/
+	        $http.post('/api/ApartmentComplexes/message/'+$stateParams.complexId, $scope.announcement )
+	            .success(onSuccess)
+	            .error(onError);
+
 		  
 	  };
 
