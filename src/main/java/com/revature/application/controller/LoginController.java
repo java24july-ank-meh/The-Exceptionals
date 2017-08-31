@@ -60,7 +60,8 @@ public class LoginController {
 		BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 		String s = br.readLine();
 		System.out.println(s);
-		
+
+		br.close();
 		JsonObject jobj = new Gson().fromJson(s, JsonObject.class);
 		JsonObject jobj2 = new Gson().fromJson(s, JsonObject.class);
         String token = jobj2.get("access_token").getAsString();
@@ -72,7 +73,9 @@ public class LoginController {
 			resident.setSlackId(id);
 			residentService.updateResident(resident);
 		}
-		
+
+		String token = jobj.get("access_token").getAsString();
+
 		redirectUrl = "https://slack.com/api/users.info?token=" + token +
 		"&user="+ id;
 		
@@ -84,6 +87,7 @@ public class LoginController {
 		
 		
 		jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
+		System.out.println(jobj);
 		Boolean isAdmin = jobj.get("user").getAsJsonObject().get("is_admin").getAsBoolean();
 		user.addProperty("isManager", isAdmin);
 				
