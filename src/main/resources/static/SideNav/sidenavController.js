@@ -64,16 +64,20 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
     $scope.commonMenu = [{
             link : 'logout',
             title: 'Logout',
-            icon: 'delete'
+            icon: 'power_settings_new'
         } ];
-    $scope.residentApartment = 'Apartment';
   
     
-    if($rootScope.rootUser == undefined){
+    //if($rootScope.rootUser == undefined){
     	
 	    $http.get("/api/sidenav").then(function(response) {
 	    	
 	        $rootScope.rootUser = response.data;
+	        console.log($rootScope.rootUser);
+	        console.log(!$rootScope.rootUser);
+	        if(!$rootScope.rootUser.id){ // check if empty unknown user
+		    	$state.go("logout");
+		    }
 	
 	        $scope.isManager = $rootScope.rootUser.isManager ? "Manager" : "Resident";
 	        if(!$rootScope.rootUser.isManager) {
@@ -85,13 +89,12 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
 	                }
 	            });
 	        }
+	        
 	    });
 	    
-//	    if($rootScope.rootUser == undefined){
-//	    	$state.go("login");
-//	    }
+//	    
 
-    }
+    //}
     
     $scope.logout = function() {
     	console.log("hi");
