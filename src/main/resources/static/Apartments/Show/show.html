@@ -49,7 +49,7 @@
                <h2>404 - Apartment not found</h2>
             </div>
             
-            <iframe width="600" height="450" id="complexMap" frameborder="0" style="border:0" src="" allowfullscreen></iframe>
+            
             <md-card ng-if="complex">
             
                 <md-toolbar class="md-hue-1" >
@@ -103,7 +103,11 @@
                             </div>
                         </md-list-item>
                     </md-list>
+                    
                 </md-card-content>
+            </md-card>
+            <md-card layout="column" ng-if="rootUser.isMananger">
+            	<iframe width="600" height="450" id="complexMap" frameborder="0" style="border:0" src="" allowfullscreen></iframe>
             </md-card>
             <md-card layout="column" ng-if="rootUser.isMananger">
             	<md-card-title>

@@ -61,6 +61,11 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
             icon: 'settings'
         }
     ];
+    $scope.commonMenu = [{
+            link : 'logout',
+            title: 'Logout',
+            icon: 'delete'
+        } ];
     $scope.residentApartment = 'Apartment';
   
     
@@ -75,7 +80,8 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
 	        	$http.get("/api/Residents/email/"+$rootScope.rootUser.email).then(function(response) {
 	                $rootScope.rootResident = response.data;
 	                if(!$rootScope.rootResident.apartment) {
-	                	//do a thing to disable clicking on apartment
+	                	$scope.residentMenu[2].link = '';
+	                	$scope.residentMenu[2].title = 'Apartment - unassigned';
 	                }
 	            });
 	        }
@@ -87,4 +93,9 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
 
     }
     
+    $scope.logout = function() {
+    	console.log("hi");
+    	delete $rootScope.rootUser;
+    	$state.go("login");
+    }
 }]);
