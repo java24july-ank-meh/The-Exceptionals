@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -140,14 +141,16 @@ public class ApartmentController {
 		return ResponseEntity.ok("apartment deleted");
 		
 	}
-	
-	@RequestMapping(value ="Apartments/message/{id}")
+	@RequestMapping(value = "Apartments/message/{id}", method = RequestMethod.POST)
 	public ResponseEntity<Object> messageApartmentChannel(@PathVariable("id") int id, @RequestBody String announcement, HttpSession session)
 	{
 		String legacyToken = (String) session.getAttribute("token");
 		System.out.println(id + "announcement" + announcement);
 		Apartment apartment = apartmentService.findByApartmentId(id);
 		slack.sendApartmentMessage(apartment, announcement, legacyToken);
-		return ResponseEntity.ok("Message sent");
+		
+		JsonObject jobj = new JsonObject();
+    	jobj.addProperty("message", "success");
+    	return ResponseEntity.ok(jobj.toString());
 	}
 }
