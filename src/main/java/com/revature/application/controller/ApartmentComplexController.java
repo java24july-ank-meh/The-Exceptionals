@@ -245,6 +245,9 @@ public class ApartmentComplexController {
 		
 		slack.sendApartmentComplexMessage(complex, announcement, legacyToken);
 		
-		return ResponseEntity.ok("success");
+		
+		JsonObject jobj = new JsonObject();
+    	jobj.addProperty("message", "success");
+    	return ResponseEntity.ok(jobj.toString());
 	}
 }
