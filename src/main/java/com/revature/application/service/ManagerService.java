@@ -5,20 +5,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/*
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional;*/
 
-import com.revature.application.domain.ApartmentResident;
+//import com.revature.application.domain.ApartmentResident;
 import com.revature.application.model.Apartment;
 import com.revature.application.model.ApartmentComplex;
-import com.revature.application.model.Placement;
+
 //import com.revature.application.model.Manager;
 import com.revature.application.model.Resident;
 import com.revature.application.repository.ApartmentComplexRepository;
 import com.revature.application.repository.ApartmentRepository;
-import com.revature.application.repository.PlacementRepository;
+
 //import com.revature.application.repository.ManagerRepository;
 import com.revature.application.repository.ResidentRepository;
 

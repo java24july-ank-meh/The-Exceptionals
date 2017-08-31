@@ -35,7 +35,7 @@ public class ApartmentComplex {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ApartmentComplex(int complexId, String website, String email, String phone, String name, String photo) {
+	public ApartmentComplex(int complexId, String website, String email, String phone, String name, String address, String photo) {
 		super();
 		this.complexId = complexId;
 		this.website = website;
