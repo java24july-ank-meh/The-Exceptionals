@@ -34,5 +34,9 @@ public class ResidentService {
 	public Resident findByEmail(String email) {
 		return residentRepository.findByEmail(email);
 	}
+	
+	public void deleteResident(Resident resident) {
+		residentRepository.delete(resident);
+	}
 }
 
