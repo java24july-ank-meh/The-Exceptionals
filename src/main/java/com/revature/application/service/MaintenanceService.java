@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.revature.application.model.Apartment;
 import com.revature.application.model.Maintenance;
 import com.revature.application.repository.MaintenanceRespository;
 
@@ -21,8 +22,8 @@ public class MaintenanceService
 		return maintenanceRepository.findAll();
 	}
 	
-	public List<Maintenance> findByApartmentId(int id){
-		return maintenanceRepository.findByApartment( id);
+	public List<Maintenance> findByApartment(Apartment apartment){
+		return maintenanceRepository.findByApartment(apartment);
 	}
 	
 	

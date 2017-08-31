@@ -28,6 +28,14 @@ public class MaintenanceController
 		return ResponseEntity.ok(maintenanceService.findAll());
 	}
 	
+	@GetMapping("Apartments/{id}/Maintenance")
+	public ResponseEntity<Object> displayAllFromApartment(@PathVariable("id") int id)
+	{
+		Apartment apartment = apartmentService.findByApartmentId(id);
+		return ResponseEntity.ok(maintenanceService.findByApartment(apartment));
+	}
+	
+
 	@RequestMapping(value="Apartments/{id}/Maintenance/create", method=RequestMethod.POST)
 	public ResponseEntity<Object> createMaintanenceRequest(@PathVariable("id") int id, @RequestBody Maintenance maintenance)
 	{
@@ -41,12 +49,6 @@ public class MaintenanceController
 	public ResponseEntity<Object> displayMaintenance(@PathVariable("id") int id)
 	{
 		return ResponseEntity.ok(maintenanceService.findById(id));
-	}
-	
-	@GetMapping("Apartments/{id}/Maintenance")
-	public ResponseEntity<Object> displayAllFromApartment(@PathVariable("id") int id)
-	{
-		return ResponseEntity.ok(maintenanceService.findByApartmentId(id));
 	}
 	
 	@RequestMapping(value="Maintenance/{id}/complete", method=RequestMethod.POST)

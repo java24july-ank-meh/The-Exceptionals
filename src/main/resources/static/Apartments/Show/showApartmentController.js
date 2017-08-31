@@ -14,6 +14,10 @@ angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdB
         	$http.get("/api/ApartmentComplexes/"+$scope.apartment.complex).then(function(response) {
         	 $scope.complex = response.data;
         	 
+        	 $http.get("/api/Apartments/"+$scope.apartment.apartmentId +'/Maintenance').then(function(response) {
+            	 $scope.maintenanceRequests = response.data;
+        	 });
+        	 
         	 
              if($scope.complex === ''){
             	 $mdToast.show($mdToast.simple().textContent("Complex Not Found").position('top right'));
