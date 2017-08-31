@@ -62,8 +62,10 @@ public class LoginController {
 		String id = user.get("id").getAsString();
 		
 		Resident resident = residentService.findByEmail(user.get("email").getAsString());
-		resident.setSlackId(id);
-		residentService.updateResident(resident);
+		if (resident != null) {
+			resident.setSlackId(id);
+			residentService.updateResident(resident);
+		}
 		
 		redirectUrl = "https://slack.com/api/users.info?token=xoxp-229600595489-230131963906-233829842706-5845cfcf77a37f8ac146986f84c4f460" +
 		"&user="+ id;
@@ -89,6 +91,5 @@ public class LoginController {
 		return ResponseEntity.ok(user.toString());
         
 	}
-	
 	
 }	
