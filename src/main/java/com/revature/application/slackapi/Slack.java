@@ -196,36 +196,41 @@ String channelId = null;
 
 	public String sendApartmentMessage(Apartment apartment, String message,String legacyToken ) {
 
-		String channelId = null;
+String channelId = null;
+		ApartmentComplex complex = apartment.getComplex();
+		System.out.println(complex);
+		String shortenedComplexName;
+		if(complex.getName().length() > 17) {
+			shortenedComplexName =complex.getName().replaceAll("\\s","").substring(0, 17);
+		} else {
+			shortenedComplexName = complex.getName().replaceAll("\\s","");
+		}
+		String channelName = shortenedComplexName + new Integer(apartment.getApartmentNumber()).toString();
+
 		try {
-			String requestUrl = "https://slack.com/api/channels.list?token="+ legacyToken;
+			String requestUrl = "https://slack.com/api/channels.list?token=" + legacyToken;
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
 			httpCon.setDoOutput(true);
 			httpCon.setRequestMethod("GET");
-
-			ApartmentComplex complex = apartment.getComplex();
-			// slack channel naming must be 21 characters or less
-			String shortenedComplexName;
-			if (complex.getName().length() > 17) {
-				shortenedComplexName = complex.getName().replaceAll("\\s", "").substring(0, 17);
-			} else {
-				shortenedComplexName = complex.getName().replaceAll("\\s", "");
-			}
-			String channelName = shortenedComplexName + new Integer(apartment.getApartmentNumber()).toString();
-
+			
+			//slack channel naming must be 21 characters or less
+			//channelName = shortenedComplexName; 
+			
+			
 			BufferedReader br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 			JsonObject jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
 			JsonArray jarray = jobj.get("channels").getAsJsonArray();
-			for (int i = 0; i < jarray.size(); ++i) {
-				if (channelName.toLowerCase().equals(jarray.get(i).getAsJsonObject().get("name").getAsString())) {
+			for(int i = 0; i < jarray.size(); ++i) {
+				if(channelName.toLowerCase().equals(jarray.get(i).getAsJsonObject().get("name").getAsString())) {
 					channelId = jarray.get(i).getAsJsonObject().get("id").getAsString();
 				}
 			}
-
+			
 			requestUrl = "https://slack.com/api/chat.postMessage";
 			url = new URL(requestUrl);
-			String urlParameters  = "token" + legacyToken+
+			
+			String urlParameters  = "token=" + legacyToken +
 					 "&channel="+ channelId+"&text=" + message;
 			byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
 			int    postDataLength = postData.length;
@@ -240,17 +245,11 @@ String channelId = null;
 				}
 			br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
 			System.out.println(br.readLine());
-
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
+			
+		
 		return "success";
 	}
 	

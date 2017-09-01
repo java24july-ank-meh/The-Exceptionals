@@ -20,7 +20,12 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
             link : '.residents',
             title: 'Residents',
             icon: 'group'
-        }
+        },
+        {
+            link : 'home.maintenance()',
+            title: 'Maintenance',
+            icon: 'build'
+        },
     ];
     $scope.residentMenu = [
 		{
@@ -84,8 +89,8 @@ angular.module('rhmsApp').controller('sidenavController', ['$scope', '$mdBottomS
 	        	$http.get("/api/Residents/email/"+$rootScope.rootUser.email).then(function(response) {
 	                $rootScope.rootResident = response.data;
 	                if(!$rootScope.rootResident.apartment) {
-	                	$scope.residentMenu[2].link = '';
-	                	$scope.residentMenu[2].title = 'Apartment - unassigned';
+	                	//$scope.residentMenu[1].link = '';
+	                	//$scope.residentMenu[1].title = 'Apartment - unassigned';
 	                }
 	            });
 	        }
