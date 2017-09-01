@@ -100,7 +100,7 @@ public class ResidentController {
 		
 	}
 	
-	@PutMapping("Residents/{id}")
+	@PutMapping("api/Residents/{id}")
 	public ResponseEntity<Object> updateResident(@PathVariable("id") int id, @RequestBody Resident resident){
 		System.out.println("im here right");
 		Apartment apartment = apartmentService.findByApartmentId(id);

@@ -19,7 +19,7 @@ angular.module('rhmsApp').controller('editComplexController', ['$scope', '$http'
         };
 
         var onError = function (data, status, headers, config) {
-        	 $mdToast.show($mdToast.simple().textContent("An Error Occured").position('top right'));
+        	 $mdToast.show($mdToast.simple().textContent("A complex Error Occured").position('top right'));
         };
 
         
