@@ -1,7 +1,7 @@
 angular.module('rhmsApp').controller('showApartmentController', ['$scope', '$mdBottomSheet','$http', '$mdDialog','$stateParams','$state' ,'$mdToast', '$rootScope', function($scope, $mdBottomSheet,$http, $mdDialog, $stateParams, $state, $mdToast, $rootScope ) {
 
 	$scope.error = false;
-	$scope.announcement = 'hi';
+	$scope.aptannouncement = ' ';
 	
      $http.get("/api/Apartments/"+$stateParams.apartmentId).then(function(response) {
          $scope.apartment = response.data;
@@ -133,7 +133,7 @@ $scope.sendAnnouncementFormSubmit = function(event){
      	 $mdToast.show($mdToast.simple().textContent("An Error Occured").position('top right'));
      }
 
-     $http.post('/api/Apartments/message/'+$stateParams.apartmentId, $scope.announcement )
+     $http.post('/api/Apartments/message/'+$stateParams.apartmentId, $scope.aptannouncement )
          .success(onSuccess)
          .error(onError);
 

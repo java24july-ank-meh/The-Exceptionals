@@ -63,9 +63,13 @@ public class LoginController {
 
 		br.close();
 		JsonObject jobj = new Gson().fromJson(s, JsonObject.class);
-        String token = jobj.get("access_token").getAsString();
+		JsonObject jobj2 = new Gson().fromJson(s, JsonObject.class);
+        String token = jobj2.get("access_token").getAsString();
 		JsonObject user = jobj.get("user").getAsJsonObject();//.get("id").getAsString();
 		String id = user.get("id").getAsString();
+		user.addProperty("isManager", false);
+		if(s.contains("channels:write"))
+			user.addProperty("isManager", true);
 		
 		Resident resident = residentService.findByEmail(user.get("email").getAsString());
 		if (resident != null) {
@@ -75,7 +79,7 @@ public class LoginController {
 
 		
 
-		redirectUrl = "https://slack.com/api/users.info?token=" + token +
+/*		redirectUrl = "https://slack.com/api/users.info?token=" + token +
 		"&user="+ id;
 		
 		url = new URL(redirectUrl);
@@ -83,14 +87,14 @@ public class LoginController {
 		httpCon.setDoOutput(true);
 		httpCon.setRequestMethod("POST");
 		br = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+		*/
 		
-		
-		jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
+/*		jobj = new Gson().fromJson(br.readLine(), JsonObject.class);
 		System.out.println(jobj);
-		Boolean isAdmin = jobj.get("user").getAsJsonObject().get("is_admin").getAsBoolean();
-		user.addProperty("isManager", isAdmin);
+		Boolean isAdmin = jobj.get("user").getAsJsonObject().get("is_admin").getAsBoolean();*/
+
 				
-		br.close();
+		/*br.close();*/
 		//line = sb.toString();
 		 HttpSession session = req.getSession(true);
 		 //System.out.println(line.user);
