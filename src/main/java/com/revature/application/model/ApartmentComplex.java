@@ -27,8 +27,6 @@ public class ApartmentComplex {
 	private String name;
 	private String address;
 	private String photo;
-	
-	
 
 	@OneToMany(mappedBy="complex", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Apartment> apartments;
